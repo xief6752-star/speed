@@ -230,8 +230,53 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="region-count">${r.count}</span>
     </div>
   `).join('');
+  
+  // 8. Nodes List
+  const nodesListContainer = document.getElementById('nodesListContainer');
+  if (nodesListContainer && airport.nodes) {
+    nodesListContainer.innerHTML = `
+      <div class="node-list">
+        ${airport.nodes.map(node => {
+          const speedBarWidth = Math.min((node.speed / 150) * 100, 100);
+          let speedColor = '#10b981';
+          if (node.speed < 20) speedColor = '#ef4444';
+          else if (node.speed < 50) speedColor = '#f59e0b';
+          
+          let latencyColor = '#10b981';
+          if (node.latency > 500) latencyColor = '#ef4444';
+          else if (node.latency > 200) latencyColor = '#f59e0b';
 
-  // Summary & Accordion
+          return `
+            <div class="node-item">
+              <div class="node-info">
+                <div class="node-name">
+                  <span class="status-dot ${node.online ? 'online' : 'offline'}"></span>
+                  ${node.name}
+                </div>
+                <div class="node-tags">
+                  <span class="node-tag">${node.protocols}</span>
+                </div>
+              </div>
+              <div class="node-stats">
+                <div class="ns-latency" style="color: ${latencyColor}">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  ${node.latency} ms
+                </div>
+                <div class="ns-speed">
+                  <div class="ns-speed-bar-bg">
+                    <div class="ns-speed-bar" style="width: ${speedBarWidth}%; background: ${speedColor}"></div>
+                  </div>
+                  <div class="ns-speed-val">${node.speed.toFixed(1)} MB/s</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  // 9. Summary & Accordion
   document.getElementById('summaryBox').innerHTML = `
     <p><strong>${airport.name}</strong> 当前综合评分为 <strong>${score}/100</strong>，运行状态<strong>正常</strong>。该机场主打${isPro ? '高端专线' : '高性价比'}路线，提供稳定的流媒体解锁服务。</p>
     <div class="summary-chips">
