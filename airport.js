@@ -62,6 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('dscBarFill').style.background = `linear-gradient(90deg, #2563eb, ${scoreColor})`;
   document.getElementById('dscGrade').textContent = `综合评级：${score >= 85 ? '优秀' : score >= 70 ? '良好' : '一般'}`;
   
+  document.getElementById('detailLongDesc').innerHTML = `
+    <p><strong>${airport.name}</strong> 是一家提供高质量代理服务的供应商。其主要特点是：${airport.description}。</p>
+    <ul>
+      <li><strong>主打特色</strong>：支持 ${airport.protocols.join(', ')} 协议，包含 ${airport.nodes.length} 个全球节点。</li>
+      <li><strong>流媒体解锁</strong>：完美解锁 Netflix、Disney+ 等主流媒体平台。</li>
+      <li><strong>适用人群</strong>：非常适合${airport.badges.includes('极速') || airport.badges.includes('专业') ? '对网络质量和速度有极高要求的进阶用户或企业级用户。' : '日常科学上网、追剧、轻量级办公的用户，性价比极高。'}</li>
+    </ul>
+  `;
+
   document.getElementById('dscSubScores').innerHTML = `
     <div class="dsc-sub-item">
       <div class="dsc-sub-label">稳定性 (S)</div>
@@ -73,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="dsc-sub-item">
       <div class="dsc-sub-label">价格 (C)</div>
-      <div class="dsc-sub-value" style="color:#d97706">${(100 - parseInt(airport.price)).toFixed(1)}</div>
+      <div class="dsc-sub-value" style="color:#d97706">${(100 - (parseInt(airport.price.replace(/\\D/g, '')) || 0) / 2).toFixed(1)}</div>
     </div>
     <div class="dsc-sub-item">
       <div class="dsc-sub-label">风险 (R)</div>
