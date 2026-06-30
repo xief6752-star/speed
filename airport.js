@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <ul>
       <li><strong>主打特色</strong>：支持 ${airport.protocols.join(', ')} 协议，包含 ${airport.nodes.length} 个全球节点。</li>
       <li><strong>流媒体解锁</strong>：完美解锁 Netflix、Disney+ 等主流媒体平台。</li>
-      <li><strong>适用人群</strong>：非常适合${airport.badges.includes('极速') || airport.badges.includes('专业') ? '对网络质量和速度有极高要求的进阶用户或企业级用户。' : '日常科学上网、追剧、轻量级办公的用户，性价比极高。'}</li>
+      <li><strong>适用人群</strong>：非常适合${(airport.tagLabels && (airport.tagLabels.includes('极速') || airport.tagLabels.includes('专业'))) ? '对网络质量和速度有极高要求的进阶用户或企业级用户。' : '日常科学上网、追剧、轻量级办公的用户，性价比极高。'}</li>
     </ul>
   `;
 
