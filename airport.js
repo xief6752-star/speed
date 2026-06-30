@@ -174,8 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="sb-card">
       <div class="sb-label">价格性价比 (20%)</div>
-      <div class="sb-value" style="color:#7c3aed">${(100 - parseInt(airport.price) / 2).toFixed(1)}</div>
-      <div class="sb-bar"><div class="sb-bar-fill" style="width:${(100 - parseInt(airport.price) / 2)}%; background:#8b5cf6;"></div></div>
+      <div class="sb-value" style="color:#7c3aed">${(100 - (parseInt(airport.price.replace(/\\D/g, '')) || 0) / 2).toFixed(1)}</div>
+      <div class="sb-bar"><div class="sb-bar-fill" style="width:${(100 - (parseInt(airport.price.replace(/\\D/g, '')) || 0) / 2)}%; background:#8b5cf6;"></div></div>
     </div>
   `;
 
@@ -218,14 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="plan-item-name">标准季付套餐</div>
         <div class="plan-item-sub">200GB 流量 / 月</div>
       </div>
-      <div class="plan-item-price">¥${parseInt(airport.price.match(/\\d+/)[0]) * 2.8} / 季</div>
+      <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 2.8} / 季</div>
     </div>
     <div class="plan-item">
       <div>
         <div class="plan-item-name">尊享年付套餐</div>
         <div class="plan-item-sub">500GB 流量 / 月</div>
       </div>
-      <div class="plan-item-price">¥${parseInt(airport.price.match(/\\d+/)[0]) * 10} / 年</div>
+      <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 10} / 年</div>
     </div>
   `;
 
