@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机场测速排名 · SpeedRank - 实时机场测评与推荐</title>
+  <meta name="description" content="专业的机场测速排名平台，提供实时下载速度排名、节点可用性、延迟测试和跑路风险监测。收录各种高性价比和专线机场，包含详细的机场科普与使用教程。" />
+  <meta name="keywords" content="机场推荐,机场测速,机场排名,Clash教程,科学上网,翻墙,代理服务,VPN测评" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://speedrank.example.com/" />
+  <meta property="og:title" content="机场测速排名 · SpeedRank - 实时机场测评与推荐" />
+  <meta property="og:description" content="专业的机场测速排名平台，提供实时下载速度排名、节点可用性、延迟测试和跑路风险监测。" />
+  <meta property="og:image" content="https://speedrank.example.com/img_network.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://speedrank.example.com/" />
+  <meta name="twitter:title" content="机场测速排名 · SpeedRank - 实时机场测评与推荐" />
+  <meta name="twitter:description" content="专业的机场测速排名平台，提供实时下载速度排名、节点可用性、延迟测试和跑路风险监测。" />
+  <meta name="twitter:image" content="https://speedrank.example.com/img_network.jpg" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SpeedRank",
+    "url": "https://speedrank.example.com/",
+    "description": "实时机场测速排名平台，支持查看各机场节点详情、延迟、地区分布等信息。",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://speedrank.example.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link rel="canonical" href="https://speedrank.example.com/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Scan Line Overlay -->
+  <div class="scan-overlay"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots">
+          <div class="logo-dot"></div>
+          <div class="logo-dot"></div>
+          <div class="logo-dot"></div>
+        </div>
+      </div>
+
+      <!-- Main Nav -->
+      <nav class="main-nav">
+        <button class="nav-tab active" id="navRank" onclick="switchPage('rank')">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>
+          测速排名
+        </button>
+        <button class="nav-tab" id="navArticle" onclick="switchPage('article')">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>
+          机场科普
+        </button>
+        <button class="nav-tab" id="navTutorial" onclick="switchPage('tutorial')">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 5.5 10 8l-3.5 2.5V5.5z" fill="currentColor"/></svg>
+          软件教程
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <div class="last-update" id="lastUpdate">
+          <span class="update-dot"></span>
+          <span id="updateTime">等待测速...</span>
+        </div>
+        <button class="btn-refresh" id="refreshBtn" onclick="startSpeedTest()">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10a6 6 0 1 0 6-6V2L6 5l4 3V6a4 4 0 1 1-4 4H4z" fill="currentColor"/>
+          </svg>
+          全部测速
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ PAGE: RANK ============ -->
+  <div id="pageRank">
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <span class="stat-value" id="statTotal">0</span>
+          <span class="stat-label">机场总数</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="statOnline">0</span>
+          <span class="stat-label">在线可用</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="statAvgSpeed">0 MB/s</span>
+          <span class="stat-label">平均速度</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="statTopSpeed">0 MB/s</span>
+          <span class="stat-label">最高速度</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" id="statNodes">0</span>
+          <span class="stat-label">节点总数</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div class="filter-inner">
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all" onclick="setFilter('all', this)">全部</button>
+          <button class="filter-tab" data-filter="fast" onclick="setFilter('fast', this)">极速</button>
+          <button class="filter-tab" data-filter="stable" onclick="setFilter('stable', this)">稳定</button>
+          <button class="filter-tab" data-filter="affordable" onclick="setFilter('affordable', this)">高性价比</button>
+        </div>
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="none">
+            <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/>
+            <path d="m15 15 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" class="search-input" id="searchInput" placeholder="搜索机场..." oninput="filterAirports()" />
+        </div>
+        <div class="sort-wrap">
+          <label class="sort-label">排序：</label>
+          <select class="sort-select" id="sortSelect" onchange="sortAndRender()">
+            <option value="speed">下载速度</option>
+            <option value="latency">延迟</option>
+            <option value="nodes">节点数量</option>
+            <option value="uptime">稳定性</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Banner -->
+    <div class="progress-banner" id="progressBanner" style="display:none;">
+      <div class="progress-banner-inner">
+        <div class="progress-spinner"></div>
+        <span id="progressText">正在测速中...</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span id="progressPct">0%</span>
+      </div>
+    </div>
+
+    <!-- Ranking List -->
+    <main class="main-content">
+      <div class="ranking-list" id="rankingList"></div>
+    </main>
+  </div>
+
+  <!-- ============ PAGE: ARTICLE ============ -->
+  <div id="pageArticle" style="display:none;">
+    <main class="main-content">
+
+      <!-- Hero -->
+      <div class="page-hero">
+        <div class="page-hero-text">
+          <div class="page-hero-label">机场科普</div>
+          <h1 class="page-hero-title">什么是机场？<br/>一篇看懂代理服务</h1>
+          <p class="page-hero-desc">从零基础了解机场的原理、选择方法、常见协议，帮助你做出最适合自己的选择。</p>
+        </div>
+        <div class="page-hero-img">
+          <img src="img_network.jpg" alt="代理网络示意图" />
+        </div>
+      </div>
+
+      <!-- Article grid -->
+      <div class="article-grid">
+
+        <!-- Article 1 -->
+        <article class="article-card article-card--featured" id="article-what">
+          <div class="article-img-wrap">
+            <img src="img_network.jpg" alt="什么是机场" class="article-img" />
+            <div class="article-img-overlay">
+              <span class="article-category">基础入门</span>
+            </div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta-top">
+              <span class="article-tag atag-blue">必读</span>
+              <span class="article-tag atag-green">新手友好</span>
+              <span class="article-read-time">⏱ 5 分钟</span>
+            </div>
+            <h2 class="article-title">什么是「机场」？原理一文搞懂</h2>
+            <p class="article-excerpt">「机场」是国内对代理/翻墙服务商的俗称，得名于飞机（数据）从一地飞到另一地的比喻。本质上是一种基于 Shadowsocks、Vmess、Trojan 等协议的网络代理服务，通过加密隧道将你的流量中转到境外服务器，实现访问被限制的网络资源。</p>
+
+            <div class="article-section">
+              <h3 class="article-section-title">🔐 核心工作原理</h3>
+              <div class="how-it-works">
+                <div class="how-step">
+                  <div class="how-step-num">1</div>
+                  <div class="how-step-text">
+                    <strong>发起请求</strong>
+                    <span>你的设备向目标网站发起连接请求</span>
+                  </div>
+                </div>
+                <div class="how-arrow">→</div>
+                <div class="how-step">
+                  <div class="how-step-num">2</div>
+                  <div class="how-step-text">
+                    <strong>加密传输</strong>
+                    <span>流量被客户端加密，发送至中转节点</span>
+                  </div>
+                </div>
+                <div class="how-arrow">→</div>
+                <div class="how-step">
+                  <div class="how-step-num">3</div>
+                  <div class="how-step-text">
+                    <strong>节点转发</strong>
+                    <span>境外服务器解密后，代替你访问目标网站</span>
+                  </div>
+                </div>
+                <div class="how-arrow">→</div>
+                <div class="how-step">
+                  <div class="how-step-num">4</div>
+                  <div class="how-step-text">
+                    <strong>数据返回</strong>
+                    <span>内容经加密隧道原路返回到你的设备</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-section">
+              <h3 class="article-section-title">📡 常见代理协议对比</h3>
+              <div class="proto-table">
+                <div class="proto-row proto-header">
+                  <span>协议</span><span>速度</span><span>安全性</span><span>伪装能力</span><span>推荐指数</span>
+                </div>
+                <div class="proto-row">
+                  <span class="proto-name" style="color:#4f46e5">Shadowsocks</span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:75%;background:#4f46e5"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:65%;background:#0ea5e9"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:50%;background:#10b981"></div></span>
+                  <span class="proto-stars">⭐⭐⭐⭐</span>
+                </div>
+                <div class="proto-row">
+                  <span class="proto-name" style="color:#0ea5e9">Vmess</span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:80%;background:#4f46e5"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:80%;background:#0ea5e9"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:70%;background:#10b981"></div></span>
+                  <span class="proto-stars">⭐⭐⭐⭐</span>
+                </div>
+                <div class="proto-row">
+                  <span class="proto-name" style="color:#059669">Trojan</span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:85%;background:#4f46e5"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:90%;background:#0ea5e9"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:88%;background:#10b981"></div></span>
+                  <span class="proto-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="proto-row">
+                  <span class="proto-name" style="color:#7c3aed">VLESS</span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:90%;background:#4f46e5"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:85%;background:#0ea5e9"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:82%;background:#10b981"></div></span>
+                  <span class="proto-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+                <div class="proto-row">
+                  <span class="proto-name" style="color:#d97706">Reality</span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:92%;background:#4f46e5"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:96%;background:#0ea5e9"></div></span>
+                  <span class="proto-bar-wrap"><div class="proto-bar" style="width:98%;background:#10b981"></div></span>
+                  <span class="proto-stars">⭐⭐⭐⭐⭐</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-section">
+              <h3 class="article-section-title">🌐 线路类型说明</h3>
+              <div class="info-cards">
+                <div class="info-card">
+                  <div class="info-card-icon" style="background:#eff6ff;color:#2563eb">🏎️</div>
+                  <div>
+                    <strong>IEPL / IPLC 专线</strong>
+                    <p>国际以太网专线，绕过公网直连，延迟极低、高峰期不受影响，价格偏高。</p>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <div class="info-card-icon" style="background:#ecfdf5;color:#059669">🛤️</div>
+                  <div>
+                    <strong>CN2 GIA 回程</strong>
+                    <p>中国电信优质出口线路，绕过拥堵节点，稳定性好，晚高峰表现优秀。</p>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <div class="info-card-icon" style="background:#fffbeb;color:#d97706">🔀</div>
+                  <div>
+                    <strong>BGP 中转</strong>
+                    <p>通过国内中转服务器汇聚多运营商流量，兼容性强，成本低，速度适中。</p>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <div class="info-card-icon" style="background:#fdf4ff;color:#7c3aed">🌍</div>
+                  <div>
+                    <strong>普通公网中转</strong>
+                    <p>直接走公网出境，成本最低，但高峰期受 QoS 影响大，速度不稳定。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 2: How to choose -->
+        <article class="article-card" id="article-choose">
+          <div class="article-img-wrap">
+            <img src="img_guide.jpg" alt="如何选择机场" class="article-img" />
+            <div class="article-img-overlay">
+              <span class="article-category">选购指南</span>
+            </div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta-top">
+              <span class="article-tag atag-blue">选购</span>
+              <span class="article-read-time">⏱ 4 分钟</span>
+            </div>
+            <h2 class="article-title">如何选择适合自己的机场？</h2>
+            <p class="article-excerpt">面对市面上数以百计的机场服务，很多人无从下手。掌握以下六个核心维度，让你做出明智选择。</p>
+
+            <div class="article-section">
+              <div class="choose-grid">
+                <div class="choose-item">
+                  <div class="choose-icon">⚡</div>
+                  <div class="choose-content">
+                    <h4>速度优先</h4>
+                    <p>关注下载峰值速度和晚高峰（20:00-23:00）实测表现，IEPL/CN2 GIA 线路更稳定。</p>
+                    <div class="choose-tip">💡 本站测速排名可直接参考</div>
+                  </div>
+                </div>
+                <div class="choose-item">
+                  <div class="choose-icon">🌍</div>
+                  <div class="choose-content">
+                    <h4>节点覆盖</h4>
+                    <p>关注你常用地区的节点数量和质量。Netflix、Disney+ 需选标注「解锁流媒体」的机场。</p>
+                    <div class="choose-tip">💡 香港节点延迟最低，美国节点解锁最多</div>
+                  </div>
+                </div>
+                <div class="choose-item">
+                  <div class="choose-icon">🛡️</div>
+                  <div class="choose-content">
+                    <h4>稳定性</h4>
+                    <p>查看机场在线率统计，选择 99% 以上的服务商。关注是否提供 SLA 保障或补偿机制。</p>
+                    <div class="choose-tip">💡 运营超过 1 年的机场更可靠</div>
+                  </div>
+                </div>
+                <div class="choose-item">
+                  <div class="choose-icon">💰</div>
+                  <div class="choose-content">
+                    <h4>性价比</h4>
+                    <p>轻度用户（刷推特/YouTube）¥20-40/月足够；重度用户建议 ¥60-100/月档位。</p>
+                    <div class="choose-tip">💡 避免过低价格，易跑路</div>
+                  </div>
+                </div>
+                <div class="choose-item">
+                  <div class="choose-icon">🔧</div>
+                  <div class="choose-content">
+                    <h4>客户端支持</h4>
+                    <p>确认机场提供适合你设备的客户端或订阅链接，支持 Clash、Shadowrocket、sing-box 等。</p>
+                    <div class="choose-tip">💡 支持多协议订阅更灵活</div>
+                  </div>
+                </div>
+                <div class="choose-item">
+                  <div class="choose-icon">💬</div>
+                  <div class="choose-content">
+                    <h4>售后服务</h4>
+                    <p>优先选择有 Telegram 群或工单系统的机场，遇到问题能及时响应解决。</p>
+                    <div class="choose-tip">💡 响应时间 < 4 小时为佳</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="article-callout callout-blue">
+              <span class="callout-icon">📌</span>
+              <div>
+                <strong>新手推荐策略</strong><br/>
+                先买月付小额套餐体验 1-2 个月，满意后再购年付享折扣。建议同时备用 2 家机场，避免单点故障。
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 3: Protocol deep dive -->
+        <article class="article-card article-card--half" id="article-protocol">
+          <div class="article-img-wrap article-img-wrap--short">
+            <img src="img_network.jpg" alt="协议深度解析" class="article-img" />
+            <div class="article-img-overlay">
+              <span class="article-category">技术深度</span>
+            </div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta-top">
+              <span class="article-tag atag-purple">技术向</span>
+              <span class="article-read-time">⏱ 6 分钟</span>
+            </div>
+            <h2 class="article-title">流量溯源与抗封锁：协议深度解析</h2>
+            <p class="article-excerpt">了解 GFW 的检测手段，以及 Trojan、VLESS+Reality 如何通过流量伪装突破封锁。</p>
+            <div class="article-section">
+              <h3 class="article-section-title">GFW 检测方式</h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#ef4444"></div>
+                  <div class="timeline-content">
+                    <strong>IP 黑名单</strong> — 封锁已知代理服务器 IP 段，是最基础的拦截手段。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#f59e0b"></div>
+                  <div class="timeline-content">
+                    <strong>特征检测</strong> — 识别 Shadowsocks 等协议的握手特征，通过机器学习主动探测。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#0ea5e9"></div>
+                  <div class="timeline-content">
+                    <strong>流量分析</strong> — 分析流量熵值、包长分布，识别加密隧道的统计特征。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#10b981"></div>
+                  <div class="timeline-content">
+                    <strong>主动探测</strong> — 对可疑服务器发起连接测试，判断是否为代理服务。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="article-callout callout-green">
+              <span class="callout-icon">🛡️</span>
+              <div>
+                <strong>Reality 协议的突破思路</strong><br/>
+                通过借用真实网站（如微软、苹果）的 TLS 证书指纹，使流量完全伪装成正常 HTTPS 访问，令主动探测也无法区分。目前最难被检测的方案。
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Article 4: FAQ -->
+        <article class="article-card article-card--half" id="article-faq">
+          <div class="article-body" style="padding-top:28px;">
+            <div class="article-meta-top">
+              <span class="article-tag atag-green">常见问题</span>
+              <span class="article-read-time">⏱ 3 分钟</span>
+            </div>
+            <h2 class="article-title">机场使用常见问题 FAQ</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  <span>🤔 机场和 VPN 有什么区别？</span>
+                  <svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="faq-a">VPN 通常使用 OpenVPN/WireGuard 协议，特征明显容易被识别；机场使用专门为翻墙优化的协议（Trojan/VLESS等），伪装性更强、速度更快，且支持按节点分流。</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  <span>📺 机场能看 Netflix 吗？</span>
+                  <svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="faq-a">部分能，需要节点具备原生 IP 或特定解锁能力。建议选标注「Netflix 解锁」的节点，通常是美国、日本、香港的专用节点。Disney+、Hulu 同理。</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  <span>⚡ 为什么晚上速度慢？</span>
+                  <svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="faq-a">晚高峰（20-23时）国际出口带宽拥堵。普通公网中转机场受影响较大，IEPL/IPLC 专线机场因走独立线路几乎不受影响。建议选择专线机场或切换不同地区节点。</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  <span>🔒 使用机场安全吗？</span>
+                  <svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="faq-a">协议层面数据是加密的，但机场运营商理论上可看到你的访问域名（非内容）。建议选择声誉好、运营时间长、承诺无日志的机场，并避免在代理环境下登录敏感账号。</div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-q" onclick="toggleFaq(this)">
+                  <span>💸 机场跑路了怎么办？</span>
+                  <svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div class="faq-a">建议月付购买，损失可控。同时备用 1-2 家机场，遇到主力机场出问题可立即切换。避免一次性购买超长时间套餐。</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /article-grid -->
+    </main>
+  </div>
+
+  <!-- ============ PAGE: TUTORIAL ============ -->
+  <div id="pageTutorial" style="display:none;">
+    <main class="main-content">
+
+      <!-- Hero -->
+      <div class="page-hero">
+        <div class="page-hero-text">
+          <div class="page-hero-label">软件教程</div>
+          <h1 class="page-hero-title">从零开始<br/>配置代理客户端</h1>
+          <p class="page-hero-desc">覆盖 Windows、macOS、iOS、Android 四大平台，图文详解从下载到连接的完整流程。</p>
+        </div>
+        <div class="page-hero-img">
+          <img src="img_app.jpg" alt="客户端软件截图" />
+        </div>
+      </div>
+
+      <!-- Platform tabs -->
+      <div class="platform-tabs">
+        <button class="platform-tab active" onclick="setPlatform('windows', this)" id="ptWindows">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3.5L9.5 2.5V9.5H2V3.5ZM10.5 2.5L18 3.5V9.5H10.5V2.5ZM2 10.5H9.5V17.5L2 16.5V10.5ZM10.5 10.5H18V16.5L10.5 17.5V10.5Z"/></svg>
+          Windows
+        </button>
+        <button class="platform-tab" onclick="setPlatform('macos', this)" id="ptMac">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13.5 2C13.5 4.5 11.5 6 10 6 10 3.5 12 2 13.5 2ZM6 7.5C4 7.5 2 9.5 2 12.5 2 15.5 4 18 6 18 7 18 7.5 17.5 8.5 17.5 9.5 17.5 10 18 11 18 13 18 15 15.5 15 12.5 15 10 13.5 9 12.5 9 11.5 9 11 9.5 10 9.5 9 9.5 8.5 9 7.5 9 6.5 9 6 7.5Z"/></svg>
+          macOS
+        </button>
+        <button class="platform-tab" onclick="setPlatform('ios', this)" id="ptIos">
+          <svg viewBox="0 0 20 20" fill="currentColor"><rect x="5" y="1" width="10" height="18" rx="2.5"/><circle cx="10" cy="16.5" r="1" fill="white"/></svg>
+          iOS
+        </button>
+        <button class="platform-tab" onclick="setPlatform('android', this)" id="ptAndroid">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 9h12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V9zm2-4l-1.5-2.6M14 5l1.5-2.6M7 7h.01M13 7h.01"/></svg>
+          Android
+        </button>
+      </div>
+
+      <!-- Tutorial content -->
+      <div id="tutorialContent"></div>
+
+    </main>
+  </div>
+
+  <!-- Node Detail Modal -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal" id="nodeModal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-airport-badge" id="modalBadge"></div>
+          <div>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5 5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="modal-stats" id="modalStats"></div>
+      <div class="modal-section">
+        <h3 class="modal-section-title">节点列表</h3>
+        <div class="node-filters" id="nodeFilters"></div>
+        <div class="node-grid" id="nodeGrid"></div>
+      </div>
+      <div class="modal-section">
+        <h3 class="modal-section-title">地区分布</h3>
+        <div class="region-chart" id="regionChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

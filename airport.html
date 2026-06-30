@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">机场详情测评 · SpeedRank - 节点测速、稳定性与价格分析</title>
+  <meta name="description" id="pageDesc" content="全面的机场测速报告，包含实时下载速度、中位延迟、在线率、套餐价格、支持协议与跑路风险分析，帮助你判断该机场是否值得长期使用。" />
+  <meta name="keywords" id="pageKeywords" content="机场测评,机场跑路,机场官网,机场速度测试,Clash节点,SSR,V2Ray" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" id="ogTitle" content="机场详情测评 · SpeedRank" />
+  <meta property="og:description" id="ogDesc" content="全面的机场测速报告，包含实时下载速度、中位延迟、在线率、套餐价格等数据。" />
+  <meta property="og:image" content="https://speedrank.example.com/img_network.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twTitle" content="机场详情测评 · SpeedRank" />
+  <meta name="twitter:description" id="twDesc" content="全面的机场测速报告，包含实时下载速度、中位延迟、在线率、套餐价格等数据。" />
+  <meta name="twitter:image" content="https://speedrank.example.com/img_network.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="airport.css" />
+</head>
+<body>
+  <div class="scan-overlay"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots">
+          <div class="logo-dot"></div>
+          <div class="logo-dot"></div>
+          <div class="logo-dot"></div>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>
+          测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='index.html#article'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>
+          机场科普
+        </button>
+        <button class="nav-tab" onclick="location.href='index.html#tutorial'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 5.5 10 8l-3.5 2.5V5.5z" fill="currentColor"/></svg>
+          软件教程
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a class="btn-refresh" id="officialBtn" href="#" target="_blank" rel="nofollow noreferrer">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none"><path d="M10 3a7 7 0 100 14A7 7 0 0010 3zm0 1.5a5.5 5.5 0 110 11 5.5 5.5 0 010-11zm0 2a.75.75 0 00-.75.75v3.5c0 .414.336.75.75.75h2.5a.75.75 0 000-1.5H10.75V7.25A.75.75 0 0010 6.5z" fill="currentColor"/></svg>
+          访问官网
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Fixed side nav -->
+  <nav class="detail-side-nav" id="sideNav">
+    <a href="#sec-overview">概览</a>
+    <a href="#sec-snapshot">快照</a>
+    <a href="#sec-capabilities">能力</a>
+    <a href="#sec-score">评分</a>
+    <a href="#sec-metrics">指标</a>
+    <a href="#sec-trend">趋势</a>
+    <a href="#sec-plan">套餐</a>
+    <a href="#sec-conclusion">结论</a>
+  </nav>
+
+  <main class="detail-main">
+    <!-- Breadcrumb -->
+    <div class="detail-breadcrumb">
+      <a href="index.html">首页</a>
+      <span>/</span>
+      <span id="bcName">机场详情</span>
+    </div>
+    <div class="detail-date-status" id="detailDateStatus"></div>
+
+    <!-- ① Overview Hero -->
+    <section class="detail-hero" id="sec-overview">
+      <div class="detail-hero-copy">
+        <h1 class="detail-hero-title" id="detailTitle">机场名称</h1>
+        <p class="detail-hero-desc" id="detailDesc">机场描述</p>
+        <div class="detail-tags" id="detailTags"></div>
+        <div class="detail-hero-actions">
+          <a class="detail-official-btn" id="officialBtn2" href="#" target="_blank" rel="nofollow noreferrer">🌐 访问官网</a>
+          <a class="detail-back-btn" href="index.html">← 返回榜单</a>
+        </div>
+      </div>
+      <aside class="detail-score-card">
+        <div class="dsc-label">综合评分</div>
+        <div class="dsc-number" id="dscNumber">—</div>
+        <div class="dsc-slash">/100</div>
+        <div class="dsc-bar-track">
+          <div class="dsc-bar-fill" id="dscBarFill"></div>
+        </div>
+        <div class="dsc-grade" id="dscGrade">—</div>
+        <div class="dsc-sub-scores" id="dscSubScores"></div>
+      </aside>
+    </section>
+
+    <!-- ② Snapshot Cards -->
+    <section class="detail-snapshot-grid" id="sec-snapshot">
+      <div class="snap-card">
+        <div class="snap-label">运行状态</div>
+        <div class="snap-value snap-green" id="snapStatus">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">30天在线率</div>
+        <div class="snap-value" id="snapUptime">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">中位延迟</div>
+        <div class="snap-value" id="snapLatency">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">下载速率</div>
+        <div class="snap-value snap-blue" id="snapSpeed">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">丢包率</div>
+        <div class="snap-value snap-green" id="snapLoss">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">节点总数</div>
+        <div class="snap-value" id="snapNodes">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">健康记录</div>
+        <div class="snap-value" id="snapHealth">—</div>
+      </div>
+      <div class="snap-card">
+        <div class="snap-label">风险惩罚</div>
+        <div class="snap-value snap-green" id="snapRisk">—</div>
+      </div>
+    </section>
+
+    <!-- ③ Service Capabilities -->
+    <section class="detail-section" id="sec-capabilities">
+      <h2 class="detail-section-title">服务能力详情</h2>
+      <div class="cap-grid">
+        <!-- Streaming -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">解锁能力</h3>
+          <div class="cap-list" id="capStreaming"></div>
+        </div>
+        <!-- Clients -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">客户端支持</h3>
+          <div class="cap-list" id="capClients"></div>
+        </div>
+        <!-- Payment -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">支付方式</h3>
+          <div class="cap-list" id="capPayment"></div>
+        </div>
+        <!-- Support -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">售后支持</h3>
+          <div class="cap-list" id="capSupport"></div>
+        </div>
+        <!-- Protocols -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">代理协议</h3>
+          <div class="cap-list" id="capProtocols"></div>
+        </div>
+        <!-- Line types -->
+        <div class="cap-card">
+          <h3 class="cap-card-title">线路类型</h3>
+          <div class="cap-list" id="capLines"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ Score Breakdown -->
+    <section class="detail-section" id="sec-score">
+      <h2 class="detail-section-title">评分拆解</h2>
+      <div class="score-breakdown-grid" id="scoreBreakdown"></div>
+    </section>
+
+    <!-- ⑤ Core Metrics -->
+    <section class="detail-section" id="sec-metrics">
+      <h2 class="detail-section-title">核心指标</h2>
+      <div class="metrics-grid" id="metricsGrid"></div>
+    </section>
+
+    <!-- ⑥ 30-day Trend -->
+    <section class="detail-section" id="sec-trend">
+      <h2 class="detail-section-title">30 天速度趋势</h2>
+      <div class="trend-chart-wrap">
+        <canvas id="trendCanvas" height="160"></canvas>
+      </div>
+      <div class="trend-legend">
+        <span class="tl-item tl-blue">下载速度 (MB/s)</span>
+        <span class="tl-item tl-green">延迟 (ms / 10)</span>
+      </div>
+    </section>
+
+    <!-- ⑦ Plans & Nodes -->
+    <section class="detail-section" id="sec-plan">
+      <h2 class="detail-section-title">套餐与节点</h2>
+      <div class="plan-node-grid">
+        <!-- Plans -->
+        <div>
+          <h3 class="sub-section-title">💰 套餐一览</h3>
+          <div class="plan-list" id="planList"></div>
+        </div>
+        <!-- Node regions -->
+        <div>
+          <h3 class="sub-section-title">🌍 节点地区分布</h3>
+          <div class="region-dist" id="regionDist"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑧ Summary accordion -->
+    <section class="detail-section" id="sec-conclusion">
+      <h2 class="detail-section-title">测评摘要与结论</h2>
+      <div class="summary-box" id="summaryBox"></div>
+      <div class="accordion" id="accordion"></div>
+      <div class="conclusion-box" id="conclusionBox"></div>
+    </section>
+
+    <!-- Similar airports -->
+    <section class="detail-section">
+      <h2 class="detail-section-title">继续对比更多机场</h2>
+      <div class="compare-links" id="compareLinks"></div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script src="airport.js"></script>
+</body>
+</html>
