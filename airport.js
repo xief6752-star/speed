@@ -263,19 +263,19 @@ document.addEventListener('DOMContentLoaded', () => {
                   ${node.name}
                 </div>
                 <div class="node-tags">
-                  <span class="node-tag">${node.protocols}</span>
+                  <span class="node-tag">${node.protocol || '未知'}</span>
                 </div>
               </div>
               <div class="node-stats">
-                <div class="ns-latency" style="color: ${latencyColor}">
+                <div class="ns-latency" style="color: ${node.online ? latencyColor : '#94a3b8'}">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                  ${node.latency} ms
+                  ${node.online ? node.latency + ' ms' : '超时'}
                 </div>
                 <div class="ns-speed">
                   <div class="ns-speed-bar-bg">
-                    <div class="ns-speed-bar" style="width: ${speedBarWidth}%; background: ${speedColor}"></div>
+                    <div class="ns-speed-bar" style="width: ${node.online ? speedBarWidth : 0}%; background: ${node.online ? speedColor : 'transparent'}"></div>
                   </div>
-                  <div class="ns-speed-val">${node.speed.toFixed(1)} MB/s</div>
+                  <div class="ns-speed-val" style="color: ${node.online ? 'var(--text-primary)' : '#94a3b8'}">${node.online ? node.speed.toFixed(1) + ' MB/s' : '0.0 MB/s'}</div>
                 </div>
               </div>
             </div>
