@@ -43,7 +43,17 @@ const AIRPORTS = [
     baseSpeed: 110,
     baseLatency: 45,
     uptime: 99.8,
-    price: '¥25/月',
+    price: '¥18/月',
+    link: 'https://huanyuyunbest.com/#/register?code=CPBmzXgk',
+    discount: '八折优惠码：hy888',
+    plans: [
+      { name: '年付小包', desc: '60GB 流量 / 月', price: '¥79.00 / 年' },
+      { name: '基础版', desc: '150GB 流量 / 月', price: '¥18.00 / 月' },
+      { name: '进阶版', desc: '300GB 流量 / 月', price: '¥34.00 / 月' },
+      { name: '恒星', desc: '600GB 流量 / 月', price: '¥60.00 / 月' },
+      { name: '巨量不限时', desc: '1000GB 永不过期', price: '¥158.00 / 永久' },
+      { name: '海量不限时', desc: '3000GB 永不过期', price: '¥368.00 / 永久' }
+    ],
     nodeCount: 130,
     protocols: ['Vmess', 'Reality', 'Trojan'],
     regions: [
