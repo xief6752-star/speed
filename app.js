@@ -10,7 +10,17 @@ const AIRPORTS = [
     baseSpeed: 125,
     baseLatency: 28,
     uptime: 99.9,
-    price: '¥35/月',
+    price: '¥20/月',
+    link: 'https://ccc.jichang.best/#/register?code=KlIpTDPe',
+    discount: '新客优惠码：20OFF',
+    plans: [
+      { name: '限时年付小包', desc: '59G 流量 / 月', price: '¥99.00 / 年' },
+      { name: '行者', desc: '150G 流量 / 月', price: '¥20.00 / 月' },
+      { name: '纵横', desc: '300G 流量 / 月', price: '¥36.00 / 月' },
+      { name: '凌霄', desc: '800G 流量 / 月', price: '¥68.00 / 月' },
+      { name: '2000G不限时', desc: '一次性流量包', price: '¥260.00 / 永久' },
+      { name: '5000G不限时', desc: '一次性流量包', price: '¥600.00 / 永久' }
+    ],
     nodeCount: 150,
     protocols: ['VLESS', 'Trojan', 'SS'],
     regions: [

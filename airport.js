@@ -62,9 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('dscBarFill').style.background = `linear-gradient(90deg, #2563eb, ${scoreColor})`;
   document.getElementById('dscGrade').textContent = `综合评级：${score >= 85 ? '优秀' : score >= 70 ? '良好' : '一般'}`;
   
+  if (airport.link) {
+    document.getElementById('officialBtn').href = airport.link;
+    document.getElementById('officialBtn2').href = airport.link;
+  }
+
   document.getElementById('detailLongDesc').innerHTML = `
     <p><strong>${airport.name}</strong> 是一家提供高质量代理服务的供应商。其主要特点是：${airport.description}。</p>
     <ul>
+      ${airport.discount ? `<li style="color:#ef4444"><strong>🌟 专属福利</strong>：${airport.discount}</li>` : ''}
       <li><strong>主打特色</strong>：支持 ${airport.protocols.join(', ')} 协议，包含 ${airport.nodes.length} 个全球节点。</li>
       <li><strong>流媒体解锁</strong>：完美解锁 Netflix、Disney+ 等主流媒体平台。</li>
       <li><strong>适用人群</strong>：非常适合${(airport.tagLabels && (airport.tagLabels.includes('极速') || airport.tagLabels.includes('专业'))) ? '对网络质量和速度有极高要求的进阶用户或企业级用户。' : '日常科学上网、追剧、轻量级办公的用户，性价比极高。'}</li>
@@ -205,29 +211,41 @@ document.addEventListener('DOMContentLoaded', () => {
   drawTrendChart();
 
   // Plans & Nodes
-  document.getElementById('planList').innerHTML = `
-    <div class="plan-item">
-      <div>
-        <div class="plan-item-name">入门月付套餐</div>
-        <div class="plan-item-sub">100GB 流量 / 月</div>
+  if (airport.plans && airport.plans.length > 0) {
+    document.getElementById('planList').innerHTML = airport.plans.map(p => `
+      <div class="plan-item">
+        <div>
+          <div class="plan-item-name">${p.name}</div>
+          <div class="plan-item-sub">${p.desc}</div>
+        </div>
+        <div class="plan-item-price" style="font-size:15px;">${p.price}</div>
       </div>
-      <div class="plan-item-price">${airport.price}</div>
-    </div>
-    <div class="plan-item">
-      <div>
-        <div class="plan-item-name">标准季付套餐</div>
-        <div class="plan-item-sub">200GB 流量 / 月</div>
+    `).join('');
+  } else {
+    document.getElementById('planList').innerHTML = `
+      <div class="plan-item">
+        <div>
+          <div class="plan-item-name">入门月付套餐</div>
+          <div class="plan-item-sub">100GB 流量 / 月</div>
+        </div>
+        <div class="plan-item-price">${airport.price}</div>
       </div>
-      <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 2.8} / 季</div>
-    </div>
-    <div class="plan-item">
-      <div>
-        <div class="plan-item-name">尊享年付套餐</div>
-        <div class="plan-item-sub">500GB 流量 / 月</div>
+      <div class="plan-item">
+        <div>
+          <div class="plan-item-name">标准季付套餐</div>
+          <div class="plan-item-sub">200GB 流量 / 月</div>
+        </div>
+        <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 2.8} / 季</div>
       </div>
-      <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 10} / 年</div>
-    </div>
-  `;
+      <div class="plan-item">
+        <div>
+          <div class="plan-item-name">尊享年付套餐</div>
+          <div class="plan-item-sub">500GB 流量 / 月</div>
+        </div>
+        <div class="plan-item-price">¥${(parseInt(airport.price.replace(/\D/g, '')) || 0) * 10} / 年</div>
+      </div>
+    `;
+  }
 
   document.getElementById('regionDist').innerHTML = airport.regions.map(r => `
     <div class="region-item">
