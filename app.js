@@ -11,7 +11,7 @@ const AIRPORTS = [
     baseLatency: 18,
     uptime: 99.9,
     price: '¥25/月',
-    link: 'https://jisuyun.cc/#/register?code=jcpm',
+    link: 'https://ygbk.jsjc456789.com',
     discount: '新用户优惠码：JSY888',
     plans: [
       { name: '轻量包', desc: '100G 流量 / 月', price: '¥25.00 / 月' },
