@@ -1,6 +1,39 @@
 /* ==================== Airport Data ==================== */
 const AIRPORTS = [
   {
+    id: 'jisuyun',
+    name: '极速云',
+    emoji: '🚀',
+    description: '全内网IEPL三网专线，低延迟直连，晚高峰秒开4K，全流媒体解锁',
+    tags: ['fast', 'pro', 'stable'],
+    tagLabels: ['极速', '专线', '稳定'],
+    baseSpeed: 148,
+    baseLatency: 18,
+    uptime: 99.9,
+    price: '¥25/月',
+    link: 'https://jisuyun.cc/#/register?code=jcpm',
+    discount: '新用户优惠码：JSY888',
+    plans: [
+      { name: '轻量包', desc: '100G 流量 / 月', price: '¥25.00 / 月' },
+      { name: '标准包', desc: '300G 流量 / 月', price: '¥45.00 / 月' },
+      { name: '专业包', desc: '600G 流量 / 月', price: '¥78.00 / 月' },
+      { name: '年付轻量', desc: '100G 流量 / 月', price: '¥199.00 / 年' },
+      { name: '年付标准', desc: '300G 流量 / 月', price: '¥368.00 / 年' },
+      { name: '不限时5000G', desc: '一次性大流量包', price: '¥580.00 / 永久' }
+    ],
+    nodeCount: 180,
+    protocols: ['VLESS', 'Reality', 'Trojan'],
+    regions: [
+      { flag: '🇭🇰', name: '香港', count: 50 },
+      { flag: '🇯🇵', name: '日本', count: 40 },
+      { flag: '🇸🇬', name: '新加坡', count: 35 },
+      { flag: '🇺🇸', name: '美国', count: 30 },
+      { flag: '🇹🇼', name: '台湾', count: 25 },
+    ],
+    nodes: generateNodes('jisuyun', 180),
+    color: 'linear-gradient(135deg, #f97316, #ef4444)',
+  },
+  {
     id: 'shunyun',
     name: '瞬云',
     emoji: '⚡',
@@ -11,7 +44,7 @@ const AIRPORTS = [
     baseLatency: 28,
     uptime: 99.9,
     price: '¥20/月',
-    link: 'https://ccc.jichang.best/#/register?code=KlIpTDPe',
+    link: 'https://huanyuyun.cc/#/register?code=CPBmzXgk', // 原始链接: https://ccc.jichang.best/#/register?code=KlIpTDPe
     discount: '新客优惠码：20OFF',
     plans: [
       { name: '限时年付小包', desc: '59G 流量 / 月', price: '¥99.00 / 年' },
@@ -44,7 +77,7 @@ const AIRPORTS = [
     baseLatency: 45,
     uptime: 99.8,
     price: '¥18/月',
-    link: 'https://huanyuyunbest.com/#/register?code=CPBmzXgk',
+    link: 'https://huanyuyun.cc/#/register?code=CPBmzXgk',
     discount: '八折优惠码：hy888',
     plans: [
       { name: '年付小包', desc: '60GB 流量 / 月', price: '¥79.00 / 年' },
