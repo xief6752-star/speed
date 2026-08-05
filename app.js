@@ -1,6 +1,37 @@
 /* ==================== Airport Data ==================== */
 const AIRPORTS = [
   {
+    id: 'yuntu',
+    name: '云图机场',
+    emoji: '🌤️',
+    description: '金融级专线传输，三网优化，节点倍率统一1倍，流媒体全解锁',
+    tags: ['fast', 'pro', 'stable'],
+    tagLabels: ['专线', '专业', '稳定'],
+    baseSpeed: 158,
+    baseLatency: 14,
+    uptime: 99.9,
+    price: '¥20/月',
+    link: 'https://vip.ytjcok.org/#/register?code=iV8ahCNE',
+    discount: '开业优惠码：yt88（截至2026-11-04）',
+    plans: [
+      { name: '入门包', desc: '100G 流量 / 月', price: '¥20.00 / 月' },
+      { name: '标准包', desc: '300G 流量 / 月', price: '¥38.00 / 月' },
+      { name: '专业包', desc: '600G 流量 / 月', price: '¥68.00 / 月' },
+      { name: '年付标准', desc: '300G 流量 / 月', price: '¥299.00 / 年' },
+    ],
+    nodeCount: 160,
+    protocols: ['VLESS', 'Reality', 'Trojan'],
+    regions: [
+      { flag: '🇭🇰', name: '香港', count: 45 },
+      { flag: '🇯🇵', name: '日本', count: 38 },
+      { flag: '🇸🇬', name: '新加坡', count: 32 },
+      { flag: '🇺🇸', name: '美国', count: 28 },
+      { flag: '🇹🇼', name: '台湾', count: 17 },
+    ],
+    nodes: generateNodes('yuntu', 160),
+    color: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+  },
+  {
     id: 'jisuyun',
     name: '极速云',
     emoji: '🚀',
