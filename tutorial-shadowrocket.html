@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shadowrocket 小火箭配置教程：iOS 机场订阅导入完整指南 · SpeedRank</title>
+  <meta name="description" content="Shadowrocket 小火箭使用教程：获取外区Apple ID、下载安装、一键导入机场订阅、连通性测试选节点、首次连接安装VPN配置，iPhone/iPad 完整5步操作指南。" />
+  <meta name="keywords" content="Shadowrocket教程,Shadowrocket配置,小火箭使用教程,iOS翻墙教程,iPhone代理设置,美区Apple ID下载小火箭" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Shadowrocket 小火箭配置教程：iOS 机场订阅导入完整指南 · SpeedRank" />
+  <meta property="og:description" content="Shadowrocket 小火箭使用教程：获取外区Apple ID、下载安装、一键导入机场订阅、连通性测试选节点、首次连接安装VPN配置，iPhone/iPad 完整5步操作指南。" />
+  <meta property="og:url" content="https://jichangspeed.com/tutorial-shadowrocket.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_app.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Shadowrocket 小火箭配置教程：iOS 机场订阅导入完整指南 · SpeedRank" />
+  <meta name="twitter:description" content="Shadowrocket 小火箭使用教程：获取外区Apple ID、下载安装、一键导入机场订阅、连通性测试选节点、首次连接安装VPN配置，iPhone/iPad 完整5步操作指南。" />
+  <link rel="canonical" href="https://jichangspeed.com/tutorial-shadowrocket.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tut-main { max-width: 800px; margin: 40px auto; padding: 0 20px 80px; position:relative;z-index:1; }
+    .tut-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .tut-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .tut-header { margin-bottom:40px; }
+    .tut-header h1 { font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--text-primary);margin:0 0 16px;line-height:1.2; }
+    .tut-header p { font-size:16px;color:var(--text-secondary);line-height:1.7;margin:0; }
+    .tut-step { background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px 28px 28px 24px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.02);display:flex;gap:20px; }
+    .tut-step-num { width:40px;height:40px;border-radius:50%;background:var(--accent-blue);color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .tut-step-content { flex:1; }
+    .tut-step-content h3 { font-size:18px;font-weight:800;margin:0 0 10px;color:var(--text-primary); }
+    .tut-step-content p { font-size:15px;color:var(--text-secondary);line-height:1.8;margin:0 0 4px; }
+    .tut-step-img { border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);margin-top:14px; }
+    .tut-step-img img { width:100%;display:block;max-height:280px;object-fit:cover; }
+    .tut-callout { background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius-md);padding:16px 20px;margin:28px 0;font-size:14px;color:#1e40af;line-height:1.7; }
+    .tut-nav { display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border); }
+    .tut-nav a { color:var(--accent-blue);text-decoration:none;font-size:13px;font-weight:600; }
+    code { background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"Courier New",monospace; }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='index.html#article'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>机场科普
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 5.5 10 8l-3.5 2.5V5.5z" fill="currentColor"/></svg>软件教程
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html#tutorial" class="btn-refresh" style="text-decoration:none;">← 返回教程列表</a>
+      </div>
+    </div>
+  </header>
+  <main class="tut-main">
+    <div class="tut-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="index.html#tutorial">软件教程</a><span>/</span>
+      <span>Shadowrocket（小火箭）</span>
+    </div>
+    <div class="tut-header">
+      <h1>Shadowrocket（小火箭）详细配置教程</h1>
+      <p>iOS (iPhone/iPad) 端最普及、最好用的全能代理软件。注意：该软件在国区 App Store 已下架，必须使用外区 Apple ID 付费下载。</p>
+    </div>
+    <div class="tut-callout">
+      💡 <strong>配置前准备：</strong>确保你已经注册了一家机场并获取了订阅链接。如果还没有，可以先查看 <a href="jichang-tuijian-2026.html" style="color:inherit;font-weight:700;">2026年机场推荐榜单</a> 选择适合你的服务商。
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">1</div>
+      <div class="tut-step-content">
+        <h3>获取非国区 Apple ID</h3>
+        <p>您需要准备一个美区、港区或日区的 Apple ID。如果您没有，可以通过网页端自行注册（国家选择美国，付款方式填无即可）。请注意，<strong>绝对不要在手机的 iCloud 中登录他人的 Apple ID</strong>，这可能会导致您的手机被恶意锁机。<strong>只能在 App Store 中登录。</strong></p>
+        
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">2</div>
+      <div class="tut-step-content">
+        <h3>下载 Shadowrocket</h3>
+        <p>打开手机上的 <strong>App Store</strong>，点击右上角的个人头像，滑到底部点击「退出登录」。然后登录您准备好的外区 Apple ID。搜索 <code>Shadowrocket</code>，认准开发者为 <strong>Shadow Launch Technology Limited</strong> 的应用。该软件售价约为 2.99 美元，需要购买后才能下载。</p>
+        <div class="tut-step-img">
+            <img src="img_steps.jpg" alt="步骤 2 — 下载 Shadowrocket" />
+          </div>
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">3</div>
+      <div class="tut-step-content">
+        <h3>一键导入节点订阅</h3>
+        <p>打开 Safari 浏览器，登录您的机场后台网站。找到「一键订阅」功能，点击「导入到 Shadowrocket」。系统会自动拉起小火箭应用，并且在列表里出现您的机场节点名称。</p>
+        <div class="tut-step-img">
+            <img src="img_app.jpg" alt="步骤 3 — 一键导入节点订阅" />
+          </div>
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">4</div>
+      <div class="tut-step-content">
+        <h3>连通性测试与配置修改</h3>
+        <p>在小火箭首页，点击底部的「连通性测试」，节点右侧会出现数字（如 150ms），数字越小速度越快，超时的节点请不要选择。<br/><br/>接着，点击顶部的「全局路由」，确保勾选的是「配置」（Config）模式。如果是「代理」模式，会导致访问国内网站也绕路国外，变得非常卡顿。</p>
+        
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">5</div>
+      <div class="tut-step-content">
+        <h3>首次连接与安装 VPN 配置</h3>
+        <p>在节点列表中点击选择一个有延迟数字的节点（前面会出现小黄点）。然后点击右上角最顶部的未连接开关，将其拨向右侧。首次开启会弹出「想要添加 VPN 配置」的系统提示，点击「允许」，并输入您的 iPhone 锁屏密码或使用 FaceID 进行授权。连接成功后，手机屏幕顶部状态栏会出现 <strong>VPN</strong> 图标。</p>
+        
+      </div>
+    </div>
+
+  <div class="tut-nav">
+      <a href="index.html#tutorial">← 返回软件列表</a>
+      <a href="faq.html">常见问题 FAQ →</a>
+    </div>
+  </main>
+</body>
+</html>

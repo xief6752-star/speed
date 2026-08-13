@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>流量溯源与抗封锁：Trojan/VLESS/Reality协议深度解析 · SpeedRank</title>
+  <meta name="description" content="深度解析GFW流量检测手段（IP黑名单、特征检测、主动探测），以及Trojan、VLESS+Reality如何通过TLS伪装突破封锁。帮助你理解为什么2026年Reality是最难被封锁的协议。" />
+  <meta name="keywords" content="Reality协议,VLESS协议,Trojan协议,GFW检测,翻墙协议对比,抗封锁协议,机场协议推荐" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="流量溯源与抗封锁：Trojan/VLESS/Reality协议深度解析 · SpeedRank" />
+  <meta property="og:description" content="深度解析GFW流量检测手段（IP黑名单、特征检测、主动探测），以及Trojan、VLESS+Reality如何通过TLS伪装突破封锁。帮助你理解为什么2026年Reality是最难被封锁的协议。" />
+  <meta property="og:url" content="https://jichangspeed.com/daili-xieyi-jiexi.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="流量溯源与抗封锁：Trojan/VLESS/Reality协议深度解析 · SpeedRank" />
+  <meta name="twitter:description" content="深度解析GFW流量检测手段（IP黑名单、特征检测、主动探测），以及Trojan、VLESS+Reality如何通过TLS伪装突破封锁。帮助你理解为什么2026年Reality是最难被封锁的协议。" />
+  <link rel="canonical" href="https://jichangspeed.com/daili-xieyi-jiexi.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .article-standalone { max-width: 860px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .article-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .article-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .article-standalone .article-card { box-shadow:none;border:none;border-radius:0; }
+    .article-standalone .article-body { padding:0; }
+    .article-hero-img { width:100%;border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px;border:1px solid var(--border); }
+    .article-hero-img img { width:100%;display:block;max-height:360px;object-fit:cover; }
+    .art-nav-links { display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border); }
+    .art-nav-links a { color:var(--accent-blue);text-decoration:none;font-size:13px;font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots">
+          <div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab active" onclick="location.href='index.html#article'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>机场科普
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-standalone">
+    <div class="article-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="index.html#article">机场科普</a><span>/</span>
+      <span>流量溯源与抗封锁：Trojan/VLESS/Reality协议深度解析</span>
+    </div>
+    <div class="article-hero-img">
+    <img src="img_network.jpg" alt="代理协议深度解析" />
+  </div>
+
+          <div class="article-img-wrap article-img-wrap--short">
+            <img src="img_network.jpg" alt="协议深度解析" class="article-img" />
+            <div class="article-img-overlay">
+              <span class="article-category">技术深度</span>
+            </div>
+          </div>
+          <div class="article-body">
+            <div class="article-meta-top">
+              <span class="article-tag atag-purple">技术向</span>
+              <span class="article-read-time">⏱ 6 分钟</span>
+            </div>
+            <h1 class="article-title" style="font-size:clamp(24px,4vw,34px);">流量溯源与抗封锁：协议深度解析</h1>
+            <p class="article-excerpt">了解 GFW 的检测手段，以及 Trojan、VLESS+Reality 如何通过流量伪装突破封锁。</p>
+            <div class="article-section">
+              <h3 class="article-section-title">GFW 检测方式</h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#ef4444"></div>
+                  <div class="timeline-content">
+                    <strong>IP 黑名单</strong> — 封锁已知代理服务器 IP 段，是最基础的拦截手段。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#f59e0b"></div>
+                  <div class="timeline-content">
+                    <strong>特征检测</strong> — 识别 Shadowsocks 等协议的握手特征，通过机器学习主动探测。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#0ea5e9"></div>
+                  <div class="timeline-content">
+                    <strong>流量分析</strong> — 分析流量熵值、包长分布，识别加密隧道的统计特征。
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot" style="background:#10b981"></div>
+                  <div class="timeline-content">
+                    <strong>主动探测</strong> — 对可疑服务器发起连接测试，判断是否为代理服务。
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="article-callout callout-green">
+              <span class="callout-icon">🛡️</span>
+              <div>
+                <strong>Reality 协议的突破思路</strong><br/>
+                通过借用真实网站（如微软、苹果）的 TLS 证书指纹，使流量完全伪装成正常 HTTPS 访问，令主动探测也无法区分。目前最难被检测的方案。
+              </div>
+            </div>
+          </div>
+        
+    <div class="art-nav-links">
+      <a href="index.html#article">← 返回科普列表</a>
+      <a href="faq.html">常见问题 FAQ →</a>
+    </div>
+  </main>
+  <script>
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      if (item.classList.contains('open')) {
+        item.classList.remove('open'); answer.style.maxHeight = null;
+      } else {
+        document.querySelectorAll('.faq-item.open').forEach(o => { o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null; });
+        item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+  </script>
+</body>
+</html>

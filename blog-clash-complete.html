@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clash 完整配置教程2026：Windows/macOS 订阅导入与分流设置 · SpeedRank</title>
+  <meta name="description" content="2026年Clash完整配置教程：推荐 Clash Verge Rev，覆盖 Windows 和 macOS 双平台，图文讲解下载安装、导入机场订阅、节点测速、开启系统代理与TUN模式，附常见问题解答。" />
+  <meta name="keywords" content="Clash配置教程,Clash Verge Rev教程,Clash订阅导入,Clash Windows教程,Clash macOS教程,Clash分流设置,Clash节点测速" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Clash 完整配置教程2026：Windows/macOS 订阅导入与分流设置 · SpeedRank" />
+  <meta property="og:description" content="2026年Clash完整配置教程：推荐 Clash Verge Rev，覆盖 Windows 和 macOS 双平台，图文讲解下载安装、导入机场订阅、节点测速、开启系统代理与TUN模式，附常见问题解答。" />
+  <meta property="og:url" content="https://jichangspeed.com/blog-clash-complete.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Clash 完整配置教程2026：Windows/macOS 订阅导入与分流设置 · SpeedRank" />
+  <meta name="twitter:description" content="2026年Clash完整配置教程：推荐 Clash Verge Rev，覆盖 Windows 和 macOS 双平台，图文讲解下载安装、导入机场订阅、节点测速、开启系统代理与TUN模式，附常见问题解答。" />
+  <link rel="canonical" href="https://jichangspeed.com/blog-clash-complete.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .blog-page { max-width: 800px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .blog-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .blog-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .blog-header { margin-bottom: 36px; }
+    .blog-category { display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:800;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;margin-bottom:16px;letter-spacing:0.05em; }
+    .blog-header h1 { font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--text-primary);margin:0 0 16px;line-height:1.2;letter-spacing:-0.02em; }
+    .blog-meta { display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-muted);font-weight:600;flex-wrap:wrap; }
+    .blog-hero-img { width:100%;border-radius:var(--radius-lg);overflow:hidden;margin:24px 0 32px;border:1px solid var(--border); }
+    .blog-hero-img img { width:100%;display:block;max-height:400px;object-fit:cover; }
+    .blog-body h2 { font-size:22px;font-weight:800;color:var(--text-primary);margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--accent-blue); }
+    .blog-body h3 { font-size:17px;font-weight:800;color:var(--text-primary);margin:24px 0 10px; }
+    .blog-body p { font-size:15px;color:var(--text-secondary);line-height:1.85;margin:0 0 18px; }
+    .blog-body strong { color:var(--text-primary); }
+    .blog-body ul,.blog-body ol { margin:0 0 18px;padding-left:20px; }
+    .blog-body li { font-size:15px;color:var(--text-secondary);line-height:1.85;margin-bottom:6px; }
+    .blog-callout { display:flex;gap:12px;padding:16px 18px;border-radius:var(--radius-md);margin:24px 0;font-size:14px;line-height:1.7; }
+    .callout-blue { background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af; }
+    .callout-green { background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46; }
+    .callout-yellow { background:#fffbeb;border:1px solid #fde68a;color:#92400e; }
+    .callout-icon { font-size:18px;flex-shrink:0; }
+    .blog-table { width:100%;border-collapse:collapse;margin:0 0 20px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border); }
+    .blog-table th { padding:10px 14px;font-size:12px;font-weight:700;background:var(--bg-section);color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border); }
+    .blog-table td { padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border-light);color:var(--text-secondary); }
+    .blog-table tr:last-child td { border-bottom:none; }
+    .blog-table tr:hover td { background:var(--bg-section); }
+    .related-posts { margin-top:48px;padding-top:28px;border-top:1px solid var(--border); }
+    .related-posts h2 { font-size:18px;font-weight:800;color:var(--text-primary);margin:0 0 16px; }
+    .related-grid { display:grid;grid-template-columns:1fr 1fr;gap:12px; }
+    .related-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:14px 16px;text-decoration:none;transition:all 0.15s;display:block; }
+    .related-card:hover { border-color:rgba(37,99,235,0.3);transform:translateY(-2px);box-shadow:0 4px 16px rgba(37,99,235,0.08); }
+    .rc-cat { font-size:10px;font-weight:800;color:var(--accent-blue);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px; }
+    .rc-title { font-size:14px;font-weight:700;color:var(--text-primary);line-height:1.4; }
+    code { background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"Courier New",monospace; }
+    @media (max-width:640px) {
+      .blog-page { padding:16px 16px 60px; }
+      .related-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>博客
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+  <main class="blog-page">
+    <div class="blog-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="index.html#article">博客</a><span>/</span>
+      <span>Clash完整配置教程</span>
+    </div>
+    <div class="blog-header">
+      <div class="blog-category">使用教程</div>
+      <h1>Clash 完整配置教程 2026：从下载到分流一次搞定</h1>
+      <div class="blog-meta">
+        <span>📅 2026-08-13</span>
+        <span>⏱ 8 分钟阅读</span>
+        <span>✍️ SpeedRank 编辑部</span>
+      </div>
+    </div>
+    <div class="blog-hero-img"><img src="img_network.jpg" alt="Clash 完整配置教程 2026：从下载到分流一次搞定" /></div>
+    <div class="blog-body">
+      <p>Clash 系客户端是 2026 年最主流的代理软件，支持 VLESS/Reality/Trojan 等全部新协议，且拥有强大的规则分流能力。本文覆盖 Windows（Clash Verge Rev）和 macOS（ClashX / Clash Verge Rev）的完整配置流程，适合新手从零开始。</p>
+
+      <div class="blog-callout callout-blue">
+        <span class="callout-icon">💡</span>
+        <div><strong>前置条件</strong>：已有一家机场账号并获取了订阅链接。还没有机场？查看 <a href="jichang-tuijian-2026.html" style="color:inherit;font-weight:700;">2026年机场推荐榜单</a> 选择合适的服务商。</div>
+      </div>
+
+      <h2>为什么选择 Clash 系客户端？</h2>
+      <ul>
+        <li><strong>协议支持最全</strong>：Shadowsocks / Vmess / VLESS / Trojan / Reality 全部支持</li>
+        <li><strong>规则分流最成熟</strong>：精细化分流规则，国内直连国外走代理，体验最好</li>
+        <li><strong>机场兼容性最高</strong>：99% 的机场都提供 Clash 格式订阅</li>
+        <li><strong>跨平台</strong>：Windows / macOS / Android / iOS（圈 X）全覆盖</li>
+      </ul>
+
+      <h2>2026 年推荐客户端</h2>
+      <table class="blog-table">
+        <thead><tr><th>系统</th><th>推荐客户端</th><th>特点</th></tr></thead>
+        <tbody>
+          <tr><td>Windows</td><td><strong>Clash Verge Rev</strong></td><td>基于 Tauri 的现代 UI，功能最全，首选</td></tr>
+          <tr><td>macOS</td><td><strong>Clash Verge Rev for Mac</strong></td><td>原生支持 Apple Silicon，性能出色</td></tr>
+          <tr><td>macOS（备选）</td><td>ClashX</td><td>轻量级，常驻状态栏，新手友好</td></tr>
+          <tr><td>Android</td><td>Clash Meta for Android</td><td>最新协议支持，免费开源</td></tr>
+          <tr><td>iOS</td><td>Quantumult X（圈 X）</td><td>付费，功能强大，Clash 格式兼容</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Windows 配置（Clash Verge Rev）</h2>
+
+      <h3>第一步：下载安装</h3>
+      <p>前往 <a href="tutorial-clash-verge-rev.html" style="color:var(--accent-blue);">Clash Verge Rev 教程页</a> 获取官方下载链接。Windows 用户下载 <code>.exe</code> 安装包，双击按提示安装即可。</p>
+
+      <h3>第二步：设置语言</h3>
+      <p>首次打开可能是英文界面，进入 <strong>Settings → General → Language</strong>，选择 <strong>zh-CN</strong>，重启软件生效。</p>
+
+      <h3>第三步：导入机场订阅</h3>
+      <p>① 登录机场后台，复制「Clash 订阅链接」（通常在「使用说明」或「一键订阅」里）。</p>
+      <p>② 打开 Clash Verge Rev，点击左侧「<strong>订阅</strong>」→ 右上角「导入」，粘贴链接 → 点击保存。</p>
+      <p>③ 等待软件自动下载并解析节点列表。</p>
+
+      <div class="blog-callout callout-yellow">
+        <span class="callout-icon">⚠️</span>
+        <div><strong>常见错误</strong>：订阅链接粘贴后点击导入没有反应？检查是否多了空格，或尝试关闭软件重新打开后导入。</div>
+      </div>
+
+      <h3>第四步：选择节点 + 测速</h3>
+      <p>点击左侧「<strong>代理</strong>」面板，顶部确保选择<strong>「规则」模式</strong>。点击右上角测速按钮（雷电图标），等待几秒出现延迟数字后，选择延迟最低的绿色节点。</p>
+
+      <h3>第五步：开启系统代理</h3>
+      <p>回到「<strong>设置</strong>」，找到「<strong>系统代理</strong>」开关，打开。状态栏图标变色后即可正常上网。</p>
+
+      <h3>进阶：TUN 模式</h3>
+      <p>如果需要代理游戏、终端（cmd/Terminal）等不走系统代理的程序，在设置中开启「<strong>TUN 模式</strong>」，点击安装服务模式（需要管理员权限），然后开启 TUN 开关。</p>
+
+      <h2>macOS 配置（Clash Verge Rev）</h2>
+      <p>macOS 版 Clash Verge Rev 配置步骤与 Windows 基本相同：下载 <code>.dmg</code> 文件 → 拖入应用程序 → 打开 → 导入订阅 → 开启系统代理。</p>
+      <p>注意：首次开启系统代理时，macOS 会弹出「允许更改网络设置」的确认框，点击「好」并输入开机密码即可。</p>
+
+      <h2>常见问题</h2>
+      <h3>开了代理但 YouTube 还是打不开？</h3>
+      <p>检查：① 代理模式是否为「规则」而非「直连」；② 所选节点是否有延迟数字（无数字 = 超时 = 不可用）；③ 尝试换同地区其他节点。</p>
+
+      <h3>国内 App（微信/淘宝）变慢了？</h3>
+      <p>代理模式误设为「全局」，改回<strong>「规则」模式</strong>即可，国内流量会自动直连。</p>
+
+      <h3>订阅更新失败？</h3>
+      <p>① 先关闭代理再更新订阅（避免死锁）；② 登录机场后台重新复制最新订阅链接覆盖旧链接。</p>
+
+      <div class="blog-callout callout-green">
+        <span class="callout-icon">✅</span>
+        <div><strong>配置完成检验</strong>：打开浏览器访问 <code>https://www.google.com</code>，能正常加载说明配置成功。如仍无法访问，检查上述步骤是否有遗漏。</div>
+      </div>
+    </div>
+    <div class="related-posts">
+      <h2>相关阅读</h2>
+      <div class="related-grid">
+        <a class="related-card" href="tutorial-clash-verge-rev.html">
+          <div class="rc-cat">软件教程</div>
+          <div class="rc-title">Clash Verge Rev 详细图文教程</div>
+        </a>
+        <a class="related-card" href="tutorial-shadowrocket.html">
+          <div class="rc-cat">软件教程</div>
+          <div class="rc-title">Shadowrocket（小火箭）iOS 配置教程</div>
+        </a>
+        <a class="related-card" href="blog-chatgpt-jichang.html">
+          <div class="rc-cat">使用教程</div>
+          <div class="rc-title">机场怎么用 ChatGPT？解锁完整指南</div>
+        </a>
+        <a class="related-card" href="jichang-tuijian-2026.html">
+          <div class="rc-cat">选购指南</div>
+          <div class="rc-title">2026年机场推荐榜单</div>
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

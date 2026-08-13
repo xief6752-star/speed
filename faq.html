@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机场使用常见问题 FAQ · SpeedRank 2026</title>
+  <meta name="description" content="2026年机场使用全面FAQ：机场原理、如何选购、节点延迟倍率解读、晚高峰卡顿解决、流媒体AI解锁、跑路防坑、故障排查等40+常见问题，分8大类详细解答。" />
+  <meta name="keywords" content="机场FAQ,机场常见问题,机场和VPN区别,机场怎么选,节点倍率,晚高峰卡顿,Netflix解锁,ChatGPT机场,机场跑路,IEPL专线,机场故障排查" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="机场使用常见问题 FAQ · SpeedRank 2026" />
+  <meta property="og:description" content="40+条机场使用常见问题，分8大类详细解答，覆盖入门概念、选购技巧、故障排查、流媒体解锁、跑路防坑等核心话题。" />
+  <meta property="og:url" content="https://jichangspeed.com/faq.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_guide.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="机场使用常见问题 FAQ · SpeedRank 2026" />
+  <meta name="twitter:description" content="40+条机场使用常见问题，分8大类详细解答。" />
+  <link rel="canonical" href="https://jichangspeed.com/faq.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .faq-page { max-width: 860px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .faq-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .faq-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .faq-page-header { margin-bottom: 40px; }
+    .faq-page-header h1 { font-size:clamp(26px,4vw,36px);font-weight:900;color:var(--text-primary);margin:0 0 14px;line-height:1.2; }
+    .faq-page-header p { font-size:16px;color:var(--text-secondary);line-height:1.7;margin:0 0 24px; }
+    .faq-cat-nav { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px; }
+    .faq-cat-btn { padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg-section);color:var(--text-secondary);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.15s; }
+    .faq-cat-btn:hover,.faq-cat-btn.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+    .faq-section { margin-bottom: 48px; }
+    .faq-section-title { font-size:20px;font-weight:800;color:var(--text-primary);margin:0 0 4px;padding-bottom:12px;border-bottom:2px solid var(--accent-blue);display:flex;align-items:center;gap:10px; }
+    .faq-section-count { font-size:12px;font-weight:600;background:var(--bg-section);color:var(--text-muted);padding:2px 8px;border-radius:10px;border:1px solid var(--border); }
+    .faq-list { margin-top:16px;display:flex;flex-direction:column;gap:8px; }
+    .faq-item { background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden; }
+    .faq-q { display:flex;justify-content:space-between;align-items:center;padding:16px 18px;cursor:pointer;font-size:14px;font-weight:700;color:var(--text-primary);transition:background 0.15s;gap:12px; }
+    .faq-q:hover { background:rgba(37,99,235,0.03); }
+    .faq-arrow { width:16px;height:16px;color:var(--text-muted);transition:transform 0.2s;flex-shrink:0; }
+    .faq-item.open .faq-arrow { transform:rotate(180deg); }
+    .faq-a { max-height:0;overflow:hidden;transition:max-height 0.3s ease; }
+    .faq-item.open .faq-a { padding-bottom:16px; }
+    .faq-item .faq-a { padding:0 18px;font-size:14px;color:var(--text-secondary);line-height:1.85; }
+    .faq-a a { color:var(--accent-blue);text-decoration:none;font-weight:600; }
+    .faq-a strong { color:var(--text-primary); }
+    .faq-callout { background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius-md);padding:16px 20px;margin:32px 0 0;font-size:14px;color:#1e40af;line-height:1.7; }
+    .faq-stats { display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:32px; }
+    .faq-stat { background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center; }
+    .faq-stat-num { font-size:28px;font-weight:900;color:var(--accent-blue);font-family:'JetBrains Mono',monospace; }
+    .faq-stat-label { font-size:11px;color:var(--text-muted);font-weight:600;margin-top:4px; }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='index.html#article'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>机场科普
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="faq-page">
+    <div class="faq-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>机场问题库</span>
+    </div>
+    <div class="faq-page-header">
+      <h1>机场使用常见问题 FAQ</h1>
+      <p>收录 82 条高频问题，分 16 大类系统解答，从入门概念到进阶技巧，帮你快速找到答案。</p>
+      <div class="faq-stats">
+        <div class="faq-stat"><div class="faq-stat-num">82</div><div class="faq-stat-label">问题总数</div></div>
+        <div class="faq-stat"><div class="faq-stat-num">16</div><div class="faq-stat-label">分类</div></div>
+        <div class="faq-stat"><div class="faq-stat-num">2026</div><div class="faq-stat-label">最新更新</div></div>
+      </div>
+      <nav class="faq-cat-nav">
+        <a class="faq-cat-btn active" href="#basics">基础概念</a>
+        <a class="faq-cat-btn" href="#choose">选购指南</a>
+        <a class="faq-cat-btn" href="#nodes">节点与线路</a>
+        <a class="faq-cat-btn" href="#unlock">流媒体&AI解锁</a>
+        <a class="faq-cat-btn" href="#trouble">故障排查</a>
+        <a class="faq-cat-btn" href="#security">安全与隐私</a>
+        <a class="faq-cat-btn" href="#billing">套餐与计费</a>
+        <a class="faq-cat-btn" href="#antiscam">防跑路指南</a>
+        <a class="faq-cat-btn" href="#clients">客户端配置</a>
+        <a class="faq-cat-btn" href="#advanced">进阶技巧</a>
+        <a class="faq-cat-btn" href="#scenarios">使用场景</a>
+        <a class="faq-cat-btn" href="#account">注册与账号</a>
+        <a class="faq-cat-btn" href="#protocol-deep">协议技术</a>
+        <a class="faq-cat-btn" href="#special">特殊场景</a>
+        <a class="faq-cat-btn" href="#ranking">榜单甄别</a>
+        <a class="faq-cat-btn" href="#misc">其他疑问</a>
+      </nav>
+    </div>
+
+    <!-- ① 基础概念 -->
+    <section class="faq-section" id="basics">
+      <h2 class="faq-section-title">🧩 基础概念 <span class="faq-section-count">6 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场是什么？为什么叫"机场"？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">「机场」是国内用户对代理/翻墙服务商的俗称。得名于比喻——数据就像乘坐飞机一样，从国内"飞"到境外服务器再到达目的地网站。本质上是基于 Shadowsocks、VLESS、Trojan 等协议的订阅制网络代理服务，通过加密隧道绕过网络封锁，访问 Google、YouTube、ChatGPT 等被限制的资源。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场和 VPN 有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">最核心的区别在于<strong>协议和抗封锁能力</strong>。VPN 通常使用 OpenVPN/WireGuard 协议，流量特征明显，容易被 GFW 识别和封锁。机场使用专门为翻墙设计的协议（Trojan/VLESS/Reality），流量伪装成正常 HTTPS 流量，抗封锁性更强。此外，机场通常支持按节点分流，国内直连国外走代理，不影响国内访问速度。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是节点？订阅链接是什么？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">「节点」是指机场提供的境外服务器，每个节点有对应的地区（香港/日本/美国等）、协议和速度。「订阅链接」是一个以 <code>https://</code> 开头的 URL，里面包含了你账户下所有节点的配置信息。将订阅链接导入 Clash 或 Shadowrocket 等客户端后，客户端会自动解析出全部节点供你选择使用。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>IEPL、IPLC、CN2、BGP 分别是什么？有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">这些都是机场使用的<strong>线路类型</strong>，决定了速度和稳定性：<br/><br/>
+          <strong>IEPL/IPLC 专线</strong>：国际以太网专用线路，完全不经过公网，延迟极低（10-30ms），晚高峰不受拥堵影响，是最高端的线路，价格相对较高。<br/>
+          <strong>CN2 GIA</strong>：中国电信优质出口线路，稳定性好，晚高峰表现优秀，性价比高。<br/>
+          <strong>BGP 中转</strong>：国内中转服务器汇聚多运营商流量，兼容三网，成本较低，速度适中。<br/>
+          <strong>普通公网中转</strong>：成本最低，但晚高峰受 QoS 影响大，速度波动明显。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Shadowsocks、Trojan、VLESS、Reality 协议有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">从旧到新、从易检测到难检测：<br/>
+          <strong>Shadowsocks（SS）</strong>：最经典，速度快，但流量特征已被 GFW 识别，抗封锁能力一般。<br/>
+          <strong>Vmess</strong>：V2Ray 主协议，安全性好，但包头有特征，易被主动探测。<br/>
+          <strong>Trojan</strong>：将流量伪装成 HTTPS，伪装性强，是目前主流方案之一。<br/>
+          <strong>VLESS + Reality</strong>：最新一代，借用真实网站的 TLS 证书指纹，连主动探测都无法区分，是目前<strong>最难被封锁的协议</strong>。2026年推荐优先选择支持 Reality 协议的机场。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是"分流"？规则模式和全局模式有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">「分流」是指让代理客户端自动判断哪些流量走代理、哪些直连。<br/><br/>
+          <strong>规则模式（Rule）</strong>：智能分流，访问国内网站（淘宝、微信）直连，访问被封锁的网站（Google、YouTube）走代理。这是<strong>推荐模式</strong>，既不影响国内访问速度，也能正常访问境外资源。<br/>
+          <strong>全局模式（Global）</strong>：所有流量都走代理，会导致访问国内网站也变慢，一般只在特殊情况下使用。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 选购指南 -->
+    <section class="faq-section" id="choose">
+      <h2 class="faq-section-title">🛒 选购指南 <span class="faq-section-count">6 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>新手怎么选择第一家机场？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">新手建议遵循以下策略：<br/>① <strong>月付起步</strong>：先买月付小额套餐体验 1-2 个月，满意后再转年付，损失可控。<br/>② <strong>选专线机场</strong>：IEPL/CN2 GIA 线路晚高峰不降速，体验远好于普通中转。<br/>③ <strong>预算参考</strong>：轻度用户（刷推特/YouTube）¥20-40/月足够；高频使用建议 ¥40-80/月。<br/>④ <strong>备用策略</strong>：同时订阅 2 家，主力机场遇问题立即切换，避免断网。<br/><br/>可参考本站 <a href="jichang-tuijian-2026.html">2026年机场推荐榜单</a> 选择测评过的机场。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>¥10 以下的超低价机场可以用吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">风险极高，<strong>强烈不推荐</strong>。机场的硬成本（服务器、专线带宽）已经不低，月费低于 ¥10 意味着成本无法覆盖，运营者通常会通过以下方式变现：卖用户流量数据、限速到无法使用、跑路圈钱。¥20-80/月 是性价比最佳的价格区间，既能保证服务质量，运营者也有动力长期维护。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>年付套餐值不值得买？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">值，但要有前提条件：<strong>月付至少用了 2-3 个月且稳定满意后</strong>再转年付。年付通常折扣在 20-40%，折算月均价更划算。<br/><br/>切忌：新上线机场直接买年付，或被大力促销诱导买 2 年付——这是跑路机场的常见套路。运营超过 1 年的机场买年付才相对安全。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>香港、日本、美国、新加坡节点分别适合什么场景？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">
+          <strong>香港节点</strong>：延迟最低（10-30ms），适合实时游戏、语音通话、低延迟业务，但无法访问部分美区限定内容。<br/>
+          <strong>日本节点</strong>：Netflix 日本区、Disney+ 日本区、Amazon Prime JP 的优选，延迟适中（50-80ms）。<br/>
+          <strong>美国节点</strong>：ChatGPT、Claude、Hulu、HBO Max 等美区服务的必选，解锁能力最强，但延迟较高（150-200ms）。<br/>
+          <strong>新加坡节点</strong>：综合性价比好，延迟较低（60-100ms），流媒体解锁能力强，东南亚用户首选。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是"节点倍率"？怎么计算实际消耗流量？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">节点倍率是指使用某个节点时，实际扣除流量 = 实际传输流量 × 倍率。例如你套餐有 100G 流量，使用倍率为 2 的香港节点传输 1G 数据，实际扣除 2G 流量。<br/><br/>热门节点（香港/日本/美国）通常倍率最高，有些机场高达 3-5 倍，这是隐形扣费陷阱。<strong>优先选择节点倍率统一 1 倍的机场</strong>，如本站推荐的云图机场，透明计费无隐藏扣费。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场支持几台设备同时使用？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">大部分机场的同时在线设备数为 3-5 台，部分高端套餐不限设备数。购买前注意查看套餐说明。家庭共用建议选择设备数 ≥5 的套餐，或选择路由器级别的部署方式让全家设备共享一个连接。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ 节点与线路 -->
+    <section class="faq-section" id="nodes">
+      <h2 class="faq-section-title">🌐 节点与线路 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>为什么晚上（晚高峰）速度很慢？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">晚高峰（20:00-23:00）是国际出口带宽最拥挤的时段。使用公网中转的机场，流量要经过国内出口骨干网，在这段时间会遭遇严重拥堵和 QoS 降速。<br/><br/><strong>解决方案</strong>：选择 IEPL/IPLC 专线机场，因为专线走独立物理链路，不经过公网出口，完全不受晚高峰影响。本站测速数据包含晚高峰时段实测，可作为参考。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>延迟（ms）多少才算正常？影响什么？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">
+          <strong>30ms 以下</strong>：极低延迟，适合实时游戏、视频会议。<br/>
+          <strong>30-100ms</strong>：正常范围，刷网页、看视频、用 ChatGPT 完全无感知。<br/>
+          <strong>100-200ms</strong>：轻微延迟，看视频正常，实时游戏会有轻微卡顿感。<br/>
+          <strong>200ms 以上</strong>：明显延迟，不适合实时应用，但基础上网仍可接受。<br/><br/>注意：延迟影响响应速度，而非下载速度。看视频更关注下载速率，玩游戏更关注延迟。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>节点显示"超时"或"连接失败"怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">排查步骤：<br/>① <strong>更新订阅</strong>：先在客户端强制刷新订阅，机场会推送新节点替换失效节点。<br/>② <strong>换节点</strong>：同地区通常有多个备用节点，切换到其他节点尝试。<br/>③ <strong>换地区</strong>：如香港节点全超时，尝试日本或新加坡节点。<br/>④ <strong>检查时间</strong>：如果是晚高峰（20-23点），公网中转机场的节点可能普遍卡顿，属正常现象，等待或换专线节点。<br/>⑤ <strong>联系客服</strong>：如果大量节点长时间超时，可能是机场服务器故障，通过 TG 群或工单反馈。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>订阅链接失效/更新失败怎么处理？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">订阅链接更新失败通常有以下原因：<br/>① <strong>订阅链接本身过期</strong>：登录机场后台，重新复制最新的订阅链接，覆盖客户端中的旧链接。<br/>② <strong>更新时需先连上网</strong>：部分客户端设置了"通过代理更新订阅"，如果代理本身不通，会死锁。在客户端设置中改为"直接更新"或临时关闭代理后再更新。<br/>③ <strong>机场后台域名被封</strong>：机场通常有备用订阅地址，在机场 TG 群或公告里查找。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>移动、联通、电信哪个运营商用机场效果更好？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">整体来看：<strong>电信 &gt; 联通 &gt; 移动</strong>，电信国际出口带宽最充裕，CN2 GIA 线路也是电信旗下产品。移动的国际出口相对紧张，晚高峰体验最差。<br/><br/>好消息是，使用 <strong>IEPL/IPLC 专线机场</strong>时，三网差距几乎消失——专线走独立通道，运营商出口对其没有影响。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ 流媒体与AI解锁 -->
+    <section class="faq-section" id="unlock">
+      <h2 class="faq-section-title">🎬 流媒体 &amp; AI 解锁 <span class="faq-section-count">6 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场能看 Netflix 吗？需要什么条件？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">部分机场可以，关键在于节点是否具备<strong>Netflix 原生 IP</strong>。Netflix 会检测代理 IP，仅允许原生（非数据中心）IP 访问完整内容库。<br/><br/>选购时注意：① 查看机场是否明确标注「Netflix 解锁」；② 最优选美国、日本、香港的专属解锁节点；③ 用 <code>https://ipleak.net</code> 验证 IP 类型。<strong>普通公网中转节点大多无法解锁 Netflix</strong>，IEPL 专线机场的解锁节点成功率更高。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场能用 ChatGPT 吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">大部分机场都支持 ChatGPT，但需要注意：<br/>① ChatGPT 屏蔽了大量数据中心 IP（<code>Your access was flagged</code> 提示），需要节点具备<strong>原生 IP 或住宅 IP</strong>。<br/>② 优先选择美国或欧洲节点，因为 ChatGPT 在部分亚洲地区的 IP 限制更严格。<br/>③ 如果出现封锁，尝试切换同地区其他节点，或选择带「AI 解锁」标注的专用节点。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Disney+、YouTube Premium 可以解锁吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>Disney+</strong>：可以解锁，标注「Disney+ 解锁」的节点即可。优选日本、美国节点，日本区内容最丰富。<br/><br/><strong>YouTube Premium</strong>：有 YouTube Premium 账号的话，连上机场直接可用，无特殊解锁要求，YouTube 对代理 IP 宽容度较高。连接到物价较低地区（如菲律宾、土耳其节点）还可以用当地更便宜的价格订阅 Premium。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Spotify 解锁地区怎么选？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">Spotify 对 IP 检测较宽松，大部分机场节点都能正常使用。注意：Spotify 的账号地区是注册时确定的，修改需要在对应地区的 IP 下进行。<br/><br/>想要低价订阅 Spotify Premium，可以选择土耳其、阿根廷、菲律宾等节点，在当地价格注册账号（比国内价格低 60-80%）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>TikTok（国际版）需要什么节点？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">TikTok 需要<strong>海外原生 IP</strong>，数据中心 IP 基本被封锁。优先选择机场中标注「TikTok 解锁」或「原生 IP」的美国、日本、东南亚节点。另外，设备本身也需要安装国际版 TikTok 应用（在美区/港区 App Store 或直接用 APK 安装）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>为什么有时候解锁节点突然不能用了？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">流媒体平台会持续检测并封锁代理 IP，这是常态。解锁节点的 IP 被封后，机场方需要更换新 IP。<strong>更新订阅</strong>通常能获取到最新可用的解锁节点。如果更新后仍无法解锁，可以向机场客服反馈或在 TG 群询问其他用户的可用节点。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑤ 故障排查 -->
+    <section class="faq-section" id="trouble">
+      <h2 class="faq-section-title">🔧 故障排查 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>开了代理但还是访问不了 Google/YouTube，怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">按以下步骤排查：<br/>① 确认软件已<strong>开启系统代理</strong>（Clash：系统代理开关为蓝色；Shadowrocket：顶部开关已拨向右侧）。<br/>② 确认已<strong>选中节点</strong>（不是「直连」），节点旁有延迟数字才说明连通。<br/>③ 确认<strong>代理模式</strong>是「规则」而非「直连」。<br/>④ 尝试访问 <code>https://www.google.com</code>（带 https）而非 <code>google.com</code>。<br/>⑤ 重启软件和系统代理。<br/>⑥ 更换节点，某些节点可能已失效。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>使用代理后国内网站（淘宝/微信）变慢怎么解决？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">这是因为代理模式设置为<strong>全局模式</strong>，所有流量包括国内网站都走代理绕了一圈。解决方法：将代理模式改为<strong>规则模式（Rule）</strong>或「绕过大陆」模式，国内 IP 直连，国外 IP 走代理。具体操作：Clash 点击「代理」面板中的规则标签；Shadowrocket 在「全局路由」中选择「配置」模式。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场官网打不开/登录不了怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">机场官网被封是常有的事，正规机场都会提供备用域名：<br/>① 查看购买时收到的邮件，通常包含备用地址。<br/>② 加入机场的 Telegram 群，管理员会在封号时第一时间公布新域名。<br/>③ 临时：连上另一家机场节点后，再访问原来机场的官网。<br/>④ 如果所有备用地址都失效超过 48 小时，需警惕机场是否已跑路。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>手机切换 WiFi 后代理失效/断开怎么解决？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">系统代理是基于网络连接配置的，切换 WiFi 后代理设置不会自动迁移到新网络。解决方案：<br/>① <strong>iOS Shadowrocket</strong>：连接成功后会有「VPN 钥匙」常驻状态栏，切换 WiFi 后应自动重连。如不自动，点一下重连按钮。<br/>② <strong>Android v2rayNG</strong>：确保开启了「持久性 VPN」选项。<br/>③ <strong>PC Clash</strong>：每次换网络后，若系统代理失效，重新打开 Clash 的「系统代理」开关。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>流量为什么消耗得这么快？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">常见原因：<br/>① <strong>高倍率节点</strong>：使用倍率 2-3 的节点时，实际扣费是传输量的2-3倍。检查所用节点的倍率。<br/>② <strong>全局模式</strong>：连国内视频（B站、爱奇艺）也走代理，浪费流量。切换为规则模式。<br/>③ <strong>后台应用</strong>：手机后台 App（TikTok、YouTube 预加载）持续消耗。不用时关闭代理开关。<br/>④ <strong>4K 视频</strong>：1 小时 4K 内容约消耗 7-15GB，注意套餐流量规划。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑥ 安全与隐私 -->
+    <section class="faq-section" id="security">
+      <h2 class="faq-section-title">🔒 安全与隐私 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>使用机场安全吗？会不会泄露隐私？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">协议层面，数据传输是<strong>加密</strong>的，但有两点需要注意：<br/>① 机场运营商理论上可以看到你访问的<strong>域名（不是内容）</strong>。因此不建议通过代理登录敏感账号（银行、政务），这些本就无需代理。<br/>② 选择信誉好、<strong>承诺无日志政策</strong>、运营时间长的机场，比新上线的便宜机场更可靠。<br/><br/>总体来说，使用知名机场的风险，远小于使用免费机场（免费机场有更强动机记录和出售流量数据）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>订阅链接泄露了怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">订阅链接相当于账户密钥，泄露后他人可以使用你的流量。<strong>立即</strong>登录机场后台，在「我的订阅」或「账户设置」中<strong>重置订阅链接</strong>，旧链接会立即失效。然后在你的所有设备上更新为新的订阅链接。不要将订阅链接发给任何人或发布到公开平台。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>使用机场时有什么风险需要注意？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">主要注意事项：<br/>① <strong>不要在代理状态下访问国内银行、税务等涉及敏感实名信息的网站</strong>，这些网站会因境外 IP 触发风控。<br/>② <strong>不要用代理绕过平台的地区限制购买商品</strong>（如低价地区的软件订阅），可能被平台封号。<br/>③ 代理不是完全匿名的，机场运营商可以看到连接域名，不要将其用于任何违法活动。<br/>④ 避免使用免费机场，它们的盈利模式往往不透明。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>免费机场安全吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>不推荐</strong>。免费机场的盈利来源不透明，高度存在以下风险：<br/>① 记录并出售用户的流量数据（浏览的域名、使用习惯）。<br/>② 强制流量经过广告拦截/注入服务。<br/>③ 限速严重、节点极少、随时失效。<br/><br/>¥20/月的付费专线机场是更合理的选择，运营成本透明，服务有保障。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场客户端会不会扫描我的文件或账号密码？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">知名开源客户端（Clash Verge Rev、v2rayN、Shadowrocket）代码公开，不存在此类行为。风险在于<strong>来源不明的客户端</strong>——某些仿冒的"一键安装包"可能捆绑恶意软件。<strong>务必从官方 GitHub 仓库或机场官方提供的下载链接获取客户端</strong>，不要从非官方渠道下载。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑦ 套餐与计费 -->
+    <section class="faq-section" id="billing">
+      <h2 class="faq-section-title">💰 套餐与计费 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>月付还是年付？哪种更划算？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>新用户：月付起步</strong>。先月付体验 2-3 个月，确认速度稳定、客服响应及时、不限速后再转年付。<br/><br/><strong>老用户：年付更划算</strong>。年付通常折扣 20-40%，折算月均价更低。但要确认机场已稳定运营超过 1 年再购买，避免年付期间跑路损失。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>流量包买多少合适？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">参考用量估算：<br/>
+          <strong>轻度用户</strong>（偶尔查资料、刷推特）：50-100G/月足够<br/>
+          <strong>中度用户</strong>（每天刷 YouTube、视频会议）：200-400G/月<br/>
+          <strong>重度用户</strong>（4K 视频、长时间在线、多设备）：500G/月 以上<br/><br/>建议选择比预估用量稍大的套餐，避免临近月末流量告急。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>流量到月底用完了怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">大部分机场在流量耗尽后会直接限速或断网，等待下月自动重置。如果急需流量，可以：① 在机场后台购买额外流量包（通常按 GB 单买）；② 临时切换到备用机场；③ 下个月起订阅更大流量套餐。部分机场支持流量结转，未用完的流量可以带到下月，购买时留意套餐说明。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>优惠码怎么用？去哪找？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">优惠码通常在结账页面有专门的输入框，填入后点击应用即可自动减价。获取途径：① 本站机场评测文章（每篇都附有最新优惠码）；② 机场官方 Telegram 频道；③ 节假日促销期间机场后台首页弹窗。注意优惠码通常有有效期，过期后无法使用。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>支持哪些支付方式？没有信用卡怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">国内机场普遍支持：<strong>支付宝、微信支付</strong>（无需信用卡）。部分机场还支持 USDT 等加密货币支付，适合匿名购买。如果机场只支持 PayPal 或外币信用卡，通常意味着这是面向国际用户的服务商，可能不针对国内用户优化。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑧ 防跑路指南 -->
+    <section class="faq-section" id="antiscam">
+      <h2 class="faq-section-title">⚠️ 防跑路指南 <span class="faq-section-count">4 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>如何识别高跑路风险的机场？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">7 大危险信号：<br/>① <strong>价格异常低</strong>：月费低于 ¥10，成本根本无法覆盖<br/>② <strong>无任何联系方式</strong>：没有 TG 群、邮件、工单系统<br/>③ <strong>强推超长年付</strong>：刚上线就主推 2 年付，拒绝月付<br/>④ <strong>网站/域名频繁更换</strong>：正规机场域名会长期稳定<br/>⑤ <strong>无法找到任何用户评价</strong>：搜索引擎、TG 群几乎没有真实用户反馈<br/>⑥ <strong>承诺"永久不限速/不限流"</strong>：不符合运营逻辑，通常是噱头<br/>⑦ <strong>上线不超过 3 个月就大规模促销</strong>：圈钱逃跑的常见操作</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场跑路了怎么办？能追回损失吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">支付宝付款：在跑路后 <strong>15 天内</strong>可以申请退款/投诉，超出时间窗口追回难度大幅增加。微信支付类似，尽快联系微信客服。<br/><br/>这也是为什么强烈建议<strong>月付</strong>而非年付——月付最多损失一个月的费用，年付可能损失全年。另外同时备用 2 家机场，主力跑路时立即切换，不影响日常使用。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>安全机场有哪些特征？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">可信机场通常具备：<br/>✅ <strong>运营时间超过 1 年</strong>，有稳定用户口碑<br/>✅ 价格合理（¥20-80/月），成本覆盖充裕<br/>✅ 有活跃的 <strong>TG 群</strong>，管理员在线响应<br/>✅ 支持月付，不强迫年付<br/>✅ 节点稳定，有历史在线率数据<br/>✅ 明确的联系方式和工单系统<br/>✅ 测评平台（如本站）有真实数据背书</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>用机场"备用策略"是什么？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">最佳实践：<strong>同时订阅 2 家机场</strong>，一主一备。主力机场选性价比高的专线机场（速度优先），备用机场选价格较低的中转机场（成本控制）。主力机场遇到大规模节点失效、跑路、被封时，立即切换到备用机场，全程不断网。<br/><br/>两家机场合计月费通常在 ¥30-60 左右，是非常合理的成本。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑨ 客户端与配置 -->
+    <section class="faq-section" id="clients">
+      <h2 class="faq-section-title">📱 客户端与配置 <span class="faq-section-count">6 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>2026年各平台推荐什么客户端？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">
+          <strong>Windows</strong>：Clash Verge Rev（首选，功能最全）/ v2rayN（轻量备选）<br/>
+          <strong>macOS</strong>：Clash Verge Rev for Mac / ClashX（轻量）<br/>
+          <strong>iOS</strong>：Shadowrocket「小火箭」（¥2.99，美区购买）/ Quantumult X「圈X」（进阶）<br/>
+          <strong>Android</strong>：Clash Meta for Android / v2rayNG（免费开源）<br/>
+          <strong>路由器</strong>：OpenWrt + PassWall / ShellClash（全家代理）<br/><br/>
+          所有平台首选支持 <strong>VLESS + Reality</strong> 协议的客户端，抗封锁性最强。查看 <a href="tutorial-clash-verge-rev.html" style="color:var(--accent-blue);">Clash Verge Rev 详细教程</a>。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是 Clash 规则（Rule）？怎么理解分流逻辑？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">Clash 规则是一套判断流量走向的配置文件，决定哪些网址走代理、哪些直连。规则按优先级从上往下匹配：<br/><br/>
+          <strong>DOMAIN-SUFFIX,google.com,Proxy</strong> → 所有 google.com 子域名走代理<br/>
+          <strong>GEOIP,CN,DIRECT</strong> → 国内 IP 直连<br/>
+          <strong>MATCH,Proxy</strong> → 其余全部走代理<br/><br/>
+          订阅链接里通常包含机场提供的规则文件，导入后自动生效。推荐使用 <strong>Loyalsoldier/clash-rules</strong> 开源规则集，覆盖率更全。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>sing-box 和 Clash 有什么区别？要不要换？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">sing-box 是新一代代理内核，优点是支持协议更新最快（最先支持 VLESS-Reality 等新协议），内存占用低，性能好。缺点是配置格式为 JSON，手动配置门槛较高。<br/><br/>
+          <strong>普通用户</strong>：无需切换，Clash Verge Rev 已经基于 clash-meta 内核，支持全部新协议，够用。<br/>
+          <strong>进阶用户</strong>：如果你的机场订阅提供 sing-box 格式配置，可以用 NekoBox（Windows/Android）或 SFI（iOS）体验 sing-box。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>怎么让整个家庭（路由器）都走代理？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">路由器级代理（全家透明代理）需要在路由器上运行代理客户端。主流方案：<br/><br/>
+          <strong>① 刷 OpenWrt 固件</strong>：安装 PassWall / SSR+ 插件，填入订阅链接即可让连接路由器的所有设备共享代理。<br/>
+          <strong>② ShellClash</strong>：无需刷机，SSH 进入路由器一键安装，支持大多数常见路由器型号。<br/>
+          <strong>③ 软路由</strong>：购买 N100 等 x86 软路由主机，稳定性和性能最好，适合有折腾欲望的用户。<br/><br/>
+          注意：路由器部署后，所有设备流量都经代理出口，确保机场套餐流量充足。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>订阅链接格式有哪几种？有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">常见订阅格式：<br/><br/>
+          <strong>Clash 格式（.yaml）</strong>：最通用，Clash/Clash Verge/ClashX 直接导入，包含节点+规则+策略组，功能最完整。<br/>
+          <strong>Base64/通用订阅</strong>：v2rayN、Shadowrocket 使用，只包含节点列表，没有规则。<br/>
+          <strong>sing-box 格式（.json）</strong>：新格式，NekoBox 等使用，协议兼容性最好。<br/>
+          <strong>SIP002（ss://）</strong>：老格式，只支持 Shadowsocks 节点。<br/><br/>
+          机场后台通常会提供多种格式，按你使用的客户端选择对应格式即可。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>Clash Verge Rev 开机自启，但 Windows 开机时代理不生效怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">这是 Clash Verge Rev 已知问题，系统代理在开机时比 Clash 启动得早，导致代理设置没有自动应用。解决方案：<br/>① 在 Clash Verge Rev 设置中开启「<strong>开机自启并延迟启动</strong>」（推迟 5-10 秒）；<br/>② 或者开机后手动点击一次系统代理开关（关再开）；<br/>③ 进阶方案：启用 TUN 模式，TUN 模式不依赖系统代理，开机即生效。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑩ 进阶技巧 -->
+    <section class="faq-section" id="advanced">
+      <h2 class="faq-section-title">⚙️ 进阶技巧 <span class="faq-section-count">7 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是倍率？节点倍率 0.5 和 2 有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">节点倍率决定了流量消耗的乘数：<br/><br/>
+          <strong>倍率 0.5</strong>：使用该节点传输 2GB 数据，只扣除套餐 1GB 流量（省流节点）<br/>
+          <strong>倍率 1</strong>：传多少扣多少，1:1 计算（标准）<br/>
+          <strong>倍率 2</strong>：传输 1GB 数据，扣除套餐 2GB 流量（高倍节点）<br/><br/>
+          很多机场香港/日本/美国等热门节点倍率为 1.5-3，而冷门节点倍率 0.5，但冷门节点速度未必差。查看节点名称里的「x0.5」「x2」等标注。本站推荐优先选择<strong>节点倍率统一 1 倍</strong>的机场（如云图机场），避免隐性扣费。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是 UDP 转发？游戏需要开启吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">游戏通常使用 UDP 协议传输数据（比 TCP 延迟更低）。默认情况下，Clash 等客户端只代理 TCP 流量，UDP 流量直连（走本地网络）。<br/><br/>
+          如果你想通过代理玩海外游戏（降低延迟或访问海外服）：<br/>① 在 Clash 设置中开启「<strong>UDP 转发</strong>」；<br/>② 确保你的机场节点支持 UDP（Trojan/VLESS 协议通常支持，部分 SS 节点不支持）；<br/>③ 使用 TUN 模式可以最完整地捕获 UDP 流量。<br/><br/>
+          注意：开启 UDP 转发会增加流量消耗（游戏数据也计入套餐流量）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>多个机场订阅能合并使用吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">可以，通过 <strong>Sub-Store</strong>（订阅转换工具）可以将多个订阅链接合并成一个，在 Clash 中同时显示所有机场的节点。操作步骤：<br/>① 在 GitHub 部署 Sub-Store 或使用公共实例；<br/>② 导入多个订阅链接，设置节点去重/排序规则；<br/>③ 将 Sub-Store 生成的新链接导入 Clash，即可看到所有机场节点。<br/><br/>
+          <strong>注意</strong>：不同机场的流量是分别计算的，合并显示不代表流量共用。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是「自动选择」策略组？怎么用？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">「自动选择」（url-test）策略组会定期测试所有节点的延迟，自动选用延迟最低的节点，无需手动切换。<br/><br/>
+          启用方法：在 Clash 的「代理」面板中，找到「自动选择」策略组，点击选中。软件会每隔一段时间（默认 180 秒）自动测速并切换到最优节点。<br/><br/>
+          <strong>建议</strong>：自动选择按延迟排序，但延迟低不等于速度快。如果你在看 4K 视频，手动选择速度更快的节点（通常是 IEPL 专线节点）比自动选择更稳定。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>如何测试机场节点是否能访问 Netflix / ChatGPT？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">快速验证工具：<br/><br/>
+          <strong>Netflix 解锁检测</strong>：访问 <code>https://www.netflix.com/title/81280792</code>，如果能播放说明当前节点解锁 Netflix。<br/>
+          <strong>ChatGPT 检测</strong>：直接访问 <code>https://chat.openai.com</code>，看是否出现「Access denied」。<br/>
+          <strong>IP 类型检测</strong>：访问 <code>https://ipinfo.io</code> 查看 IP 归属，标注「hosting」通常是数据中心 IP，可能被 Netflix/OpenAI 封锁。<br/>
+          <strong>综合解锁检测脚本</strong>：<code>bash &lt;(curl -L -s check.unlock.media)</code>（在支持终端的设备上运行）。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场节点速度测试结果和实际使用速度不一样，为什么？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">测速工具（Speedtest / Fast.com）测的是「该测速服务器和代理节点之间的速度」，受多种因素影响，和实际使用速度有差距：<br/><br/>
+          ① <strong>测速服务器位置</strong>：Speedtest 选择的服务器可能在节点旁边，显示虚高速度<br/>
+          ② <strong>单连接 vs 多连接</strong>：测速通常是多连接并发，实际看视频是单连接<br/>
+          ③ <strong>时段差异</strong>：测速在下午，实际使用在晚高峰，速度差异很大<br/><br/>
+          <strong>更准确的测试</strong>：在晚高峰（20-23点）直接播放 YouTube 1080P 视频，看是否流畅，才是真实体验指标。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场节点 IP 被 Google 验证码轰炸怎么解决？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">这是因为当前节点出口 IP 被大量用户共享，Google 判定该 IP 有异常访问行为，触发人机验证。解决方法：<br/>① <strong>换节点</strong>：切换到同地区其他节点，不同节点出口 IP 不同<br/>② <strong>换地区</strong>：不同地区的 IP 被 Google 信任程度不同，日本/香港节点通常验证码较少<br/>③ <strong>登录 Google 账号</strong>：有账号登录状态比游客状态触发验证码概率低很多<br/>④ <strong>选择精品小机场</strong>：用户少的机场 IP 更「干净」，触发验证码概率更低（如 Orbital 这类精品机场）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑪ 使用场景 -->
+    <section class="faq-section" id="scenarios">
+      <h2 class="faq-section-title">🎯 使用场景推荐 <span class="faq-section-count">3 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>留学生/海外华人用机场访问国内网站，应该怎么选？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">海外访问国内网站（爱奇艺、优酷、微信支付等）与国内翻墙方向相反，需要通过「回国专线」。这和普通机场是不同的服务：<br/><br/>
+          <strong>回国专线推荐</strong>：专门的回国加速服务（如 Ott Speed、蜻蜓加速等），节点在国内，帮你穿透海外网络访问中国服务。<br/><br/>
+          本站收录的机场主要服务于国内用户翻墙出去，不适合用于海外回国访问。如有回国需求，请单独寻找「回国专线」产品。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>外贸/跨境电商使用机场有什么注意事项？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">外贸用户对稳定性和特定地区节点要求较高，建议：<br/><br/>
+          ① <strong>选择专线机场</strong>（IEPL/商业专线），确保工作时间内连接稳定，不因晚高峰降速影响业务<br/>
+          ② <strong>选有目标市场节点的机场</strong>：做欧洲市场选有英/德/法节点的；做北美市场选美国节点；做日本市场选日本节点<br/>
+          ③ <strong>避免在平台账号登录时频繁切换节点</strong>：Amazon/eBay/Google Ads 等平台会检测 IP 变化，频繁切换可能触发账号安全验证<br/>
+          ④ 建议商务用途选择精品小机场（IP 更干净），或选择专用静态 IP 服务</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>游戏加速和机场有什么区别？打游戏用机场好还是用游戏加速器好？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">两者定位不同：<br/><br/>
+          <strong>游戏加速器</strong>（奇游、UU、雷神等）：专门为降低游戏延迟优化，针对特定游戏服务器做路由优化，对游戏延迟改善效果更好，但不能用于翻墙访问 Google/YouTube。<br/><br/>
+          <strong>机场</strong>：通用代理，能翻墙访问所有境外服务。用机场打游戏可行，但延迟优化不如专业游戏加速器针对性强。<br/><br/>
+          <strong>建议</strong>：如果主要需求是打游戏，优先选游戏加速器；如果同时需要翻墙 + 偶尔打海外游戏，可以只用机场（选 IEPL 专线低延迟节点）。</div>
+        </div>
+      </div>
+    </section>
+
+    </section>
+
+    <!-- ⑫ 注册与账号 -->
+    <section class="faq-section" id="account">
+      <h2 class="faq-section-title">🔑 注册与账号 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>注册机场账号需要实名认证吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">大部分主流机场<strong>只需要邮箱注册</strong>，无需手机号或身份证。部分机场要求邮箱验证，极少数要求手机号。建议使用非国内邮箱（Gmail / Protonmail）注册，以便在国内邮件服务商出现访问问题时仍能收到验证码和续费通知。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>一个账号可以在几台设备上同时使用？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">各机场规定不同，通常为 <strong>3-5 台设备</strong>同时在线。山海机场按套餐等级最多支持 40 台设备，Orbital 企业套餐不限设备。购买前查看套餐说明中的「同时在线设备数」字段。<br/><br/>技术上，「设备数限制」是通过订阅链接的并发连接数来实现的。超出设备数后，新设备连接会挤掉最早连接的设备。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>忘记机场密码 / 登录不了怎么办？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">① 使用机场官网的「忘记密码」功能，通过注册邮箱重置密码；<br/>② 如果注册邮箱也无法访问，联系机场工单/TG 群，提供订单号或支付凭证证明账号归属，由客服手动重置；<br/>③ 如果机场官网都打不开，先在 TG 群找备用域名，再进行密码重置。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>可以注册多个账号薅羊毛吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">理论上可以用不同邮箱注册多个账号，但<strong>不推荐</strong>。机场通常会检测同一设备 / 同一 IP 的多账号行为，发现后可能封号。更合理的做法是：一个账号月付体验，满意后转年付，或同时订阅两家不同机场互为备用，而非同一家多号薅羊毛。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>如何安全地保存机场账号和订阅链接？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">建议：<br/>① <strong>密码管理器</strong>（Bitwarden、1Password）保存账号密码，比记在备忘录安全<br/>② <strong>不要</strong>将订阅链接发到微信/QQ 群、朋友圈、公开平台——订阅链接相当于账户钥匙<br/>③ 记录机场官网备用域名（通常在购买邮件或 TG 群公告里），保存在本地文件中<br/>④ 截图保存支付凭证，万一需要联系客服时可以证明账号归属</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑬ 协议与技术深度 -->
+    <section class="faq-section" id="protocol-deep">
+      <h2 class="faq-section-title">🔬 协议技术深度 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>为什么有些节点标注"直连"，有些标注"中转"？有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>直连节点</strong>：你的设备直接连接境外服务器，中间不经过国内中转服务器。延迟取决于国际线路质量，IEPL/IPLC 直连节点延迟极低（10-30ms）。<br/><br/><strong>中转节点</strong>：你先连到国内一台中转服务器，再由中转服务器转发到境外。优点是中转服务器可以选择质量好的骨干网出口，缺点是多了一跳延迟（通常增加 20-40ms）。<br/><br/>IEPL 专线 = 直连 + 独立物理线路，是最优方案；BGP 中转 = 中转 + 多运营商汇聚，性价比好但有额外延迟。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是 SNI 嗅探？为什么 Reality 能绕过它？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">SNI（服务器名称指示）是 TLS 握手时客户端发出的明文字段，告诉服务器要访问哪个域名。GFW 可以读取 SNI 来判断流量目的地，对可疑域名进行封锁。<br/><br/>Trojan 等协议使用真实的 TLS 证书，但代理服务器域名本身可能被封。<strong>Reality 协议</strong>的突破思路是：直接借用微软、苹果、Cloudflare 等大公司的 TLS 证书指纹，让 GFW 检测到的 SNI 是真实的知名网站，从而无法区分正常访问和代理流量——即使主动探测也无法暴露，是目前最难被封锁的方案。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场节点 IP 被墙了怎么办？多久会更换？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">当节点 IP 被 GFW 封锁后：<br/>① <strong>更新订阅</strong>：机场通常会在几小时内推送新 IP 节点替换被封的节点，更新订阅是第一步<br/>② 机场的响应速度因服务商而异：好机场通常 <strong>2-4 小时内</strong>完成 IP 轮换，普通机场可能需要 1-2 天<br/>③ IEPL/IPLC 专线节点因走独立物理线路，IP 被封的概率远低于公网中转节点<br/>④ Reality 协议节点被封概率最低，因为流量特征与正常 HTTPS 相同</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是"丢包率"？超过多少会影响使用体验？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">丢包率是指发送的数据包中有多少比例在传输过程中丢失。影响标准：<br/><br/><strong>0-1%</strong>：正常，几乎感受不到影响<br/><strong>1-5%</strong>：轻微，视频流媒体会偶尔缓冲，游戏有轻微卡顿<br/><strong>5-10%</strong>：明显，视频频繁卡顿，视频通话断断续续<br/><strong>>10%</strong>：严重，基本无法正常使用<br/><br/>晚高峰公网中转节点丢包率可能升至 5-15%，IEPL 专线丢包率通常稳定在 0.1% 以内。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场节点和自建节点相比，哪个更好？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">各有优劣：<br/><br/><strong>机场优势</strong>：大量节点可选、有专业运维团队保障稳定性、IEPL 专线非个人可负担、价格按月分摊低、无需技术门槛<br/><strong>机场劣势</strong>：IP 被多人共享，可能被流媒体/AI 封锁；运营商可见流量域名；存在跑路风险<br/><br/><strong>自建节点优势</strong>：IP 干净独享（流媒体解锁更可靠）、运营商只有自己、无跑路风险<br/><strong>自建节点劣势</strong>：需要购买境外 VPS（月费 $5-20）、自行配置维护、一旦 IP 被封需自己处理、出口带宽通常低于专线机场<br/><br/><strong>建议</strong>：日常翻墙用机场，对流媒体/AI 解锁要求极高的用户可以自建节点作为补充。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑭ 特殊场景 -->
+    <section class="faq-section" id="special">
+      <h2 class="faq-section-title">🌏 特殊场景 <span class="faq-section-count">4 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>出差/旅行去香港/澳门/台湾，还需要机场吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>香港/澳门</strong>：不需要机场，这里没有防火长城，Google/YouTube/ChatGPT 全部直接访问。使用机场反而会增加延迟，建议关闭代理直连。<br/><br/><strong>台湾</strong>：同样没有防火长城，不需要机场。<br/><br/><strong>返回大陆后</strong>：重新开启机场代理即可，订阅链接无需重新配置。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>出差去东南亚/中东/欧洲，机场还能用吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">可以用，但需要注意：<br/>① 机场本质是将流量中转到境外服务器，在海外使用意味着流量路径是「你的海外位置 → 中国机场服务器 → 目标网站」，延迟会增加<br/>② 如果你在海外需要访问国内服务（微信支付/微博），请参考前面的「回国专线」问题<br/>③ 部分国家（阿联酋、伊朗等）对 VPN/代理有限制，使用时了解当地法规<br/>④ 在当地直接访问 Google 等通常不需要机场，机场更多是满足访问「中国内容」的回国需求</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>公司 / 学校 WiFi 连机场经常断线，怎么解决？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">企业/学校网络通常会对异常流量进行 QoS 或端口封锁。解决方案：<br/>① <strong>切换协议</strong>：将节点协议改为 <strong>Trojan over TLS</strong> 或 <strong>VLESS + Reality</strong>，走 443 端口，看起来和普通 HTTPS 流量完全相同<br/>② <strong>切换端口</strong>：在客户端设置中，将代理端口改为 443（HTTPS 标准端口），大部分企业防火墙不会封锁 443<br/>③ <strong>使用手机热点</strong>：绕过公司/学校网络，直接用手机流量<br/>④ 部分机场支持 WebSocket + TLS 或 GRPC 传输，伪装效果更好，适合高度受限网络</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>敏感时期（节假日/政治事件）机场会不会被大规模封锁？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">是的，GFW 在特殊时期会加强审查力度，导致部分机场节点或整体服务出现短暂异常。<br/><br/><strong>应对策略</strong>：<br/>① 提前<strong>更新订阅</strong>，确保节点列表是最新的<br/>② 优先使用 <strong>IEPL 专线 + Reality 协议</strong>节点，被封锁概率最低<br/>③ 备用 2 家机场，主力受影响时立即切换<br/>④ 关注机场 TG 频道，机场通常会在这段时间主动推送可用节点<br/>⑤ 如果全线受影响，耐心等待 1-3 天，通常会恢复，这是宏观网络环境问题，非机场本身故障</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑮ 榜单与信息甄别 -->
+    <section class="faq-section" id="ranking">
+      <h2 class="faq-section-title">📊 榜单与信息甄别 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>知乎、Reddit、贴吧上的机场推荐可信吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">需要谨慎判断。知乎/贴吧上的机场推荐存在大量水军和返佣推广——推荐者通过推广码获得提成，而非真实用户体验。识别方法：<br/><br/>① 账号发帖历史只有机场相关内容 → 高度疑似水军<br/>② 推荐内容过于正面，没有任何缺点 → 可能是软文<br/>③ 贴出的注册链接含有推广码参数（如 <code>?code=xxx</code>）→ 有利益关系<br/><br/>更可靠的信息来源：有历史数据的测速站（如本站）、有具体测速截图的评测、在多个平台均有口碑的老牌机场。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场测速数据是怎么测的？可以相信吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">本站测速数据来自<strong>真实用户环境下的实测</strong>，测试条件：上海电信宽带、晚高峰（20:00-22:00）时段、对每个节点进行多次测速取中位值。<br/><br/>注意几个影响测速结果的因素：<br/>① <strong>网络运营商</strong>：电信用户测速通常高于移动用户，因为电信的国际出口带宽更充裕<br/>② <strong>测速时段</strong>：同一节点下午空闲期速度远高于晚高峰，要看晚高峰数据<br/>③ <strong>本地带宽瓶颈</strong>：如果你的宽带套餐只有 100M，再快的节点也只能达到 12 MB/s<br/>④ <strong>单连接 vs 多连接</strong>：看视频通常是单连接，理论测速可能是多并发</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>新上线的机场信得过吗？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">新机场存在较高的不确定性，但不是完全不可信。评估新机场的标准：<br/><br/>✅ 有明确的运营主体信息<br/>✅ 支持月付（不强推年付）<br/>✅ 有 TG 客服频道且管理员活跃<br/>✅ 技术上有特色（如金融级专线）而非只是低价<br/>✅ 能找到独立第三方的早期体验测评<br/><br/>对于新机场：<strong>月付小额套餐体验 2-3 个月后再决定是否转年付</strong>，这是最稳妥的方式。本站收录的云图机场即为经过初步验证的新机场示例。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场排行榜是按什么维度排的？不同站排名差异为什么那么大？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">不同测评站的排名差异主要来自以下因素：<br/><br/>① <strong>测速时段不同</strong>：下午测速偏向公网中转，晚高峰测速偏向专线，结果差异巨大<br/>② <strong>运营商不同</strong>：电信/联通/移动对各机场线路的体验完全不同<br/>③ <strong>是否有利益关系</strong>：部分排行榜将付费推广的机场排在首位<br/>④ <strong>权重维度不同</strong>：有的侧重速度，有的侧重价格，有的侧重稳定性<br/><br/>本站排名以<strong>晚高峰实测下载速度</strong>为主要排序依据，辅以延迟、在线率、价格等综合评分。建议对照自己的使用场景和运营商选择适合的机场。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场说的"不限速"和"不限时"是什么意思？有没有坑？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>不限速</strong>：承诺不对你的速度进行主动限制。但这不等于节点速度快——受线路质量、高峰期共享带宽影响，实际速度仍然可能较慢。<br/><br/><strong>不限时流量包</strong>：购买后流量永不过期，用完为止，没有月度过期压力。如寰宇云的「巨量不限时 1000G ¥158」。对于轻度用户性价比很高，但要确认机场长期稳定运营才值得一次性购买大流量包。<br/><br/><strong>警惕的宣传</strong>：「不限流量」「无限流量」通常是噱头，实际会设置每日或月度用量上限，或在高用量时降速。看清楚套餐说明中的具体数字。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑯ 其他常见疑问 -->
+    <section class="faq-section" id="misc">
+      <h2 class="faq-section-title">❓ 其他常见疑问 <span class="faq-section-count">5 题</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场支持 IPv6 吗？有什么意义？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">部分机场支持 IPv6 出口节点。对普通用户意义不大，但在以下场景有价值：<br/><br/>① <strong>流媒体解锁</strong>：部分地区 Netflix 的 IPv6 IP 封锁力度低于 IPv4，解锁成功率更高<br/>② <strong>IP 更干净</strong>：IPv6 地址空间极大，机场用户不易共享同一地址，触发验证码概率低<br/>③ <strong>ChatGPT 访问</strong>：某些 IPv6 地址段尚未被 OpenAI 封锁<br/><br/>如果你的机场和本地宽带都支持 IPv6，可以在 Clash 设置中开启 IPv6 模式尝试。目前支持 IPv6 节点的机场较少，属于进阶功能。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>什么是"按量计费"机场？和按月订阅有什么区别？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a"><strong>按月订阅</strong>（主流）：每月固定价格，包含固定流量额度（如 150G/月），月末未用完的流量清零，次月重置。适合使用量稳定的用户。<br/><br/><strong>按量计费（流量包）</strong>：一次性购买固定流量，不过期，用完为止（如 1000G 永久 ¥158）。适合使用量少但希望随时可用的用户。<br/><br/><strong>如何选择</strong>：每月用量稳定 → 按月订阅；轻度偶发使用 → 流量包更经济；对机场不确定 → 先月付再决定。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场客服说的"重置流量"是什么意思？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">「重置流量」指按月套餐的流量额度在每月固定日期（通常是账单日，即你购买那天的每月同日）归零并重新计满。例如你 8 月 5 日购买，则每月 5 日流量重置。<br/><br/>和「自然月（1 日）重置」不同，按账单日重置更公平。部分机场提供「流量重置」按钮，让你在到期前手动重置（但会消耗下月额度），这通常是在流量用完但还没到期时的应急操作。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>同样价格，节点多和节点少的机场哪个更好？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">节点数量 ≠ 质量。判断节点价值看的是：<br/><br/>① <strong>你常用地区的节点数</strong>：如果只需要香港节点，机场有 200 个节点但香港只有 2 个，不如有 50 个节点但香港有 20 个的机场<br/>② <strong>节点线路类型</strong>：20 个 IEPL 专线节点远好于 200 个公网中转节点<br/>③ <strong>节点在线率</strong>：节点多但大量离线，实际可用节点少，体验差<br/><br/>本站收录的 Orbital 只有 60 个节点但全是商业专线，体验优于 StarGate 的 200 个公网节点。「精兵胜于多兵」。</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)"><span>机场收费是人民币还是美元？怎么付款？</span><svg class="faq-arrow" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="faq-a">面向国内用户的机场通常以<strong>人民币计价</strong>，支持支付宝和微信支付，无需信用卡和境外支付能力，非常方便。<br/><br/>面向国际用户的机场（如 NexITaly 等）可能以美元计价，需要 PayPal 或信用卡。<br/><br/>隐私向机场（如 Phantom）通常支持<strong>USDT 等加密货币</strong>匿名支付，不绑定个人身份信息。<br/><br/>注意：支付宝/微信支付的付款记录无法完全删除，如果你对此有顾虑，选择支持加密货币支付的机场。</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="faq-callout">
+      💡 <strong>还没找到答案？</strong>查看我们的 <a href="jichang-shime.html">机场原理科普</a>，或前往 <a href="index.html">测速排名榜单</a> 找到适合你的机场。
+    </div>
+  </main>
+
+  <script>
+    function toggleFaq(el) {
+      const item = el.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      if (item.classList.contains('open')) {
+        item.classList.remove('open'); answer.style.maxHeight = null;
+      } else {
+        document.querySelectorAll('.faq-item.open').forEach(o => {
+          o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight = null;
+        });
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+    // Smooth scroll for cat nav
+    document.querySelectorAll('.faq-cat-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,15 +1,338 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- 主页 -->
   <url>
     <loc>https://jichangspeed.com/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- 核心工具页 -->
+  <url>
+    <loc>https://jichangspeed.com/compare.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/faq.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/status.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 机场深度评测 -->
+  <url>
+    <loc>https://jichangspeed.com/yuntu-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/jisuyun-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 机场详情页（动态参数页） -->
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=huanyuyun</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=shunyun</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=shanhai</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=nexitaly</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=cloudflux</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=stargate</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=orbital</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=nimbus</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=vortex</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=helios</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/airport.html?id=phantom</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- 机场科普文章 -->
+  <url>
+    <loc>https://jichangspeed.com/jichang-shime.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/zenme-xuanze-jichang.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/daili-xieyi-jiexi.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/jichang-changjian-wenti.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/jichang-tuijian-2026.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/mianfei-vs-fuifei-jichang.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/jichang-paolu-fangkeng.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 软件教程 -->
+  <url>
+    <loc>https://jichangspeed.com/tutorial-clash-verge-rev.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/tutorial-v2rayn.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/tutorial-clashx.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/tutorial-shadowrocket.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/tutorial-clash-android.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/tutorial-v2rayng.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 博客文章 -->
+  <url>
+    <loc>https://jichangspeed.com/blog-chatgpt-jichang.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/blog-clash-complete.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 原有教程页 -->
   <url>
     <loc>https://jichangspeed.com/tutorial.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <!-- 其余11家机场静态评测页 -->
+  <url>
+    <loc>https://jichangspeed.com/huanyuyun-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://jichangspeed.com/shunyun-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/shanhai-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/nexitaly-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/cloudflux-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/stargate-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/orbital-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/nimbus-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/vortex-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/helios-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/phantom-jichang-pingce.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+
+  <!-- 博客外延文章 -->
+  <url>
+    <loc>https://jichangspeed.com/blog-telegram-register.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/blog-google-play-android.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/blog-netflix-jichang.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  <!-- 博客：线路科普 + 使用场景 -->
+  <url>
+    <loc>https://jichangspeed.com/blog-iepl-vs-iplc.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/blog-jichang-scenes.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  <!-- 博客：鸿蒙教程 + 选购避坑 -->
+  <url>
+    <loc>https://jichangspeed.com/blog-hongmeng-google-play.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/blog-jichang-avoid-traps.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

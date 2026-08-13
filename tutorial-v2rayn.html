@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>v2rayN 配置教程：Windows 订阅导入与节点设置完整指南 · SpeedRank</title>
+  <meta name="description" content="v2rayN 图文配置教程：解压安装、添加订阅链接、更新订阅并测速、选择节点开启代理，4 步搞定 Windows 端 V2Ray 代理客户端配置。支持 VLESS/Trojan/Shadowsocks。" />
+  <meta name="keywords" content="v2rayN教程,v2rayN订阅导入,v2rayN配置,v2rayN使用方法,Windows代理教程" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="v2rayN 配置教程：Windows 订阅导入与节点设置完整指南 · SpeedRank" />
+  <meta property="og:description" content="v2rayN 图文配置教程：解压安装、添加订阅链接、更新订阅并测速、选择节点开启代理，4 步搞定 Windows 端 V2Ray 代理客户端配置。支持 VLESS/Trojan/Shadowsocks。" />
+  <meta property="og:url" content="https://jichangspeed.com/tutorial-v2rayn.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_app.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="v2rayN 配置教程：Windows 订阅导入与节点设置完整指南 · SpeedRank" />
+  <meta name="twitter:description" content="v2rayN 图文配置教程：解压安装、添加订阅链接、更新订阅并测速、选择节点开启代理，4 步搞定 Windows 端 V2Ray 代理客户端配置。支持 VLESS/Trojan/Shadowsocks。" />
+  <link rel="canonical" href="https://jichangspeed.com/tutorial-v2rayn.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tut-main { max-width: 800px; margin: 40px auto; padding: 0 20px 80px; position:relative;z-index:1; }
+    .tut-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .tut-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .tut-header { margin-bottom:40px; }
+    .tut-header h1 { font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--text-primary);margin:0 0 16px;line-height:1.2; }
+    .tut-header p { font-size:16px;color:var(--text-secondary);line-height:1.7;margin:0; }
+    .tut-step { background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px 28px 28px 24px;margin-bottom:20px;box-shadow:0 4px 12px rgba(0,0,0,0.02);display:flex;gap:20px; }
+    .tut-step-num { width:40px;height:40px;border-radius:50%;background:var(--accent-blue);color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+    .tut-step-content { flex:1; }
+    .tut-step-content h3 { font-size:18px;font-weight:800;margin:0 0 10px;color:var(--text-primary); }
+    .tut-step-content p { font-size:15px;color:var(--text-secondary);line-height:1.8;margin:0 0 4px; }
+    .tut-step-img { border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);margin-top:14px; }
+    .tut-step-img img { width:100%;display:block;max-height:280px;object-fit:cover; }
+    .tut-callout { background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius-md);padding:16px 20px;margin:28px 0;font-size:14px;color:#1e40af;line-height:1.7; }
+    .tut-nav { display:flex;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid var(--border); }
+    .tut-nav a { color:var(--accent-blue);text-decoration:none;font-size:13px;font-weight:600; }
+    code { background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:13px;font-family:"Courier New",monospace; }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='index.html#article'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/><rect x="2" y="7" width="9" height="2" rx="1" fill="currentColor" opacity=".6"/><rect x="2" y="11" width="7" height="2" rx="1" fill="currentColor" opacity=".4"/></svg>机场科普
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6.5 5.5 10 8l-3.5 2.5V5.5z" fill="currentColor"/></svg>软件教程
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html#tutorial" class="btn-refresh" style="text-decoration:none;">← 返回教程列表</a>
+      </div>
+    </div>
+  </header>
+  <main class="tut-main">
+    <div class="tut-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="index.html#tutorial">软件教程</a><span>/</span>
+      <span>v2rayN</span>
+    </div>
+    <div class="tut-header">
+      <h1>v2rayN 详细配置教程</h1>
+      <p>Windows 平台上最经典、最轻量级的代理客户端，支持 V2Ray、Trojan、Shadowsocks 等众多协议，适合老电脑或追求极致轻量的用户。</p>
+    </div>
+    <div class="tut-callout">
+      💡 <strong>配置前准备：</strong>确保你已经注册了一家机场并获取了订阅链接。如果还没有，可以先查看 <a href="jichang-tuijian-2026.html" style="color:inherit;font-weight:700;">2026年机场推荐榜单</a> 选择适合你的服务商。
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">1</div>
+      <div class="tut-step-content">
+        <h3>下载与解压缩</h3>
+        <p>下载 <code>v2rayN-Core.zip</code> 压缩包。注意：v2rayN 是一款绿色免安装软件，<strong>千万不要直接在压缩包内双击运行</strong>。请将整个压缩包解压到一个「纯英文路径」的文件夹中（例如 D:\v2rayN）。解压后，找到带有蓝色 V 字图标的 <code>v2rayN.exe</code> 双击运行。如果提示缺少 .NET 框架，请按照提示前往微软官网下载安装。</p>
+        <div class="tut-step-img">
+            <img src="img_steps.jpg" alt="步骤 1 — 下载与解压缩" />
+          </div>
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">2</div>
+      <div class="tut-step-content">
+        <h3>添加订阅链接</h3>
+        <p>登录机场后台，找到并点击「复制 V2Ray 订阅链接」。回到 v2rayN 主界面，点击顶部菜单栏的「订阅」→「订阅设置」。在弹出的窗口中点击左下角的「添加」，在备注处随便填写一个名字，在 <code>Url</code> 处粘贴您复制的订阅链接，点击确定保存。</p>
+        <div class="tut-step-img">
+            <img src="img_app.jpg" alt="步骤 2 — 添加订阅链接" />
+          </div>
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">3</div>
+      <div class="tut-step-content">
+        <h3>更新订阅并测速</h3>
+        <p>再次点击顶部菜单栏的「订阅」，选择「更新订阅（不通过代理）」。此时软件下方日志栏会提示获取成功，主界面会加载出几十个节点。按 <code>Ctrl+A</code> 全选所有节点，右键选择「测试服务器真连接延迟（多线程）」，等待几秒钟过滤出可用的节点。</p>
+        
+      </div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-step-num">4</div>
+      <div class="tut-step-content">
+        <h3>选择节点并开启代理</h3>
+        <p>在列表中选择一个延迟较低（有数字显示）的节点，按下<strong>回车键（Enter）</strong>将其设为活动节点，被选中的节点前面会出现一个 <code>√</code> 号。<br/><br/>最后，在电脑桌面右下角任务栏托盘找到 v2rayN 的图标，<strong>右键点击图标</strong>：<br/>① 系统代理：选择「自动配置系统代理」（图标会变成红色）<br/>② 路由：选择「绕过大陆(Whitelist)」模式。</p>
+        
+      </div>
+    </div>
+
+  <div class="tut-nav">
+      <a href="index.html#tutorial">← 返回软件列表</a>
+      <a href="faq.html">常见问题 FAQ →</a>
+    </div>
+  </main>
+</body>
+</html>

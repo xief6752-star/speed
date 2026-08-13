@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机场跑路预警 · 实时状态监测 · SpeedRank 2026</title>
+  <meta name="description" content="2026年机场跑路预警与实时状态监测。收录13家机场当前运行状态、历史跑路记录、风险评级，帮你第一时间发现异常，及时切换备用机场避免断网。" />
+  <meta name="keywords" content="机场跑路预警,机场状态监测,机场跑路了,机场跑路名单,2026机场跑路,机场风险评级" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="机场跑路预警 · 实时状态监测 · SpeedRank 2026" />
+  <meta property="og:description" content="13家机场实时运行状态、跑路预警记录与风险评级，第一时间掌握机场异常情况。" />
+  <meta property="og:url" content="https://jichangspeed.com/status.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="机场跑路预警 · SpeedRank" />
+  <meta name="twitter:description" content="13家机场实时运行状态与跑路预警记录。" />
+  <link rel="canonical" href="https://jichangspeed.com/status.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .status-page { max-width: 1100px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .status-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .status-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .status-header { margin-bottom: 32px; }
+    .status-header h1 { font-size:clamp(24px,4vw,34px);font-weight:900;color:var(--text-primary);margin:0 0 12px;line-height:1.2; }
+    .status-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+    .status-bar { display:flex;align-items:center;gap:12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:var(--radius-md);padding:14px 18px;margin-bottom:28px;font-size:14px;font-weight:600;color:#065f46; }
+    .status-bar .pulse-dot { width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,0.25);animation:pulse 2s ease-in-out infinite;flex-shrink:0; }
+    .status-summary { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px; }
+    .ss-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;text-align:center; }
+    .ss-num { font-size:26px;font-weight:900;font-family:'Courier New',monospace; }
+    .ss-label { font-size:11px;color:var(--text-muted);font-weight:600;margin-top:4px; }
+    .section-title { font-size:18px;font-weight:800;color:var(--text-primary);margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid var(--accent-blue); }
+    .status-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:40px; }
+    .airport-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;transition:all 0.2s;position:relative;overflow:hidden; }
+    .airport-card::before { content:'';position:absolute;left:0;top:0;bottom:0;width:4px; }
+    .airport-card.status-ok::before { background:linear-gradient(180deg,#10b981,#34d399); }
+    .airport-card.status-warn::before { background:linear-gradient(180deg,#f59e0b,#fbbf24); }
+    .airport-card.status-down::before { background:linear-gradient(180deg,#ef4444,#f87171); }
+    .airport-card:hover { box-shadow:var(--shadow-card-hover);transform:translateY(-2px); }
+    .ac-top { display:flex;align-items:center;gap:10px;margin-bottom:12px; }
+    .ac-emoji { font-size:22px;flex-shrink:0; }
+    .ac-name { font-size:16px;font-weight:800;color:var(--text-primary); }
+    .ac-status { margin-left:auto;flex-shrink:0; }
+    .status-pill { display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700; }
+    .pill-ok { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .pill-ok::before { content:'●';font-size:8px; }
+    .pill-warn { background:#fffbeb;color:#b45309;border:1px solid #fde68a; }
+    .pill-warn::before { content:'●';font-size:8px; }
+    .pill-down { background:#fef2f2;color:#dc2626;border:1px solid #fecaca; }
+    .pill-down::before { content:'●';font-size:8px; }
+    .ac-metrics { display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px; }
+    .ac-metric { display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:var(--bg-section);border-radius:6px; }
+    .ac-metric-key { color:var(--text-muted);font-weight:600; }
+    .ac-metric-val { font-weight:700;color:var(--text-primary);font-family:'Courier New',monospace;font-size:11px; }
+    .ac-footer { display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border-light); }
+    .ac-updated { font-size:11px;color:var(--text-muted); }
+    .ac-link { font-size:12px;font-weight:700;color:var(--accent-blue);text-decoration:none; }
+    .ac-link:hover { text-decoration:underline; }
+    .alert-section { margin-bottom: 40px; }
+    .alert-table { width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden; }
+    .alert-table th { padding:10px 16px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);background:var(--bg-section);border-bottom:1px solid var(--border);text-align:left; }
+    .alert-table td { padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:13px;vertical-align:middle; }
+    .alert-table tr:last-child td { border-bottom:none; }
+    .alert-table tr:hover td { background:var(--bg-section); }
+    .severity-high { color:#dc2626;font-weight:700; }
+    .severity-mid { color:#d97706;font-weight:700; }
+    .severity-low { color:#059669;font-weight:700; }
+    .risk-badge { display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700; }
+    .risk-high { background:#fef2f2;color:#dc2626;border:1px solid #fecaca; }
+    .risk-mid { background:#fffbeb;color:#b45309;border:1px solid #fde68a; }
+    .risk-low { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .guide-cards { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px; }
+    .guide-card { background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;display:flex;gap:14px;align-items:flex-start; }
+    .guide-icon { width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+    .guide-card h3 { font-size:14px;font-weight:800;margin:0 0 6px;color:var(--text-primary); }
+    .guide-card p { font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0; }
+    @media (max-width: 640px) {
+      .guide-cards { grid-template-columns:1fr; }
+      .status-page { padding:16px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>跑路预警
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="status-page">
+    <div class="status-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>跑路预警</span>
+    </div>
+    <div class="status-header">
+      <h1>机场跑路预警 · 状态监测</h1>
+      <p>实时追踪收录机场的运行状态、历史异常记录与风险评级。发现异常立即标注，帮你第一时间切换备用机场。</p>
+    </div>
+
+    <div class="status-bar">
+      <span class="pulse-dot"></span>
+      <span>当前监测状态：<strong>13 家机场运行正常</strong> — 最后更新 2026-08-13 12:00</span>
+    </div>
+
+    <div class="status-summary">
+      <div class="ss-card"><div class="ss-num" style="color:#059669;">13</div><div class="ss-label">正常运行</div></div>
+      <div class="ss-card"><div class="ss-num" style="color:#f59e0b;">0</div><div class="ss-label">异常告警</div></div>
+      <div class="ss-card"><div class="ss-num" style="color:#dc2626;">0</div><div class="ss-label">确认跑路</div></div>
+      <div class="ss-card"><div class="ss-num" style="color:#2563eb;">13</div><div class="ss-label">监测总数</div></div>
+    </div>
+
+    <!-- Airport Status Grid -->
+    <h2 class="section-title">当前机场状态</h2>
+    <div class="status-grid" id="statusGrid">
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🌤️</span>
+          <span class="ac-name">云图机场</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.9%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">160/160</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="yuntu-jichang-pingce.html">查看评测 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🚀</span>
+          <span class="ac-name">极速云</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.9%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">180/180</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="jisuyun-jichang-pingce.html">查看评测 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🌍</span>
+          <span class="ac-name">寰宇云</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.8%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">130/130</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=huanyuyun">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">⚡</span>
+          <span class="ac-name">瞬云</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.9%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">150/150</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">域名曾被封</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-mid">中等</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=shunyun">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🏔️</span>
+          <span class="ac-name">山海机场</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.9%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">140/140</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=shanhai">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🛸</span>
+          <span class="ac-name">Orbital</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.9%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">60/60</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=orbital">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🚀</span>
+          <span class="ac-name">NexITaly</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.8%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">120/120</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=nexitaly">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">⚡</span>
+          <span class="ac-name">CloudFlux</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.6%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">86/86</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=cloudflux">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🌟</span>
+          <span class="ac-name">StarGate</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.2%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">200/200</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-mid">中等</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=stargate">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">☁️</span>
+          <span class="ac-name">Nimbus</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">98.5%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">50/50</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">偶发限速</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-mid">中等</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=nimbus">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">🌀</span>
+          <span class="ac-name">Vortex</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.4%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">75/75</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=vortex">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">☀️</span>
+          <span class="ac-name">Helios</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">99.1%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">65/65</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">无</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-low">低风险</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=helios">查看详情 →</a>
+        </div>
+      </div>
+
+      <div class="airport-card status-ok">
+        <div class="ac-top">
+          <span class="ac-emoji">👻</span>
+          <span class="ac-name">Phantom</span>
+          <span class="ac-status"><span class="status-pill pill-ok">正常</span></span>
+        </div>
+        <div class="ac-metrics">
+          <div class="ac-metric"><span class="ac-metric-key">在线率</span><span class="ac-metric-val">97.8%</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">节点状态</span><span class="ac-metric-val">40/40</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">最近异常</span><span class="ac-metric-val">偶发节点超时</span></div>
+          <div class="ac-metric"><span class="ac-metric-key">风险等级</span><span class="ac-metric-val"><span class="risk-badge risk-mid">中等</span></span></div>
+        </div>
+        <div class="ac-footer">
+          <span class="ac-updated">检测：2026-08-13 12:00</span>
+          <a class="ac-link" href="airport.html?id=phantom">查看详情 →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Alert History -->
+    <section class="alert-section">
+      <h2 class="section-title">历史预警记录</h2>
+      <div style="overflow-x:auto;">
+        <table class="alert-table">
+          <thead>
+            <tr>
+              <th>时间</th>
+              <th>机场</th>
+              <th>事件类型</th>
+              <th>影响范围</th>
+              <th>状态</th>
+              <th>处理结果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--text-muted);">2026-07-15</td>
+              <td><strong>瞬云</strong></td>
+              <td class="severity-mid">官网域名被封</td>
+              <td style="font-size:12px;color:var(--text-secondary);">官网无法直接访问</td>
+              <td><span class="risk-badge risk-low">已恢复</span></td>
+              <td style="font-size:12px;color:var(--text-secondary);">启用备用域名，节点服务不受影响</td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--text-muted);">2026-07-04</td>
+              <td><strong>Nimbus</strong></td>
+              <td class="severity-low">节点限速</td>
+              <td style="font-size:12px;color:var(--text-secondary);">部分节点速度降至 10 MB/s</td>
+              <td><span class="risk-badge risk-low">已恢复</span></td>
+              <td style="font-size:12px;color:var(--text-secondary);">服务商扩充带宽后恢复正常，历时约 6 小时</td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--text-muted);">2026-06-22</td>
+              <td><strong>StarGate</strong></td>
+              <td class="severity-mid">部分节点超时</td>
+              <td style="font-size:12px;color:var(--text-secondary);">美国节点 30% 超时</td>
+              <td><span class="risk-badge risk-low">已恢复</span></td>
+              <td style="font-size:12px;color:var(--text-secondary);">IP 被封锁后更换 IP 段，约 12 小时恢复</td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--text-muted);">2026-06-10</td>
+              <td><strong>Phantom</strong></td>
+              <td class="severity-low">维护停机</td>
+              <td style="font-size:12px;color:var(--text-secondary);">全部节点不可用约 2 小时</td>
+              <td><span class="risk-badge risk-low">已恢复</span></td>
+              <td style="font-size:12px;color:var(--text-secondary);">计划内维护，提前在 TG 群公告</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Guide -->
+    <h2 class="section-title">发现机场异常，立即这样做</h2>
+    <div class="guide-cards">
+      <div class="guide-card">
+        <div class="guide-icon" style="background:#ecfdf5;color:#059669;">🔄</div>
+        <div>
+          <h3>第一步：更新订阅</h3>
+          <p>打开代理客户端，强制刷新订阅链接。机场在封锁后会第一时间推送新节点，更新后通常即可恢复。</p>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-icon" style="background:#eff6ff;color:#2563eb;">🔀</div>
+        <div>
+          <h3>第二步：切换节点</h3>
+          <p>换同机场其他地区的节点，如香港不通就换日本/新加坡，通常能绕过单地区封锁。</p>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-icon" style="background:#fff7ed;color:#c2410c;">📢</div>
+        <div>
+          <h3>第三步：查 TG 群公告</h3>
+          <p>加入机场官方 Telegram 群，管理员会在重大故障时发布备用域名和处理进度。</p>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-icon" style="background:#fdf4ff;color:#7c3aed;">🔁</div>
+        <div>
+          <h3>第四步：切备用机场</h3>
+          <p>如果超过 2 小时无法恢复，切换到备用机场继续使用。这也是建议同时订阅两家的原因。</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--radius-md);padding:16px 20px;font-size:14px;color:#1e40af;line-height:1.7;">
+      💡 <strong>防跑路建议：</strong>月付起步，同时备用 2 家机场。遇到主力机场故障时立即切换，不影响日常使用。查看 <a href="jichang-paolu-fangkeng.html" style="color:inherit;font-weight:700;">机场跑路防坑指南</a> 了解如何提前识别高风险机场。
+    </div>
+  </main>
+</body>
+</html>

@@ -82,6 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('pageTitle').textContent = `${data.title} · SpeedRank`;
   document.getElementById('tutTitle').textContent = data.title;
   document.getElementById('tutDesc').textContent = data.desc;
+
+  // Update meta description and OG/Twitter tags dynamically
+  const descText = `${data.desc} 本教程覆盖从下载安装、导入订阅到选择节点的完整操作步骤，图文详解，适合各平台新手快速上手。`;
+  document.getElementById('pageDesc').setAttribute('content', descText);
+  if (document.getElementById('ogTitle')) {
+    document.getElementById('ogTitle').setAttribute('content', `${data.title} · SpeedRank`);
+  }
+  if (document.getElementById('ogDesc')) {
+    document.getElementById('ogDesc').setAttribute('content', data.desc);
+  }
+  if (document.getElementById('twTitle')) {
+    document.getElementById('twTitle').setAttribute('content', `${data.title} · SpeedRank`);
+  }
+  if (document.getElementById('twDesc')) {
+    document.getElementById('twDesc').setAttribute('content', data.desc);
+  }
   
   const stepsContainer = document.getElementById('tutSteps');
   stepsContainer.innerHTML = data.steps.map((step, idx) => `
