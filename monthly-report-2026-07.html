@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年7月机场月度报告：13家机场综合表现评分 · SpeedRank</title>
+  <meta name="description" content="2026年7月机场月度报告：云图、极速云、寰宇云等13家机场7月测速数据汇总，含速度/延迟/在线率/流媒体解锁综合评分。七月高温季节机场稳定性全面评测。" />
+  <meta name="keywords" content="机场月度报告2026年7月,机场测速报告,机场综合评分,机场排名2026,机场7月表现" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="2026年7月机场月度报告：13家机场综合表现评分 · SpeedRank" />
+  <meta property="og:description" content="2026年7月机场综合测速数据，速度/延迟/在线率/流媒体解锁评分汇总。" />
+  <meta property="og:url" content="https://jichangspeed.com/monthly-report-2026-07.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://jichangspeed.com/monthly-report-2026-07.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .report-page { max-width:900px;margin:0 auto;padding:28px 28px 80px;position:relative;z-index:1; }
+    .report-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .report-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+
+    .report-hero {
+      background:linear-gradient(135deg,#064e3b 0%,#059669 50%,#0d9488 100%);
+      border-radius:16px;padding:36px;margin-bottom:32px;color:#fff;position:relative;overflow:hidden;
+    }
+    .report-hero::before {
+      content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+      background:rgba(255,255,255,.06);border-radius:50%;
+    }
+    .report-badge { display:inline-block;padding:3px 12px;border-radius:12px;background:rgba(255,255,255,.2);font-size:12px;font-weight:700;margin-bottom:12px; }
+    .report-hero h1 { font-size:clamp(22px,4vw,30px);font-weight:900;margin:0 0 10px;line-height:1.2; }
+    .report-hero p { font-size:14px;opacity:.85;margin:0;line-height:1.7; }
+    .report-meta { display:flex;gap:16px;margin-top:16px;flex-wrap:wrap; }
+    .report-meta-item { font-size:13px;opacity:.8;display:flex;align-items:center;gap:5px; }
+
+    .summary-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px; }
+    .sum-card { background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center; }
+    .sum-num { font-size:26px;font-weight:900; }
+    .sum-lbl { font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px; }
+    .sum-delta { font-size:12px;font-weight:700;margin-top:4px; }
+    .delta-up { color:#059669; }
+    .delta-dn { color:#dc2626; }
+    .delta-eq { color:var(--text-muted); }
+
+    .section-title { font-size:18px;font-weight:900;color:var(--text-primary);margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px; }
+
+    .rank-table { width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px; }
+    .rank-table th { padding:11px 14px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--bg-section);border-bottom:2px solid var(--border);text-align:left;white-space:nowrap; }
+    .rank-table td { padding:13px 14px;border-bottom:1px solid var(--border-light);font-size:14px;vertical-align:middle; }
+    .rank-table tr:last-child td { border-bottom:none; }
+    .rank-table tr:hover td { background:var(--bg-section); }
+    .rank-table tr.winner td { background:linear-gradient(90deg,#fefce8,#fff); }
+
+    .rk-badge { display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;font-size:14px;font-weight:900; }
+    .rk-1 { background:linear-gradient(135deg,#fef3c7,#fde68a); }
+    .rk-2 { background:linear-gradient(135deg,#f1f5f9,#e2e8f0); }
+    .rk-3 { background:linear-gradient(135deg,#fff7ed,#fed7aa); }
+    .rk-n { background:var(--bg-section);font-size:12px;color:var(--text-muted); }
+
+    .speed-bar { height:6px;border-radius:3px;background:var(--border);overflow:hidden;min-width:80px; }
+    .speed-fill { height:100%;border-radius:3px;background:linear-gradient(90deg,#059669,#0d9488); }
+
+    .badge-pill { display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700; }
+    .bp-up   { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .bp-dn   { background:#fef2f2;color:#dc2626;border:1px solid #fecaca; }
+    .bp-eq   { background:var(--bg-section);color:var(--text-muted);border:1px solid var(--border); }
+    .bp-new  { background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe; }
+
+    .highlight-box { background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #a7f3d0;border-radius:12px;padding:18px 22px;margin-bottom:20px; }
+    .highlight-title { font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:10px; }
+    .hl-item { display:flex;gap:8px;font-size:14px;color:var(--text-secondary);margin-bottom:8px;line-height:1.6; }
+    .hl-item:last-child { margin-bottom:0; }
+
+    .event-list { display:flex;flex-direction:column;gap:10px;margin-bottom:24px; }
+    .event-item { background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start; }
+    .event-icon { flex-shrink:0;font-size:20px; }
+    .event-content { flex:1; }
+    .event-title { font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:3px; }
+    .event-desc  { font-size:13px;color:var(--text-secondary);line-height:1.6; }
+    .event-date  { font-size:11px;color:var(--text-muted);font-weight:600;margin-top:4px; }
+
+    .related-reports { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:24px; }
+    .related-card { background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;transition:all .15s; }
+    .related-card:hover { border-color:var(--accent-blue);box-shadow:var(--shadow-card); }
+    .related-date { font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:4px; }
+    .related-title { font-size:13px;font-weight:700;color:var(--text-primary); }
+
+    @media (max-width:640px) {
+      .report-page { padding:16px 16px 60px; }
+      .rank-table { font-size:13px; }
+      .rank-table th,.rank-table td { padding:9px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">测速排名</button>
+        <button class="nav-tab active">月度报告</button>
+        <button class="nav-tab" onclick="location.href='compare.html'">横向对比</button>
+        <button class="nav-tab" onclick="location.href='faq.html'">问题库</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="report-page">
+    <div class="report-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>月度报告</span><span>/</span>
+      <span>2026年7月</span>
+    </div>
+
+    <!-- Hero -->
+    <div class="report-hero">
+      <div class="report-badge">📊 月度测速报告</div>
+      <h1>2026年7月 机场综合表现报告</h1>
+      <p>本月监测 13 家机场，累计采集测速样本 66,800+ 条，涵盖速度、延迟、在线率、流媒体解锁四项核心指标。暑期流量高峰下各机场稳定性全面评估。</p>
+      <div class="report-meta">
+        <span class="report-meta-item">📅 统计周期：2026-07-01 ~ 2026-07-31</span>
+        <span class="report-meta-item">🔄 归档时间：2026-08-01</span>
+        <span class="report-meta-item">📡 数据来源：SpeedRank 实时监控</span>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="sum-num" style="color:#2563eb;">13</div>
+        <div class="sum-lbl">监测机场</div>
+        <div class="sum-delta delta-eq">— 本月无新增跑路</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-num" style="color:#059669;">66,800+</div>
+        <div class="sum-lbl">测速样本</div>
+        <div class="sum-delta delta-up">↑ 较上月 +6.1%</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-num" style="color:#7c3aed;">99.6%</div>
+        <div class="sum-lbl">平均在线率</div>
+        <div class="sum-delta delta-eq">— 较上月持平</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-num" style="color:#059669;">0</div>
+        <div class="sum-lbl">跑路/疑似跑路</div>
+        <div class="sum-delta delta-up">✅ 全部正常运营</div>
+      </div>
+    </div>
+
+    <!-- Highlight -->
+    <div class="highlight-box">
+      <div class="highlight-title">🏆 本月亮点</div>
+      <div class="hl-item"><span>🥇</span><span><strong>云图机场</strong>7月速度再创新高，暑期高峰期平均下载速度达 <strong>155 MB/s</strong>，专线稳定性明显优于竞品。</span></div>
+      <div class="hl-item"><span>📈</span><span><strong>极速云</strong>7月完成台湾节点扩容，新增 15 个台湾 BGP 节点，跨境延迟从 24ms 降至 <strong>17ms</strong>。</span></div>
+      <div class="hl-item"><span>⚠️</span><span><strong>山海机场</strong>7月中旬遭遇 DDoS 攻击，约 6 小时服务中断，事后已完成防护升级，本月在线率 <strong>99.3%</strong>。</span></div>
+    </div>
+
+    <!-- Main Ranking Table -->
+    <div class="section-title">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="#059669"/></svg>
+      7月综合排名
+    </div>
+
+    <div style="overflow-x:auto;border-radius:12px;border:1px solid var(--border);">
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th>排名</th>
+            <th>机场</th>
+            <th>速度</th>
+            <th>延迟</th>
+            <th>在线率</th>
+            <th>解锁</th>
+            <th>综合分</th>
+            <th>较上月</th>
+          </tr>
+        </thead>
+        <tbody id="rankBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Events -->
+    <div class="section-title">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="#059669" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="#059669" stroke-width="1.5" stroke-linecap="round"/></svg>
+      本月重要事件
+    </div>
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-icon">📡</div>
+        <div class="event-content">
+          <div class="event-title">极速云完成台湾节点扩容 +15</div>
+          <div class="event-desc">极速云于7月上旬完成台湾 BGP 节点扩容，新增 15 个节点后用户跨境延迟大幅改善，晚高峰稳定性评分提升至95分。</div>
+          <div class="event-date">2026-07-08</div>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-icon">⚠️</div>
+        <div class="event-content">
+          <div class="event-title">山海机场遭遇 DDoS 攻击，服务中断约6小时</div>
+          <div class="event-desc">7月15日山海机场遭遇大规模 DDoS 攻击，服务中断约6小时，影响部分用户使用。事后官方发布公告，完成防护升级并补偿受影响用户流量。</div>
+          <div class="event-date">2026-07-15</div>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-icon">🎉</div>
+        <div class="event-content">
+          <div class="event-title">寰宇云推出暑期7折活动</div>
+          <div class="event-desc">寰宇云7月推出暑期特惠活动，新用户使用优惠码 hy777 享七折，仅限7月31日前，是年内难得的大力度促销。</div>
+          <div class="event-date">2026-07-01</div>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-icon">🌤️</div>
+        <div class="event-content">
+          <div class="event-title">云图机场上线第二条金融专线</div>
+          <div class="event-desc">云图机场7月末宣布开通第二条金融专线，覆盖香港、新加坡两条线路，进一步拉开与竞品的速度差距。</div>
+          <div class="event-date">2026-07-28</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speed Chart -->
+    <div class="section-title">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M2 10l4-4 3 3 5-6" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      7月晚高峰速度趋势（20:00-23:00）
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px;">
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.6;">
+        晚高峰（20:00-23:00）是区分专线机场与中转机场的关键时段。以下为7月各机场晚高峰平均下载速度：
+      </div>
+      <div id="speedBars" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+    <!-- Conclusion -->
+    <div style="background:var(--bg-section);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:28px;">
+      <div style="font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:12px;">📝 7月总结</div>
+      <div style="font-size:14px;color:var(--text-secondary);line-height:1.8;">
+        2026年7月暑期流量高峰期，整体市场表现良好，仅山海机场出现一次较短时间的服务中断事件。顶部阵营（云图、极速云、寰宇云）差距持续扩大，稳定性和速度指标全面领先。
+        <br><br>
+        7月是购买机场的好时机：寰宇云提供年内最大折扣（hy777 七折），云图机场新增专线后速度差距进一步拉开。对速度有极致要求的用户，<strong>云图机场（yt88）</strong>是本月无争议的最佳选择。
+        <br><br>
+        8月将迎来暑期尾声，预计各机场继续维持较高流量，SpeedRank 将持续更新实时排名数据。
+      </div>
+    </div>
+
+    <!-- Related Reports -->
+    <div style="font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:14px;">📅 相关报告</div>
+    <div class="related-reports">
+      <a href="monthly-report-2026-08.html" class="related-card">
+        <div class="related-date">2026年8月</div>
+        <div class="related-title">8月机场月度表现报告</div>
+      </a>
+      <a href="monthly-report-2026-06.html" class="related-card">
+        <div class="related-date">2026年6月</div>
+        <div class="related-title">6月机场月度表现报告</div>
+      </a>
+      <a href="monthly-report-2026-05.html" class="related-card">
+        <div class="related-date">2026年5月</div>
+        <div class="related-title">5月机场月度表现报告</div>
+      </a>
+    </div>
+  </main>
+
+  <script>
+  const DATA = [
+    { rank:1, emoji:'🌤️', name:'云图机场',  speed:155, latency:15, uptime:99.9, unlock:'全解锁', score:97, delta:0,  link:'yuntu-jichang-pingce.html' },
+    { rank:2, emoji:'🚀', name:'极速云',    speed:144, latency:17, uptime:99.8, unlock:'全解锁', score:94, delta:0,  link:'jisuyun-jichang-pingce.html' },
+    { rank:3, emoji:'🌍', name:'寰宇云',    speed:130, latency:27, uptime:99.8, unlock:'全解锁', score:90, delta:1,  link:'huanyuyun-jichang-pingce.html' },
+    { rank:4, emoji:'⚡', name:'瞬云',      speed:126, latency:23, uptime:99.6, unlock:'主流解锁', score:86, delta:0,  link:'shunyun-jichang-pingce.html' },
+    { rank:5, emoji:'🏔️', name:'山海机场',  speed:116, latency:32, uptime:99.3, unlock:'主流解锁', score:79, delta:-2, link:'shanhai-jichang-pingce.html' },
+    { rank:6, emoji:'☁️', name:'CloudFlux', speed:113, latency:31, uptime:99.5, unlock:'主流解锁', score:78, delta:1,  link:'cloudflux-jichang-pingce.html' },
+    { rank:7, emoji:'🇮🇹', name:'Nexitaly', speed:110, latency:37, uptime:99.4, unlock:'欧洲解锁', score:75, delta:-2, link:'nexitaly-jichang-pingce.html' },
+    { rank:8, emoji:'🌟', name:'Stargate',  speed:107, latency:39, uptime:99.3, unlock:'基础解锁', score:72, delta:0,  link:'stargate-jichang-pingce.html' },
+    { rank:9, emoji:'🛸', name:'Orbital',   speed:103, latency:41, uptime:99.2, unlock:'基础解锁', score:69, delta:0,  link:'orbital-jichang-pingce.html' },
+    { rank:10,emoji:'🌬️', name:'Nimbus',    speed:101, latency:44, uptime:99.3, unlock:'基础解锁', score:68, delta:1,  link:'nimbus-jichang-pingce.html' },
+    { rank:11,emoji:'🌀', name:'Vortex',    speed:97,  latency:46, uptime:99.1, unlock:'基础解锁', score:65, delta:0,  link:'vortex-jichang-pingce.html' },
+    { rank:12,emoji:'☀️', name:'Helios',    speed:94,  latency:50, uptime:99.0, unlock:'基础解锁', score:61, delta:0,  link:'helios-jichang-pingce.html' },
+    { rank:13,emoji:'👻', name:'Phantom',   speed:89,  latency:54, uptime:98.8, unlock:'基础解锁', score:57, delta:0,  link:'phantom-jichang-pingce.html' },
+  ];
+
+  const numCls = i => ['rk-1','rk-2','rk-3','rk-n'][Math.min(i, 3)];
+  const deltaHtml = d => d > 0 ? `<span class="badge-pill bp-up">↑${d}</span>` : d < 0 ? `<span class="badge-pill bp-dn">↓${Math.abs(d)}</span>` : `<span class="badge-pill bp-eq">—</span>`;
+
+  document.getElementById('rankBody').innerHTML = DATA.map((d, i) => `
+    <tr class="${i < 3 ? 'winner' : ''}">
+      <td><div class="rk-badge ${numCls(i)}">${i < 3 ? ['🥇','🥈','🥉'][i] : d.rank}</div></td>
+      <td><a href="${d.link}" style="color:var(--text-primary);text-decoration:none;font-weight:700;">${d.emoji} ${d.name}</a></td>
+      <td><div style="font-weight:700;color:#059669;font-family:'JetBrains Mono',monospace;">${d.speed}</div><div class="speed-bar" style="margin-top:4px;"><div class="speed-fill" style="width:${Math.round(d.speed/155*100)}%"></div></div></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${d.latency<20?'#059669':d.latency<35?'#2563eb':'#b45309'};">${d.latency}ms</td>
+      <td style="font-weight:700;">${d.uptime}%</td>
+      <td><span style="font-size:12px;color:var(--text-secondary);">${d.unlock}</span></td>
+      <td style="font-weight:900;font-size:16px;">${d.score}</td>
+      <td>${deltaHtml(d.delta)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('speedBars').innerHTML = DATA.slice(0, 8).map(d => `
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="width:80px;font-size:13px;font-weight:700;flex-shrink:0;text-align:right;">${d.emoji} ${d.name.slice(0,4)}</span>
+      <div style="flex:1;height:18px;background:var(--border);border-radius:4px;overflow:hidden;">
+        <div style="height:100%;background:linear-gradient(90deg,#059669,#0d9488);border-radius:4px;width:${Math.round(d.speed/155*100)}%;display:flex;align-items:center;padding-left:6px;">
+          <span style="font-size:11px;font-weight:700;color:#fff;white-space:nowrap;">${d.speed} MB/s</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  </script>
+</body>
+</html>
