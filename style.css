@@ -1054,6 +1054,74 @@ body::after {
   border: 1px solid #bfdbfe;
 }
 
+/* Toolbox Card */
+.toolbox-card {
+  border-left: 3px solid #059669;
+}
+.toolbox-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.toolbox-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.toolbox-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.toolbox-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tool-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--text-primary);
+  border-radius: 8px;
+  transition: all 0.15s;
+  font-size: 13px;
+  font-weight: 600;
+}
+.tool-link:hover {
+  background: var(--bg-section);
+  color: var(--accent-blue);
+}
+.tool-emoji {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.tool-name {
+  flex: 1;
+}
+.tool-link svg {
+  flex-shrink: 0;
+  opacity: 0.4;
+  transition: all 0.15s;
+}
+.tool-link:hover svg {
+  opacity: 1;
+  transform: translateX(2px);
+}
+.tool-link-more {
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+  color: var(--accent-blue);
+  font-weight: 700;
+}
+.tool-link-more .tool-name {
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .rank-card { grid-template-columns: 50px 1fr; }
   .card-right { display: none; }
