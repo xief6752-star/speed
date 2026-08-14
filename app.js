@@ -1340,3 +1340,37 @@ function toggleFaq(el) {
   }
 }
 
+
+function bookmarkSite() {
+  const url = window.location.href;
+  const title = document.title;
+  
+  // Modern browsers block programmatic bookmarking for security
+  // Show a tooltip with keyboard shortcut instructions
+  if (window.sidebar && window.sidebar.addPanel) {
+    window.sidebar.addPanel(title, url, '');
+  } else if (window.external && ('AddFavorite' in window.external)) {
+    window.external.AddFavorite(url, title);
+  } else {
+    const isMac = navigator.platform.toUpperCase().includes('MAC');
+    const key = isMac ? '⌘+D' : 'Ctrl+D';
+    showBookmarkTip(key);
+  }
+}
+
+function showBookmarkTip(key) {
+  const existing = document.getElementById('bookmark-tip');
+  if (existing) existing.remove();
+  
+  const tip = document.createElement('div');
+  tip.id = 'bookmark-tip';
+  tip.innerHTML = `按 <kbd>${key}</kbd> 收藏本站`;
+  tip.style.cssText = 'position:fixed;top:72px;right:20px;background:#1e293b;color:#f1f5f9;padding:10px 16px;border-radius:8px;font-size:13px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .2s;box-shadow:0 4px 12px rgba(0,0,0,.3);';
+  document.body.appendChild(tip);
+  
+  requestAnimationFrame(() => { tip.style.opacity = '1'; });
+  setTimeout(() => {
+    tip.style.opacity = '0';
+    setTimeout(() => tip.remove(), 200);
+  }, 2500);
+}

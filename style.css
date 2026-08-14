@@ -245,6 +245,33 @@ body::after {
 }
 .btn-refresh:active { transform: translateY(0); }
 .btn-icon { width: 15px; height: 15px; }
+.btn-bookmark {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.btn-bookmark:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(37,99,235,0.05);
+}
+.btn-bookmark:active { transform: scale(0.97); }
+#bookmark-tip kbd {
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
 .btn-refresh.spinning .btn-icon { animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
