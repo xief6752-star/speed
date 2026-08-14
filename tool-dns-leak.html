@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNS泄露检测 & WebRTC泄露检测 — 机场代理安全检测工具 · SpeedRank</title>
+  <meta name="description" content="检测您的机场/代理是否存在DNS泄露或WebRTC IP泄露。DNS泄露会暴露真实DNS服务器，WebRTC泄露会暴露真实IP地址，即使开启代理也无法隐藏。一键检测，结果直观。" />
+  <meta name="keywords" content="DNS泄露检测,DNS leak test,WebRTC泄露,IP泄露,代理泄露,机场DNS泄露,VPN泄露检测,翻墙安全检测" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DNS泄露 & WebRTC泄露检测 · SpeedRank工具箱" />
+  <meta property="og:description" content="检测机场/代理是否存在DNS泄露或WebRTC IP泄露，保护上网隐私安全。" />
+  <meta property="og:url" content="https://jichangspeed.com/tool-dns-leak.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DNS泄露 & WebRTC泄露检测 · SpeedRank" />
+  <meta name="twitter:description" content="检测机场/代理是否存在DNS泄露或WebRTC IP泄露。" />
+  <link rel="canonical" href="https://jichangspeed.com/tool-dns-leak.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tool-page { max-width: 860px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .tool-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .tool-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .tool-header { margin-bottom:32px; }
+    .tool-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .tool-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .tools-nav { display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px; }
+    .tools-nav a { display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;transition:all .15s; }
+    .tools-nav a:hover { border-color:var(--accent-blue);color:var(--accent-blue); }
+    .tools-nav a.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+
+    .check-card {
+      background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 32px;
+      box-shadow:var(--shadow-card);margin-bottom:20px;position:relative;overflow:hidden;
+    }
+    .check-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:4px;
+    }
+    .card-safe::before { background:linear-gradient(90deg,#059669,#34d399); }
+    .card-warn::before { background:linear-gradient(90deg,#d97706,#fbbf24); }
+    .card-error::before { background:linear-gradient(90deg,#dc2626,#f87171); }
+    .card-neutral::before { background:linear-gradient(90deg,#2563eb,#0ea5e9); }
+    .card-loading::before { background:linear-gradient(90deg,#94a3b8,#cbd5e1,#94a3b8);background-size:200%;animation:shimmer 1.5s infinite; }
+
+    .check-title { font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:4px;display:flex;align-items:center;gap:10px; }
+    .check-subtitle { font-size:13px;color:var(--text-secondary);margin-bottom:20px;line-height:1.6; }
+
+    .result-row { display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-light);font-size:14px; }
+    .result-row:last-child { border-bottom:none; }
+    .result-key { color:var(--text-secondary);font-weight:600; }
+    .result-val { font-family:'JetBrains Mono',monospace;color:var(--text-primary);font-size:13px;font-weight:600; }
+
+    .verdict-badge {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 18px;border-radius:24px;font-size:14px;font-weight:800;
+      margin-bottom:16px;
+    }
+    .verdict-safe { background:#ecfdf5;color:#059669;border:1.5px solid #a7f3d0; }
+    .verdict-warn { background:#fffbeb;color:#b45309;border:1.5px solid #fde68a; }
+    .verdict-bad  { background:#fef2f2;color:#dc2626;border:1.5px solid #fecaca; }
+    .verdict-loading { background:var(--bg-section);color:var(--text-muted);border:1.5px solid var(--border); }
+
+    .ip-list { margin-top:12px;display:flex;flex-direction:column;gap:6px; }
+    .ip-entry {
+      display:flex;align-items:center;gap:10px;
+      padding:8px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg-section);
+      font-family:'JetBrains Mono',monospace;font-size:13px;
+    }
+    .ip-tag { padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700; }
+    .ip-tag-proxy { background:#eff6ff;color:#2563eb; }
+    .ip-tag-real  { background:#fef2f2;color:#dc2626; }
+    .ip-tag-same  { background:#ecfdf5;color:#059669; }
+    .ip-tag-local { background:#f8fafc;color:#64748b; }
+
+    .scan-btn {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:11px 24px;border-radius:10px;background:var(--accent-blue);color:#fff;
+      font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;
+      transition:all .15s;margin-top:4px;
+    }
+    .scan-btn:hover { background:#1d4ed8; }
+    .scan-btn:disabled { opacity:.6;cursor:not-allowed; }
+
+    .explainer {
+      background:var(--bg-section);border:1px solid var(--border);border-radius:12px;
+      padding:20px 24px;margin-bottom:20px;
+    }
+    .explainer-title { font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px; }
+    .explainer-item { display:flex;gap:10px;margin-bottom:12px;font-size:14px;line-height:1.6;color:var(--text-secondary); }
+    .explainer-item:last-child { margin-bottom:0; }
+
+    .skeleton { background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px;height:14px; }
+    @keyframes shimmer { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+
+    @media (max-width:640px) {
+      .tool-page { padding:16px 16px 60px; }
+      .check-card { padding:20px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='compare.html'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="2" width="5" height="12" rx="1" fill="currentColor"/></svg>横向对比
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+        <button class="nav-tab active">工具箱</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="tool-page">
+    <div class="tool-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="tool-ip-check.html">工具箱</a><span>/</span>
+      <span>DNS 泄露检测</span>
+    </div>
+
+    <div class="tool-header">
+      <h1>🔒 DNS 泄露 & WebRTC 泄露检测</h1>
+      <p>检测您的代理/机场是否存在 DNS 泄露或 WebRTC IP 泄露，防止真实身份在上网过程中被暴露。</p>
+    </div>
+
+    <div class="tools-nav">
+      <a href="tool-ip-check.html">🌐 IP 查询</a>
+      <a href="tool-dns-leak.html" class="active">🔒 DNS 泄露检测</a>
+      <a href="tool-stream-check.html">▶️ 流媒体解锁检测</a>
+    </div>
+
+    <!-- WebRTC Leak Test -->
+    <div class="check-card card-loading" id="webrtcCard">
+      <div class="check-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" stroke="#2563eb" stroke-width="1.8"/><path d="M8 12s1.5-2 4-2 4 2 4 2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="9" r="1.2" fill="#2563eb"/></svg>
+        WebRTC IP 泄露检测
+      </div>
+      <div class="check-subtitle">WebRTC 是浏览器的视频/语音通话协议，可绕过代理直接暴露真实 IP，即使您开启了机场也可能泄露。</div>
+      <div id="webrtcVerdict" class="verdict-badge verdict-loading">
+        <span id="webrtcVerdictDot">⏳</span>
+        <span id="webrtcVerdictText">检测中…</span>
+      </div>
+      <div class="ip-list" id="webrtcIPs">
+        <div class="ip-entry"><div class="skeleton" style="width:60%;"></div></div>
+        <div class="ip-entry"><div class="skeleton" style="width:50%;"></div></div>
+      </div>
+    </div>
+
+    <!-- Proxy IP vs DNS IP comparison -->
+    <div class="check-card card-loading" id="dnsCard">
+      <div class="check-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#2563eb" stroke-width="1.8"/></svg>
+        DNS 服务器检测
+      </div>
+      <div class="check-subtitle">通过查询您的出口 IP 与其关联的网络信息，判断 DNS 解析是否经过代理服务器处理。</div>
+      <div id="dnsVerdict" class="verdict-badge verdict-loading">
+        <span>⏳</span>
+        <span id="dnsVerdictText">检测中…</span>
+      </div>
+      <div id="dnsResults">
+        <div class="result-row">
+          <span class="result-key">代理出口 IP</span>
+          <span class="result-val" id="dnsProxyIP"><div class="skeleton" style="width:140px;height:14px;"></div></span>
+        </div>
+        <div class="result-row">
+          <span class="result-key">IP 归属国家</span>
+          <span class="result-val" id="dnsCountry"><div class="skeleton" style="width:100px;height:14px;"></div></span>
+        </div>
+        <div class="result-row">
+          <span class="result-key">出口运营商</span>
+          <span class="result-val" id="dnsISP"><div class="skeleton" style="width:180px;height:14px;"></div></span>
+        </div>
+        <div class="result-row">
+          <span class="result-key">DNS 风险评估</span>
+          <span class="result-val" id="dnsRisk"><div class="skeleton" style="width:120px;height:14px;"></div></span>
+        </div>
+      </div>
+      <button class="scan-btn" onclick="runAllChecks()" id="rerunBtn" style="margin-top:16px;">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg>
+        重新检测
+      </button>
+    </div>
+
+    <!-- How to fix -->
+    <div class="explainer">
+      <div class="explainer-title">🛡️ 如何防止 DNS 泄露和 WebRTC 泄露</div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">1️⃣</span>
+        <span><strong>在 Clash 中开启 fake-ip 或 redir-host 模式</strong>：这可以将所有 DNS 请求都走代理，避免 DNS 泄露到本地运营商。</span>
+      </div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">2️⃣</span>
+        <span><strong>使用 TUN 模式（系统代理）</strong>：Clash Verge Rev、Mihomo Party 的 TUN 模式可接管所有流量，包括不支持代理的应用程序，彻底防止泄露。</span>
+      </div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">3️⃣</span>
+        <span><strong>Chrome/Edge 关闭 WebRTC</strong>：安装 "WebRTC Leak Prevent" 扩展，或访问 <code>chrome://flags/#disable-webrtc-hide-local-ips-with-mdns</code> 修改设置。</span>
+      </div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">4️⃣</span>
+        <span><strong>Firefox 禁用 WebRTC</strong>：地址栏输入 <code>about:config</code>，搜索 <code>media.peerconnection.enabled</code>，设为 <code>false</code>。</span>
+      </div>
+    </div>
+
+    <!-- What is DNS leak -->
+    <div class="explainer">
+      <div class="explainer-title">❓ 什么是 DNS 泄露，为什么危险？</div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">🔍</span>
+        <span><strong>DNS 请求未经代理</strong>：当您访问 google.com 时，如果 DNS 查询走了国内运营商的服务器，运营商就知道您在访问 google.com，即使实际数据通过代理传输。</span>
+      </div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">⚠️</span>
+        <span><strong>WebRTC 可绕过 SOCKS5/HTTP 代理</strong>：浏览器的 WebRTC 功能会直接使用本地网络接口获取 IP，即使已连接代理，真实 IP 也可能被网站检测到。</span>
+      </div>
+      <div class="explainer-item">
+        <span style="flex-shrink:0;font-size:16px;">✅</span>
+        <span><strong>正常情况</strong>：WebRTC 检测只看到您代理出口的 IP；DNS 请求通过代理的 DNS 服务器解析，不经过本地 ISP。</span>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px;">🔧 更多工具</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="tool-ip-check.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          🌐 IP 地址查询
+        </a>
+        <a href="tool-stream-check.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          ▶️ 流媒体解锁检测
+          <span style="font-size:11px;background:#fef3c7;color:#b45309;padding:1px 7px;border-radius:10px;font-weight:700;">热门</span>
+        </a>
+        <a href="compare.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          📊 机场横向对比
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // WebRTC leak detection
+    function getWebRTCIPs() {
+      return new Promise((resolve) => {
+        const ips = new Set();
+        let pc;
+        try {
+          pc = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }] });
+        } catch (e) {
+          resolve([]);
+          return;
+        }
+        pc.createDataChannel('');
+        pc.onicecandidate = (e) => {
+          if (!e.candidate) {
+            pc.close();
+            resolve([...ips]);
+            return;
+          }
+          const cand = e.candidate.candidate;
+          const ipv4 = cand.match(/\b(\d{1,3}\.){3}\d{1,3}\b/g) || [];
+          const ipv6 = cand.match(/[0-9a-f]{0,4}(:[0-9a-f]{0,4}){5,7}/gi) || [];
+          [...ipv4, ...ipv6].forEach(ip => {
+            if (!ip.startsWith('0.') && ip !== '0.0.0.0') ips.add(ip);
+          });
+        };
+        pc.createOffer().then(o => pc.setLocalDescription(o));
+        setTimeout(() => { pc.close(); resolve([...ips]); }, 3000);
+      });
+    }
+
+    function isPrivateIP(ip) {
+      return /^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|127\.|::1$|fe80:|fc|fd)/i.test(ip);
+    }
+
+    async function runWebRTCCheck(proxyIP) {
+      const card = document.getElementById('webrtcCard');
+      const verdict = document.getElementById('webrtcVerdict');
+      const verdictText = document.getElementById('webrtcVerdictText');
+      const ipList = document.getElementById('webrtcIPs');
+
+      let ips = [];
+      try { ips = await getWebRTCIPs(); } catch (e) {}
+
+      ipList.innerHTML = '';
+
+      if (ips.length === 0) {
+        card.className = 'check-card card-safe';
+        verdict.className = 'verdict-badge verdict-safe';
+        verdictText.textContent = '未检测到 WebRTC IP 泄露';
+        ipList.innerHTML = '<div style="font-size:13px;color:var(--text-secondary);padding:8px 0;">浏览器未暴露任何额外 IP 地址，WebRTC 安全。</div>';
+        return;
+      }
+
+      const publicIPs = ips.filter(ip => !isPrivateIP(ip));
+      const privateIPs = ips.filter(ip => isPrivateIP(ip));
+      let hasLeak = false;
+
+      publicIPs.forEach(ip => {
+        const isProxy = proxyIP && ip === proxyIP;
+        const tag = isProxy ? '<span class="ip-tag ip-tag-proxy">代理出口</span>' : '<span class="ip-tag ip-tag-real">⚠ 真实IP泄露</span>';
+        if (!isProxy) hasLeak = true;
+        ipList.innerHTML += `<div class="ip-entry">${tag} ${ip}</div>`;
+      });
+
+      privateIPs.slice(0, 3).forEach(ip => {
+        ipList.innerHTML += `<div class="ip-entry"><span class="ip-tag ip-tag-local">本地局域网</span> ${ip}</div>`;
+      });
+
+      if (hasLeak) {
+        card.className = 'check-card card-error';
+        verdict.className = 'verdict-badge verdict-bad';
+        verdictText.textContent = '⚠️ 发现 WebRTC IP 泄露！';
+      } else if (publicIPs.length > 0) {
+        card.className = 'check-card card-safe';
+        verdict.className = 'verdict-badge verdict-safe';
+        verdictText.textContent = '✅ 无 WebRTC 泄露，代理正常';
+      } else {
+        card.className = 'check-card card-safe';
+        verdict.className = 'verdict-badge verdict-safe';
+        verdictText.textContent = '✅ 仅局域网 IP，无真实IP暴露';
+      }
+    }
+
+    async function runDNSCheck() {
+      const card = document.getElementById('dnsCard');
+      const verdictText = document.getElementById('dnsVerdictText');
+      let proxyIP = null;
+
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const d = await res.json();
+        proxyIP = d.ip;
+        const isCN = d.country_code === 'CN';
+        const isp = (d.org || '').replace(/^AS\d+\s*/, '');
+        const isCDC = /cloudflare|akamai|digitalocean|linode|vultr|amazon|google|microsoft|oracle|hetzner|ovh/i.test(isp);
+
+        document.getElementById('dnsProxyIP').textContent = d.ip || '未知';
+        document.getElementById('dnsCountry').textContent = (d.country_name || '未知') + (d.city ? ' · ' + d.city : '');
+        document.getElementById('dnsISP').textContent = isp || '未知';
+
+        if (!isCN) {
+          card.className = 'check-card card-safe';
+          document.getElementById('dnsVerdict').className = 'verdict-badge verdict-safe';
+          verdictText.textContent = '✅ 代理正常，境外出口';
+          document.getElementById('dnsRisk').textContent = isCDC ? '低风险（数据中心IP）' : '低风险（境外出口）';
+        } else {
+          card.className = 'check-card card-warn';
+          document.getElementById('dnsVerdict').className = 'verdict-badge verdict-warn';
+          verdictText.textContent = '⚠️ 中国大陆出口，请检查代理设置';
+          document.getElementById('dnsRisk').textContent = '高风险（直连状态）';
+        }
+        return proxyIP;
+      } catch (e) {
+        card.className = 'check-card card-warn';
+        document.getElementById('dnsVerdict').className = 'verdict-badge verdict-warn';
+        verdictText.textContent = 'API 请求失败，请重试';
+        document.getElementById('dnsProxyIP').textContent = '—';
+        document.getElementById('dnsCountry').textContent = '—';
+        document.getElementById('dnsISP').textContent = '—';
+        document.getElementById('dnsRisk').textContent = '—';
+        return null;
+      }
+    }
+
+    async function runAllChecks() {
+      const btn = document.getElementById('rerunBtn');
+      btn.disabled = true;
+      btn.textContent = '检测中…';
+
+      // Reset states
+      document.getElementById('webrtcCard').className = 'check-card card-loading';
+      document.getElementById('dnsCard').className = 'check-card card-loading';
+      document.getElementById('webrtcVerdict').className = 'verdict-badge verdict-loading';
+      document.getElementById('webrtcVerdictText').textContent = '检测中…';
+      document.getElementById('dnsVerdict').className = 'verdict-badge verdict-loading';
+      document.getElementById('dnsVerdictText').textContent = '检测中…';
+
+      const [proxyIP] = await Promise.all([runDNSCheck()]);
+      await runWebRTCCheck(proxyIP);
+
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg> 重新检测';
+    }
+
+    runAllChecks();
+  </script>
+</body>
+</html>

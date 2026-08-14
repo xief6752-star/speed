@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IP地址查询 — 查看我的IP、归属地、ISP、代理检测 · SpeedRank工具箱</title>
+  <meta name="description" content="免费在线IP地址查询工具：一键查看当前IP地址、IP归属地（国家/城市）、运营商ISP、是否使用代理/VPN/机场节点。支持IPv4和IPv6检测，翻墙用户必备工具。" />
+  <meta name="keywords" content="IP地址查询,查看我的IP,IP归属地,IP检测,代理检测,VPN检测,机场IP检测,IPv6检测,IP泄露检测" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="IP地址查询工具 — 查看当前IP、归属地、代理检测 · SpeedRank" />
+  <meta property="og:description" content="免费查询当前IP地址、归属地、ISP运营商，检测是否正确使用代理/机场节点。" />
+  <meta property="og:url" content="https://jichangspeed.com/tool-ip-check.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="IP地址查询工具 · SpeedRank" />
+  <meta name="twitter:description" content="查看当前IP地址、归属地、ISP，检测代理/机场节点是否生效。" />
+  <link rel="canonical" href="https://jichangspeed.com/tool-ip-check.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tool-page { max-width: 860px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .tool-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .tool-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .tool-header { margin-bottom:32px; }
+    .tool-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .tool-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .ip-main-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ip-main-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #0ea5e9, #2563eb);
+    }
+    .ip-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 12px; }
+    .ip-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      line-height: 1.1;
+      word-break: break-all;
+    }
+    .ip-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .status-proxy { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+    .status-direct { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+    .status-loading { background: var(--bg-section); color: var(--text-muted); border: 1px solid var(--border); }
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: pulse-anim 1.4s infinite;
+    }
+    @keyframes pulse-anim {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .dot-green { background: #059669; }
+    .dot-blue { background: #2563eb; }
+    .dot-gray { background: var(--text-muted); }
+
+    .refresh-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 20px; border-radius: 8px;
+      background: var(--accent-blue); color: #fff;
+      font-size: 14px; font-weight: 700; border: none; cursor: pointer;
+      font-family: inherit; transition: all 0.15s; margin-top: 16px;
+    }
+    .refresh-btn:hover { background: #1d4ed8; }
+    .refresh-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .info-icon { font-size: 22px; margin-bottom: 8px; }
+    .info-card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+    .info-card-value { font-size: 15px; font-weight: 700; color: var(--text-primary); word-break: break-all; }
+    .info-card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; height: 18px; width: 80%; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .ipv6-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .ipv6-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .v6-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+    .v6-row:last-child { border-bottom: none; }
+    .v6-key { color: var(--text-secondary); font-weight: 600; }
+    .v6-val { font-family: 'JetBrains Mono', monospace; color: var(--text-primary); font-size: 13px; }
+
+    .tips-section {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .tips-title { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 14px; }
+    .tip-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+    .tip-item:last-child { margin-bottom: 0; }
+    .tip-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+    .tools-nav {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .tools-nav a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 8px;
+      background: #fff; border: 1px solid var(--border);
+      font-size: 13px; font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; transition: all 0.15s;
+    }
+    .tools-nav a:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .tools-nav a.active { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; }
+
+    @media (max-width: 640px) {
+      .tool-page { padding: 16px 16px 60px; }
+      .ip-main-card { padding: 24px 20px; }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='compare.html'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="2" width="5" height="12" rx="1" fill="currentColor"/></svg>横向对比
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>工具箱
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="tool-page">
+    <div class="tool-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="tool-ip-check.html">工具箱</a><span>/</span>
+      <span>IP 地址查询</span>
+    </div>
+
+    <div class="tool-header">
+      <h1>🌐 IP 地址查询</h1>
+      <p>实时检测您当前使用的 IP 地址、所在地区、运营商，以及是否通过代理/机场节点访问。</p>
+    </div>
+
+    <div class="tools-nav">
+      <a href="tool-ip-check.html" class="active">🌐 IP 查询</a>
+      <a href="tool-dns-leak.html">🔒 DNS 泄露检测</a>
+      <a href="tool-stream-check.html">▶️ 流媒体解锁检测</a>
+    </div>
+
+    <!-- Main IP Card -->
+    <div class="ip-main-card">
+      <div class="ip-label">您当前的 IP 地址</div>
+      <div class="ip-value" id="ipv4Val">
+        <div class="skeleton" style="width:220px;height:44px;margin:0 auto;border-radius:8px;"></div>
+      </div>
+      <div id="statusBadge" class="ip-status-badge status-loading">
+        <div class="pulse-dot dot-gray"></div>
+        <span>检测中…</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-top:6px;" id="locationLine">—</div>
+      <button class="refresh-btn" onclick="fetchIP()" id="refreshBtn">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg>
+        重新检测
+      </button>
+    </div>
+
+    <!-- Detail Grid -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <div class="info-card-label">归属国家</div>
+        <div class="info-card-value" id="country"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="countryCode">—</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🏙️</div>
+        <div class="info-card-label">城市 / 地区</div>
+        <div class="info-card-value" id="city"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="region">—</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📡</div>
+        <div class="info-card-label">运营商 ISP</div>
+        <div class="info-card-value" id="isp"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="asn">—</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⏱️</div>
+        <div class="info-card-label">检测延迟</div>
+        <div class="info-card-value" id="latency"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="latencySub">API 响应时间</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🌍</div>
+        <div class="info-card-label">时区</div>
+        <div class="info-card-value" id="timezone"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="timezoneSub">—</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔗</div>
+        <div class="info-card-label">IP 版本</div>
+        <div class="info-card-value" id="ipversion"><div class="skeleton"></div></div>
+        <div class="info-card-sub" id="ipversionSub">—</div>
+      </div>
+    </div>
+
+    <!-- IPv6 Check -->
+    <div class="ipv6-section">
+      <div class="ipv6-title">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="#2563eb" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round"/></svg>
+        IPv6 地址
+      </div>
+      <div class="v6-row">
+        <span class="v6-key">IPv6 地址</span>
+        <span class="v6-val" id="ipv6Addr">检测中…</span>
+      </div>
+      <div class="v6-row">
+        <span class="v6-key">IPv6 支持</span>
+        <span class="v6-val" id="ipv6Support">—</span>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="tips-section">
+      <div class="tips-title">💡 如何读懂检测结果</div>
+      <div class="tip-item">
+        <span class="tip-icon">✅</span>
+        <span><strong>归属地显示为香港/日本/美国等</strong>：说明您的机场节点已生效，流量正通过境外服务器出口。</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">⚠️</span>
+        <span><strong>归属地仍显示中国大陆</strong>：可能节点未选择、规则未触发（直连模式），或代理软件未正确启动。</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🔍</span>
+        <span><strong>ISP 显示机场服务商名称</strong>：如 Cloudflare、Linode、DigitalOcean 等，属于正常情况，说明使用的是数据中心 IP。</span>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">🛡️</span>
+        <span><strong>延迟高于 300ms</strong>：检测 API 本身从您的出口 IP 访问，与实际网速无关，可忽略。</span>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px;">🔧 更多工具</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="tool-dns-leak.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          🔒 DNS 泄露检测
+          <span style="font-size:11px;background:#fef3c7;color:#b45309;padding:1px 7px;border-radius:10px;font-weight:700;">热门</span>
+        </a>
+        <a href="tool-stream-check.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          ▶️ 流媒体解锁检测
+        </a>
+        <a href="compare.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">
+          📊 机场横向对比
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function fetchIP() {
+      const btn = document.getElementById('refreshBtn');
+      btn.disabled = true;
+      btn.textContent = '检测中…';
+
+      document.getElementById('ipv4Val').innerHTML = '<div class="skeleton" style="width:220px;height:44px;margin:0 auto;border-radius:8px;"></div>';
+      document.getElementById('statusBadge').className = 'ip-status-badge status-loading';
+      document.getElementById('statusBadge').innerHTML = '<div class="pulse-dot dot-gray"></div><span>检测中…</span>';
+
+      const t0 = Date.now();
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const latency = Date.now() - t0;
+        const d = await res.json();
+
+        const ip = d.ip || '未知';
+        const isIPv6 = ip.includes(':');
+        const country = d.country_name || '未知';
+        const countryCode = d.country_code || '';
+        const city = d.city || '未知';
+        const region = d.region || '';
+        const isp = d.org || '未知';
+        const timezone = d.timezone || '未知';
+        const asn = d.asn || '';
+
+        document.getElementById('ipv4Val').textContent = ip;
+        document.getElementById('locationLine').textContent = `${countryCode ? countryCode + '  ' : ''}${city}${region ? ', ' + region : ''}`;
+
+        const isCN = countryCode === 'CN';
+        document.getElementById('statusBadge').className = 'ip-status-badge ' + (isCN ? 'status-direct' : 'status-proxy');
+        document.getElementById('statusBadge').innerHTML = `<div class="pulse-dot ${isCN ? 'dot-blue' : 'dot-green'}"></div><span>${isCN ? '直连（中国大陆出口）' : '代理已生效（境外出口）'}</span>`;
+
+        document.getElementById('country').textContent = country;
+        document.getElementById('countryCode').textContent = countryCode;
+        document.getElementById('city').textContent = city;
+        document.getElementById('region').textContent = region;
+        document.getElementById('isp').textContent = isp.replace(/^AS\d+\s*/, '');
+        document.getElementById('asn').textContent = asn;
+        document.getElementById('latency').textContent = latency + ' ms';
+        document.getElementById('latencySub').textContent = latency < 200 ? '响应良好' : latency < 500 ? '响应正常' : '响应较慢';
+        document.getElementById('timezone').textContent = timezone;
+        document.getElementById('timezoneSub').textContent = 'UTC' + (d.utc_offset ? d.utc_offset.slice(0, 3) + ':' + d.utc_offset.slice(3) : '');
+        document.getElementById('ipversion').textContent = isIPv6 ? 'IPv6' : 'IPv4';
+        document.getElementById('ipversionSub').textContent = isIPv6 ? '支持下一代互联网协议' : '当前标准互联网协议';
+
+        // IPv6 check
+        document.getElementById('ipv6Addr').textContent = isIPv6 ? ip : '未检测到 IPv6';
+        document.getElementById('ipv6Support').textContent = isIPv6 ? '✅ 支持' : '❌ 不支持 / 未启用';
+
+      } catch (e) {
+        document.getElementById('ipv4Val').textContent = '检测失败';
+        document.getElementById('statusBadge').className = 'ip-status-badge status-loading';
+        document.getElementById('statusBadge').innerHTML = '<div class="pulse-dot dot-gray"></div><span>检测失败，请重试</span>';
+        document.getElementById('isp').textContent = '—';
+        document.getElementById('country').textContent = '—';
+        document.getElementById('city').textContent = '—';
+        document.getElementById('latency').textContent = '—';
+        document.getElementById('timezone').textContent = '—';
+        document.getElementById('ipversion').textContent = '—';
+        document.getElementById('ipv6Addr').textContent = '检测失败';
+        document.getElementById('ipv6Support').textContent = '—';
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg> 重新检测';
+    }
+
+    fetchIP();
+  </script>
+</body>
+</html>

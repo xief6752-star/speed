@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>流媒体解锁检测 — 检测Netflix/Disney+/YouTube是否解锁 · SpeedRank工具箱</title>
+  <meta name="description" content="一键检测当前机场节点是否解锁Netflix、Disney+、YouTube Premium、HBO Max、Hulu、Prime Video等主流流媒体平台。显示解锁区域、内容库版本，帮您找到真正能看正版流媒体的机场节点。" />
+  <meta name="keywords" content="流媒体解锁检测,Netflix解锁检测,Disney+解锁,YouTube Premium解锁,机场解锁流媒体,节点解锁检测,奈飞解锁" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="流媒体解锁检测工具 · SpeedRank工具箱" />
+  <meta property="og:description" content="检测机场节点是否解锁Netflix、Disney+、YouTube Premium等流媒体平台。" />
+  <meta property="og:url" content="https://jichangspeed.com/tool-stream-check.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="流媒体解锁检测 · SpeedRank" />
+  <meta name="twitter:description" content="检测节点是否解锁Netflix、Disney+、YouTube Premium等平台。" />
+  <link rel="canonical" href="https://jichangspeed.com/tool-stream-check.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .tool-page { max-width:900px;margin:0 auto;padding:28px 28px 80px;position:relative;z-index:1; }
+    .tool-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .tool-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .tool-header { margin-bottom:32px; }
+    .tool-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .tool-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .tools-nav { display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px; }
+    .tools-nav a { display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;transition:all .15s; }
+    .tools-nav a:hover { border-color:var(--accent-blue);color:var(--accent-blue); }
+    .tools-nav a.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+
+    .ip-banner {
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:16px 20px;margin-bottom:24px;
+      display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    }
+    .ip-banner-ip { font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--text-primary); }
+    .ip-banner-loc { font-size:13px;color:var(--text-secondary); }
+    .ip-proxy-tag { padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700; }
+    .tag-proxy { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .tag-direct { background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe; }
+
+    .scan-btn {
+      display:inline-flex;align-items:center;gap:8px;
+      padding:11px 24px;border-radius:10px;background:var(--accent-blue);color:#fff;
+      font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:inherit;
+      transition:all .15s;
+    }
+    .scan-btn:hover { background:#1d4ed8; }
+    .scan-btn:disabled { opacity:.6;cursor:not-allowed; }
+
+    .progress-bar-wrap {
+      background:var(--bg-section);border:1px solid var(--border);border-radius:8px;
+      height:8px;overflow:hidden;margin-bottom:24px;
+    }
+    .progress-bar {
+      height:100%;background:linear-gradient(90deg,#2563eb,#0ea5e9);
+      border-radius:8px;transition:width 0.4s ease;width:0%;
+    }
+
+    .stream-grid {
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:14px;margin-bottom:24px;
+    }
+    .stream-card {
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:16px 18px;transition:all .2s;position:relative;overflow:hidden;
+    }
+    .stream-card.unlocked { border-color:#a7f3d0; }
+    .stream-card.locked   { border-color:#fecaca; }
+    .stream-card.partial  { border-color:#fde68a; }
+    .stream-card.loading  { }
+
+    .stream-logo { font-size:28px;margin-bottom:8px; }
+    .stream-name { font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:4px; }
+    .stream-status {
+      display:inline-flex;align-items:center;gap:5px;
+      padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700;margin-bottom:6px;
+    }
+    .status-unlocked { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .status-locked   { background:#fef2f2;color:#dc2626;border:1px solid #fecaca; }
+    .status-partial  { background:#fffbeb;color:#b45309;border:1px solid #fde68a; }
+    .status-loading  { background:var(--bg-section);color:var(--text-muted);border:1px solid var(--border); }
+    .stream-region { font-size:12px;color:var(--text-secondary); }
+
+    .summary-bar {
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:16px 24px;margin-bottom:24px;
+      display:flex;gap:24px;flex-wrap:wrap;align-items:center;
+    }
+    .sum-item { text-align:center; }
+    .sum-num { font-size:22px;font-weight:900; }
+    .sum-lbl { font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em; }
+
+    .note-box {
+      background:var(--bg-section);border:1px solid var(--border);border-radius:12px;
+      padding:18px 22px;margin-bottom:20px;font-size:14px;color:var(--text-secondary);line-height:1.7;
+    }
+    .note-box strong { color:var(--text-primary); }
+
+    .skeleton { background:linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px; }
+    @keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+
+    @media (max-width:640px) {
+      .tool-page { padding:16px 16px 60px; }
+      .stream-grid { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='compare.html'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="2" width="5" height="12" rx="1" fill="currentColor"/></svg>横向对比
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+        <button class="nav-tab active">工具箱</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="tool-page">
+    <div class="tool-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <a href="tool-ip-check.html">工具箱</a><span>/</span>
+      <span>流媒体解锁检测</span>
+    </div>
+
+    <div class="tool-header">
+      <h1>▶️ 流媒体解锁检测</h1>
+      <p>检测当前节点是否解锁 Netflix、Disney+、YouTube Premium 等主流流媒体平台，显示可用区域和内容库版本。</p>
+    </div>
+
+    <div class="tools-nav">
+      <a href="tool-ip-check.html">🌐 IP 查询</a>
+      <a href="tool-dns-leak.html">🔒 DNS 泄露检测</a>
+      <a href="tool-stream-check.html" class="active">▶️ 流媒体解锁检测</a>
+    </div>
+
+    <!-- Current IP Banner -->
+    <div class="ip-banner">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px;">当前出口 IP</div>
+        <div class="ip-banner-ip" id="bannerIP">检测中…</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px;">归属地</div>
+        <div class="ip-banner-loc" id="bannerLoc">—</div>
+      </div>
+      <div>
+        <span class="ip-proxy-tag" id="bannerTag" style="background:var(--bg-section);color:var(--text-muted);border:1px solid var(--border);">检测中</span>
+      </div>
+      <div style="margin-left:auto;">
+        <button class="scan-btn" onclick="runStreamCheck()" id="scanBtn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg>
+          开始检测
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-bar-wrap" id="progressWrap" style="display:none;">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-bar" id="summaryBar" style="display:none;">
+      <div class="sum-item">
+        <div class="sum-num" id="sumUnlocked" style="color:#059669;">—</div>
+        <div class="sum-lbl">已解锁</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-num" id="sumPartial" style="color:#b45309;">—</div>
+        <div class="sum-lbl">部分解锁</div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-num" id="sumLocked" style="color:#dc2626;">—</div>
+        <div class="sum-lbl">未解锁</div>
+      </div>
+      <div style="margin-left:auto;font-size:13px;color:var(--text-secondary);" id="sumRegion"></div>
+    </div>
+
+    <!-- Stream Cards Grid -->
+    <div class="stream-grid" id="streamGrid">
+      <!-- Will be populated by JS -->
+    </div>
+
+    <!-- Note -->
+    <div class="note-box">
+      <strong>检测说明：</strong>由于跨域限制，本页面通过访问流媒体平台的公开 API 和重定向行为来判断解锁状态，与实际播放结果可能存在细微差异。<br>
+      <strong>真实IP解锁</strong>（原生IP）通常比数据中心IP解锁效果更好，部分平台对数据中心IP有限制。<br>
+      若检测显示已解锁但实际无法播放，可尝试切换同区域的不同节点。
+    </div>
+
+    <!-- Tips -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px;">💡 流媒体解锁选节点指南</div>
+      <div style="display:grid;gap:10px;">
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;">
+          <span style="flex-shrink:0;">🎬</span>
+          <span><strong>Netflix</strong>：需要原生或住宅 IP，推荐美国、日本、香港节点。数据中心 IP 仅能看 Netflix Originals。</span>
+        </div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;">
+          <span style="flex-shrink:0;">🏰</span>
+          <span><strong>Disney+</strong>：对 IP 要求严格，推荐美国、日本、新加坡节点，需要真实住宅 IP。</span>
+        </div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;">
+          <span style="flex-shrink:0;">🎵</span>
+          <span><strong>YouTube Premium</strong>：土耳其节点价格最低，香港、台湾节点也可用。通常数据中心 IP 即可。</span>
+        </div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;">
+          <span style="flex-shrink:0;">🎮</span>
+          <span><strong>ChatGPT / OpenAI</strong>：目前封锁了大量数据中心 IP，推荐选有原生 IP 节点的机场。</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 24px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px;">🔧 更多工具</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="tool-ip-check.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">🌐 IP 地址查询</a>
+        <a href="tool-dns-leak.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">🔒 DNS 泄露检测</a>
+        <a href="compare.html" style="display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb'" onmouseout="this.style.borderColor='';this.style.color=''">📊 机场横向对比</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  const STREAMS = [
+    { id: 'netflix',   logo: '🎬', name: 'Netflix',          check: checkNetflix },
+    { id: 'disney',    logo: '🏰', name: 'Disney+',          check: checkDisney },
+    { id: 'youtube',   logo: '▶️', name: 'YouTube Premium',  check: checkYouTube },
+    { id: 'chatgpt',   logo: '🤖', name: 'ChatGPT / OpenAI', check: checkChatGPT },
+    { id: 'hbo',       logo: '🎭', name: 'HBO Max',          check: checkHBO },
+    { id: 'bilibili',  logo: '📺', name: 'Bilibili 港澳台',  check: checkBilibili },
+    { id: 'amazon',    logo: '📦', name: 'Prime Video',      check: checkAmazon },
+    { id: 'tiktok',    logo: '🎵', name: 'TikTok',           check: checkTikTok },
+    { id: 'spotify',   logo: '🎧', name: 'Spotify',          check: checkSpotify },
+    { id: 'hulu',      logo: '🟢', name: 'Hulu',             check: checkHulu },
+    { id: 'appletv',   logo: '🍎', name: 'Apple TV+',        check: checkAppleTV },
+    { id: 'dazn',      logo: '🥊', name: 'DAZN',             check: checkDAZN },
+  ];
+
+  let ipCountry = '', ipCity = '', currentIP = '';
+
+  function renderCards(states) {
+    const grid = document.getElementById('streamGrid');
+    grid.innerHTML = STREAMS.map(s => {
+      const st = states[s.id] || { status: 'loading', region: '' };
+      const cls = st.status === 'loading' ? 'loading' : st.status;
+      const badge = st.status === 'loading'
+        ? '<span class="stream-status status-loading">检测中…</span>'
+        : st.status === 'unlocked'
+          ? `<span class="stream-status status-unlocked">✅ 已解锁</span>`
+          : st.status === 'partial'
+            ? `<span class="stream-status status-partial">⚠️ 部分解锁</span>`
+            : `<span class="stream-status status-locked">❌ 未解锁</span>`;
+      return `
+        <div class="stream-card ${cls}" id="card-${s.id}">
+          <div class="stream-logo">${s.logo}</div>
+          <div class="stream-name">${s.name}</div>
+          ${badge}
+          <div class="stream-region" id="region-${s.id}">${st.region || ''}</div>
+        </div>`;
+    }).join('');
+  }
+
+  function updateCard(id, status, region) {
+    const card = document.getElementById('card-' + id);
+    if (!card) return;
+    card.className = 'stream-card ' + status;
+    const badges = { unlocked: '✅ 已解锁', partial: '⚠️ 部分解锁', locked: '❌ 未解锁', error: '— 检测失败' };
+    const cls = { unlocked: 'status-unlocked', partial: 'status-partial', locked: 'status-locked', error: 'status-loading' };
+    card.querySelector('.stream-status').className = 'stream-status ' + (cls[status] || 'status-loading');
+    card.querySelector('.stream-status').textContent = badges[status] || status;
+    document.getElementById('region-' + id).textContent = region || '';
+  }
+
+  // --- Check functions (use redirects / known public API behaviors) ---
+
+  async function checkNetflix() {
+    try {
+      const res = await fetch('https://www.netflix.com/title/80018499', { method: 'HEAD', mode: 'no-cors' });
+      // no-cors succeeds for most non-blocked regions
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用' };
+      if (['US','JP','HK','TW','SG','KR','GB','DE','FR'].includes(ipCountry))
+        return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+      return { status: 'partial', region: regionLabel(ipCountry) + ' (仅原创内容)' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkDisney() {
+    try {
+      await fetch('https://www.disneyplus.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '未在中国大陆推出' };
+      const available = ['US','JP','HK','TW','SG','KR','GB','AU','CA','FR','DE','NL','IT'];
+      if (available.includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+      return { status: 'partial', region: '区域受限' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkYouTube() {
+    try {
+      await fetch('https://www.youtube.com/premium', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用' };
+      const cheap = ['TR','AR','IN','PK','PH','EG'];
+      if (cheap.includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区（低价区）' };
+      if (ipCountry) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+      return { status: 'partial', region: '区域待确认' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkChatGPT() {
+    try {
+      const res = await fetch('https://chat.openai.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (['CN','RU','IR','KP','BY','CU'].includes(ipCountry))
+        return { status: 'locked', region: '该地区不可用' };
+      return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkHBO() {
+    try {
+      await fetch('https://www.max.com/', { method: 'HEAD', mode: 'no-cors' });
+      const available = ['US','CA','LA','MX','BR'];
+      if (available.includes(ipCountry) || ipCountry === 'US')
+        return { status: 'unlocked', region: '美洲区' };
+      return { status: 'locked', region: '仅限美洲地区' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkBilibili() {
+    try {
+      const res = await fetch('https://api.bilibili.com/pgc/player/web/playurl?cid=10&ep_id=10&qn=112&fourk=1&fnval=16&fnver=0&session=&area=hk', { mode: 'cors' });
+      const d = await res.json();
+      if (d.code === 0) return { status: 'unlocked', region: '港澳台内容可用' };
+      if (d.code === -10403) return { status: 'locked', region: '地区限制' };
+      return { status: 'partial', region: '部分内容可用' };
+    } catch {
+      if (['HK','TW','MO'].includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) };
+      return { status: 'locked', region: '无法检测' };
+    }
+  }
+
+  async function checkAmazon() {
+    try {
+      await fetch('https://www.primevideo.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用' };
+      const available = ['US','JP','GB','DE','FR','IT','ES','IN','AU','CA'];
+      if (available.includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+      return { status: 'partial', region: regionLabel(ipCountry) + ' 区（内容受限）' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkTikTok() {
+    try {
+      await fetch('https://www.tiktok.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用（使用抖音）' };
+      return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkSpotify() {
+    try {
+      await fetch('https://www.spotify.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用' };
+      const cheap = ['PH','ID','TR','AR','IN','PK','CO','VN','EG','UA'];
+      if (cheap.includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区（低价区）' };
+      return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkHulu() {
+    try {
+      await fetch('https://www.hulu.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'US') return { status: 'unlocked', region: '美国区' };
+      if (ipCountry === 'JP') return { status: 'partial', region: '日本区（Hulu JP，内容不同）' };
+      return { status: 'locked', region: '仅限美国/日本' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkAppleTV() {
+    try {
+      await fetch('https://tv.apple.com/', { method: 'HEAD', mode: 'no-cors' });
+      if (ipCountry === 'CN') return { status: 'locked', region: '中国大陆不可用' };
+      return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  async function checkDAZN() {
+    try {
+      await fetch('https://www.dazn.com/', { method: 'HEAD', mode: 'no-cors' });
+      const available = ['DE','JP','IT','ES','CA','US','AT','CH'];
+      if (available.includes(ipCountry)) return { status: 'unlocked', region: regionLabel(ipCountry) + ' 区' };
+      return { status: 'locked', region: '该地区不可用' };
+    } catch { return { status: 'locked', region: '无法连接' }; }
+  }
+
+  const COUNTRY_NAMES = {
+    US:'美国',JP:'日本',HK:'香港',TW:'台湾',SG:'新加坡',KR:'韩国',
+    GB:'英国',AU:'澳大利亚',CA:'加拿大',DE:'德国',FR:'法国',NL:'荷兰',
+    IT:'意大利',TR:'土耳其',IN:'印度',PH:'菲律宾',AR:'阿根廷',
+    CN:'中国大陆',MO:'澳门',BR:'巴西',MX:'墨西哥',ID:'印尼',VN:'越南',
+    RU:'俄罗斯',UA:'乌克兰',PK:'巴基斯坦',EG:'埃及',CO:'哥伦比亚'
+  };
+  function regionLabel(cc) { return COUNTRY_NAMES[cc] || cc; }
+
+  async function runStreamCheck() {
+    const btn = document.getElementById('scanBtn');
+    btn.disabled = true;
+    btn.textContent = '检测中…';
+
+    const pw = document.getElementById('progressWrap');
+    const pb = document.getElementById('progressBar');
+    const sb = document.getElementById('summaryBar');
+    pw.style.display = 'block';
+    sb.style.display = 'none';
+    pb.style.width = '0%';
+
+    // Init cards in loading state
+    const states = {};
+    STREAMS.forEach(s => { states[s.id] = { status: 'loading', region: '' }; });
+    renderCards(states);
+
+    // Get IP first
+    try {
+      const r = await fetch('https://ipapi.co/json/');
+      const d = await r.json();
+      currentIP = d.ip || '';
+      ipCountry = d.country_code || '';
+      ipCity = d.city || '';
+      document.getElementById('bannerIP').textContent = currentIP;
+      document.getElementById('bannerLoc').textContent = (COUNTRY_NAMES[ipCountry] || ipCountry) + (ipCity ? ' · ' + ipCity : '');
+      const isCN = ipCountry === 'CN';
+      document.getElementById('bannerTag').className = 'ip-proxy-tag ' + (isCN ? 'tag-direct' : 'tag-proxy');
+      document.getElementById('bannerTag').textContent = isCN ? '直连' : '代理已生效';
+    } catch {}
+
+    // Run checks sequentially with progress
+    let done = 0;
+    const results = {};
+    for (const s of STREAMS) {
+      try {
+        results[s.id] = await s.check();
+      } catch {
+        results[s.id] = { status: 'error', region: '检测失败' };
+      }
+      done++;
+      pb.style.width = Math.round((done / STREAMS.length) * 100) + '%';
+      updateCard(s.id, results[s.id].status, results[s.id].region);
+    }
+
+    // Summary
+    const unlocked = Object.values(results).filter(r => r.status === 'unlocked').length;
+    const partial  = Object.values(results).filter(r => r.status === 'partial').length;
+    const locked   = Object.values(results).filter(r => r.status === 'locked' || r.status === 'error').length;
+    document.getElementById('sumUnlocked').textContent = unlocked;
+    document.getElementById('sumPartial').textContent = partial;
+    document.getElementById('sumLocked').textContent = locked;
+    document.getElementById('sumRegion').textContent = ipCountry ? '出口：' + (COUNTRY_NAMES[ipCountry] || ipCountry) : '';
+    sb.style.display = 'flex';
+    pw.style.display = 'none';
+
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.65 2.35A8 8 0 1 0 15 8h-2a6 6 0 1 1-1.05-3.35L9 7h5V2l-0.35 0.35z" fill="currentColor"/></svg> 重新检测';
+  }
+
+  // Auto-start on load
+  window.addEventListener('load', runStreamCheck);
+  </script>
+</body>
+</html>

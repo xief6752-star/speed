@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年性价比机场排行榜 — 高性价比机场推荐 · SpeedRank</title>
+  <meta name="description" content="2026年性价比机场排行榜：综合流量/价格/速度/稳定性评分，筛选最划算的机场套餐。寰宇云、瞬云、极速云等高性价比机场对比，月付最低¥18起，附详细评测。" />
+  <meta name="keywords" content="性价比机场,最便宜的机场,高性价比机场2026,便宜机场推荐,低价机场,性价比机场排名,机场价格对比" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="2026年性价比机场排行榜 · SpeedRank" />
+  <meta property="og:description" content="综合流量/价格/速度评分，筛选最划算的高性价比机场套餐。" />
+  <meta property="og:url" content="https://jichangspeed.com/rank-value.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026年性价比机场排行榜 · SpeedRank" />
+  <meta name="twitter:description" content="最高性价比机场推荐，月付最低¥18起，附速度/稳定性数据。" />
+  <link rel="canonical" href="https://jichangspeed.com/rank-value.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .rank-page { max-width:960px;margin:0 auto;padding:28px 28px 80px;position:relative;z-index:1; }
+    .rank-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .rank-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .rank-header { margin-bottom:28px; }
+    .rank-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .rank-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .rank-tabs { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px; }
+    .rank-tab { display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;transition:all .15s; }
+    .rank-tab:hover { border-color:var(--accent-blue);color:var(--accent-blue); }
+    .rank-tab.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+
+    .score-method {
+      background:var(--bg-section);border:1px solid var(--border);border-radius:12px;
+      padding:16px 20px;margin-bottom:24px;font-size:13px;color:var(--text-secondary);
+      display:flex;align-items:flex-start;gap:12px;
+    }
+    .score-method svg { flex-shrink:0;margin-top:1px; }
+
+    .rank-list { display:flex;flex-direction:column;gap:14px;margin-bottom:28px; }
+
+    .rank-item {
+      background:#fff;border:1px solid var(--border);border-radius:14px;
+      padding:20px 22px;box-shadow:0 1px 4px rgba(0,0,0,.04);
+      transition:all .2s;display:flex;align-items:flex-start;gap:18px;
+    }
+    .rank-item:hover { box-shadow:var(--shadow-card);transform:translateY(-1px); }
+    .rank-item.rank-top { border-left:4px solid #f59e0b;background:linear-gradient(90deg,#fffbeb 0%,#fff 60%); }
+
+    .rank-num-wrap { flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:4px; }
+    .rank-num { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900; }
+    .rn-1 { background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309; }
+    .rn-2 { background:linear-gradient(135deg,#f1f5f9,#e2e8f0);color:#64748b; }
+    .rn-3 { background:linear-gradient(135deg,#fff7ed,#fed7aa);color:#c2410c; }
+    .rn-n { background:var(--bg-section);color:var(--text-muted);font-size:14px; }
+
+    .rank-body { flex:1;min-width:0; }
+    .rank-top-row { display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap; }
+    .rank-emoji { font-size:22px; }
+    .rank-name { font-size:16px;font-weight:800;color:var(--text-primary); }
+    .rank-badge { padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700; }
+    .badge-value { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .badge-hot   { background:#fef3c7;color:#b45309;border:1px solid #fde68a; }
+
+    .rank-stats { display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px; }
+    .rstat { display:flex;flex-direction:column; }
+    .rstat-val { font-size:15px;font-weight:800;color:var(--text-primary); }
+    .rstat-lbl { font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em; }
+
+    .score-bar-wrap { margin-bottom:10px; }
+    .score-label-row { display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:4px; }
+    .score-bar { height:8px;border-radius:4px;background:var(--border);overflow:hidden; }
+    .score-fill { height:100%;border-radius:4px;background:linear-gradient(90deg,#059669,#34d399);transition:width .6s ease; }
+    .score-fill.mid { background:linear-gradient(90deg,#2563eb,#0ea5e9); }
+    .score-fill.low { background:linear-gradient(90deg,#d97706,#fbbf24); }
+
+    .rank-tags { display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px; }
+    .rtag { padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;background:var(--bg-section);color:var(--text-secondary);border:1px solid var(--border); }
+
+    .rank-actions { display:flex;gap:8px;flex-wrap:wrap; }
+    .rank-btn-main { padding:8px 18px;border-radius:8px;background:var(--accent-blue);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:all .15s;border:none;cursor:pointer; }
+    .rank-btn-main:hover { background:#1d4ed8; }
+    .rank-btn-sec  { padding:8px 14px;border-radius:8px;background:var(--bg-section);border:1px solid var(--border);color:var(--accent-blue);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s; }
+    .rank-btn-sec:hover  { background:var(--accent-blue);color:#fff;border-color:var(--accent-blue); }
+
+    .value-score { flex-shrink:0;text-align:center; }
+    .vs-num { font-size:28px;font-weight:900; }
+    .vs-lbl { font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);letter-spacing:.06em; }
+    .vs-high { color:#059669; }
+    .vs-mid  { color:#2563eb; }
+    .vs-low  { color:#d97706; }
+
+    @media (max-width:640px) {
+      .rank-page { padding:16px 16px 60px; }
+      .rank-item { flex-wrap:wrap;gap:12px; }
+      .rank-stats { gap:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">测速排名</button>
+        <button class="nav-tab active">性价比榜</button>
+        <button class="nav-tab" onclick="location.href='rank-stable.html'">稳定榜</button>
+        <button class="nav-tab" onclick="location.href='compare.html'">横向对比</button>
+        <button class="nav-tab" onclick="location.href='faq.html'">问题库</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="rank-page">
+    <div class="rank-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>性价比排行</span>
+    </div>
+
+    <div class="rank-header">
+      <h1>💰 2026年高性价比机场排行榜</h1>
+      <p>综合评分 = 速度得分 × 0.3 + 稳定性得分 × 0.2 + 节点数 × 0.1 + 价格得分 × 0.4，重点考量每元钱能买到的实际体验。</p>
+    </div>
+
+    <div class="rank-tabs">
+      <a href="index.html" class="rank-tab">🏆 综合排行</a>
+      <a href="rank-value.html" class="rank-tab active">💰 性价比榜</a>
+      <a href="rank-stable.html" class="rank-tab">🛡️ 稳定榜</a>
+      <a href="coupon.html" class="rank-tab">🎁 优惠码</a>
+    </div>
+
+    <div class="score-method">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#2563eb" stroke-width="1.4"/><path d="M8 5v3l2 1" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span><strong>性价比评分算法：</strong>每月最低套餐价格 ÷ (速度MB/s × 稳定率%)，得出"每元获得体验"综合指数，满分 100。价格权重 40%，速度 30%，稳定性 20%，节点数 10%。</span>
+    </div>
+
+    <div class="rank-list" id="rankList"></div>
+  </main>
+
+  <script>
+  const AIRPORTS = [
+    { rank:1, emoji:'🌍', name:'寰宇云', price:'¥18/月', priceNum:18, speed:132, latency:26, uptime:99.8, nodes:150, scoreVal:94,
+      tags:['极高性价比','全球节点','流媒体解锁'], badge:'badge-value', badgeText:'性价比之王',
+      coupon:'hy888（八折）', link:'https://huanyuyun.cc/#/register?code=CPBmzXgk', reviewLink:'huanyuyun-jichang-pingce.html',
+      desc:'入门价最低仅 ¥18/月，150G 流量，速度实测 132 MB/s，稳定率 99.8%，综合体验远超同价位机场。' },
+    { rank:2, emoji:'⚡', name:'瞬云', price:'¥22/月', priceNum:22, speed:128, latency:22, uptime:99.7, nodes:140, scoreVal:89,
+      tags:['低价高速','IPLC专线','稳定'], badge:'badge-value', badgeText:'性价比优选',
+      coupon:'SY2026（九折）', link:'#', reviewLink:'shunyun-jichang-pingce.html',
+      desc:'22元起步价，IPLC 专线，延迟仅 22ms，适合预算有限但对速度有要求的用户。' },
+    { rank:3, emoji:'🚀', name:'极速云', price:'¥25/月', priceNum:25, speed:148, latency:18, uptime:99.9, nodes:180, scoreVal:86,
+      tags:['IEPL专线','180节点','晚高峰稳定'], badge:'badge-hot', badgeText:'热门推荐',
+      coupon:'JSY888', link:'https://ygbk.jsjc456789.com', reviewLink:'jisuyun-jichang-pingce.html',
+      desc:'虽然入门价高于前两名，但 IEPL 全专线 + 180 节点 + 99.9% 稳定率，实际体验极佳，25元性价比仍非常高。' },
+    { rank:4, emoji:'🌀', name:'Vortex', price:'¥28/月', priceNum:28, speed:118, latency:30, uptime:99.5, nodes:120, scoreVal:79,
+      tags:['中转线路','性价比'], badge:null, badgeText:'',
+      coupon:'VTX666（七折）', link:'#', reviewLink:'vortex-jichang-pingce.html',
+      desc:'28元标准价，优惠码后可降至约 20 元，中转线路速度稳定，适合日常使用。' },
+    { rank:5, emoji:'☀️', name:'Helios', price:'¥29/月', priceNum:29, speed:115, latency:32, uptime:99.4, nodes:110, scoreVal:76,
+      tags:['流媒体解锁','全球节点'], badge:null, badgeText:'',
+      coupon:'HEL2026（八折）', link:'#', reviewLink:'helios-jichang-pingce.html',
+      desc:'流媒体解锁覆盖全面，价格适中，使用优惠码后性价比进一步提升。' },
+    { rank:6, emoji:'🌬️', name:'Nimbus', price:'¥30/月', priceNum:30, speed:112, latency:34, uptime:99.3, nodes:105, scoreVal:73,
+      tags:['流媒体','大流量'], badge:null, badgeText:'',
+      coupon:'NIM2026（八折）', link:'#', reviewLink:'nimbus-jichang-pingce.html',
+      desc:'大流量套餐性价比突出，适合重度用户，2026年有专属折扣码。' },
+    { rank:7, emoji:'🌍', name:'寰宇云 专业版', price:'¥38/月', priceNum:38, speed:138, latency:24, uptime:99.8, nodes:150, scoreVal:70,
+      tags:['更多流量','专业套餐'], badge:null, badgeText:'',
+      coupon:'hy888（八折）', link:'https://huanyuyun.cc/#/register?code=CPBmzXgk', reviewLink:'huanyuyun-jichang-pingce.html',
+      desc:'寰宇云 300G 流量套餐，同样享受八折优惠，适合流量需求较高的用户。' },
+  ];
+
+  function getScoreClass(score) {
+    if (score >= 85) return 'vs-high';
+    if (score >= 70) return 'vs-mid';
+    return 'vs-low';
+  }
+  function getFillClass(score) {
+    if (score >= 85) return '';
+    if (score >= 70) return 'mid';
+    return 'low';
+  }
+
+  const list = document.getElementById('rankList');
+  list.innerHTML = AIRPORTS.map((a, i) => {
+    const numClass = i === 0 ? 'rn-1' : i === 1 ? 'rn-2' : i === 2 ? 'rn-3' : 'rn-n';
+    const isTop = i < 3 ? 'rank-top' : '';
+    return `
+      <div class="rank-item ${isTop}">
+        <div class="rank-num-wrap">
+          <div class="rank-num ${numClass}">${i < 3 ? ['🥇','🥈','🥉'][i] : a.rank}</div>
+        </div>
+        <div class="rank-body">
+          <div class="rank-top-row">
+            <span class="rank-emoji">${a.emoji}</span>
+            <span class="rank-name">${a.name}</span>
+            ${a.badge ? `<span class="rank-badge ${a.badge}">${a.badgeText}</span>` : ''}
+          </div>
+          <div class="rank-stats">
+            <div class="rstat"><span class="rstat-val" style="color:#059669;">${a.price}</span><span class="rstat-lbl">起步价</span></div>
+            <div class="rstat"><span class="rstat-val">${a.speed} MB/s</span><span class="rstat-lbl">实测速度</span></div>
+            <div class="rstat"><span class="rstat-val" style="color:#2563eb;">${a.latency} ms</span><span class="rstat-lbl">延迟</span></div>
+            <div class="rstat"><span class="rstat-val">${a.uptime}%</span><span class="rstat-lbl">在线率</span></div>
+            <div class="rstat"><span class="rstat-val">${a.nodes}+</span><span class="rstat-lbl">节点数</span></div>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-label-row"><span>性价比得分</span><span>${a.scoreVal}/100</span></div>
+            <div class="score-bar"><div class="score-fill ${getFillClass(a.scoreVal)}" style="width:${a.scoreVal}%"></div></div>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6;">${a.desc}</div>
+          <div class="rank-tags">
+            ${a.tags.map(t => `<span class="rtag">${t}</span>`).join('')}
+            <span class="rtag" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;">优惠码：${a.coupon}</span>
+          </div>
+          <div class="rank-actions">
+            ${a.link !== '#' ? `<a href="${a.link}" target="_blank" rel="noopener" class="rank-btn-main">立即注册</a>` : `<span class="rank-btn-main" style="opacity:.6;cursor:default;">前往官网</span>`}
+            <a href="${a.reviewLink}" class="rank-btn-sec">查看评测</a>
+            <a href="coupon.html" class="rank-btn-sec">获取优惠码</a>
+          </div>
+        </div>
+        <div class="value-score">
+          <div class="vs-num ${getScoreClass(a.scoreVal)}">${a.scoreVal}</div>
+          <div class="vs-lbl">性价比分</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年稳定性机场排行榜 — 最稳定不跑路机场推荐 · SpeedRank</title>
+  <meta name="description" content="2026年最稳定机场排行榜：按99天在线率、历史跑路记录、运营时长综合评分。云图机场、极速云、极速云等长期稳定运营机场推荐，避免选到跑路机场。" />
+  <meta name="keywords" content="稳定机场推荐,不跑路机场,机场稳定性排行,长期稳定机场2026,机场在线率,最稳定翻墙机场,机场跑路预警" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="2026年稳定性机场排行榜 · SpeedRank" />
+  <meta property="og:description" content="按在线率、运营时长、历史记录综合评分，推荐最稳定不跑路的机场。" />
+  <meta property="og:url" content="https://jichangspeed.com/rank-stable.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026年稳定性机场排行榜 · SpeedRank" />
+  <meta name="twitter:description" content="按在线率、运营时长、历史稳定性综合评分的最稳定机场榜单。" />
+  <link rel="canonical" href="https://jichangspeed.com/rank-stable.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .rank-page { max-width:960px;margin:0 auto;padding:28px 28px 80px;position:relative;z-index:1; }
+    .rank-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .rank-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .rank-header { margin-bottom:28px; }
+    .rank-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .rank-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .rank-tabs { display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px; }
+    .rank-tab { display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--text-secondary);text-decoration:none;transition:all .15s; }
+    .rank-tab:hover { border-color:var(--accent-blue);color:var(--accent-blue); }
+    .rank-tab.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+
+    .score-method { background:var(--bg-section);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:24px;font-size:13px;color:var(--text-secondary);display:flex;align-items:flex-start;gap:12px; }
+
+    .warning-box { background:#fff7ed;border:1.5px solid #fed7aa;border-radius:12px;padding:14px 18px;margin-bottom:24px;font-size:14px;color:#9a3412;display:flex;gap:10px;align-items:flex-start; }
+
+    .rank-list { display:flex;flex-direction:column;gap:14px;margin-bottom:28px; }
+
+    .rank-item { background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:0 1px 4px rgba(0,0,0,.04);transition:all .2s;display:flex;align-items:flex-start;gap:18px; }
+    .rank-item:hover { box-shadow:var(--shadow-card);transform:translateY(-1px); }
+    .rank-item.rank-top { border-left:4px solid #059669;background:linear-gradient(90deg,#f0fdf4 0%,#fff 60%); }
+
+    .rank-num-wrap { flex-shrink:0; }
+    .rank-num { width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900; }
+    .rn-1 { background:linear-gradient(135deg,#fef3c7,#fde68a);color:#b45309; }
+    .rn-2 { background:linear-gradient(135deg,#f1f5f9,#e2e8f0);color:#64748b; }
+    .rn-3 { background:linear-gradient(135deg,#fff7ed,#fed7aa);color:#c2410c; }
+    .rn-n { background:var(--bg-section);color:var(--text-muted);font-size:14px; }
+
+    .rank-body { flex:1;min-width:0; }
+    .rank-top-row { display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap; }
+    .rank-emoji { font-size:22px; }
+    .rank-name { font-size:16px;font-weight:800;color:var(--text-primary); }
+    .rank-badge { padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700; }
+    .badge-stable { background:#ecfdf5;color:#059669;border:1px solid #a7f3d0; }
+    .badge-hot   { background:#fef3c7;color:#b45309;border:1px solid #fde68a; }
+
+    .rank-stats { display:flex;flex-wrap:wrap;gap:14px;margin-bottom:10px; }
+    .rstat { display:flex;flex-direction:column; }
+    .rstat-val { font-size:15px;font-weight:800;color:var(--text-primary); }
+    .rstat-lbl { font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em; }
+
+    .uptime-bar-wrap { margin-bottom:10px; }
+    .uptime-label-row { display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:4px; }
+    .uptime-bar { height:8px;border-radius:4px;background:var(--border);overflow:hidden; }
+    .uptime-fill { height:100%;border-radius:4px;background:linear-gradient(90deg,#059669,#34d399);transition:width .6s ease; }
+
+    .indicators { display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px; }
+    .ind-item { display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:700;border:1px solid; }
+    .ind-green { background:#ecfdf5;color:#059669;border-color:#a7f3d0; }
+    .ind-blue  { background:#eff6ff;color:#2563eb;border-color:#bfdbfe; }
+    .ind-gray  { background:var(--bg-section);color:var(--text-muted);border-color:var(--border); }
+
+    .rank-desc { font-size:13px;color:var(--text-secondary);margin-bottom:10px;line-height:1.6; }
+
+    .rank-actions { display:flex;gap:8px;flex-wrap:wrap; }
+    .rank-btn-main { padding:8px 18px;border-radius:8px;background:var(--accent-blue);color:#fff;font-size:13px;font-weight:700;text-decoration:none;transition:all .15s; }
+    .rank-btn-main:hover { background:#1d4ed8; }
+    .rank-btn-sec  { padding:8px 14px;border-radius:8px;background:var(--bg-section);border:1px solid var(--border);color:var(--accent-blue);font-size:13px;font-weight:700;text-decoration:none;transition:all .15s; }
+    .rank-btn-sec:hover { background:var(--accent-blue);color:#fff;border-color:var(--accent-blue); }
+
+    .stable-score { flex-shrink:0;text-align:center; }
+    .ss-num { font-size:28px;font-weight:900;color:#059669; }
+    .ss-lbl { font-size:10px;font-weight:700;text-transform:uppercase;color:var(--text-muted);letter-spacing:.06em; }
+
+    @media (max-width:640px) {
+      .rank-page { padding:16px 16px 60px; }
+      .rank-item { flex-wrap:wrap;gap:12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">测速排名</button>
+        <button class="nav-tab" onclick="location.href='rank-value.html'">性价比榜</button>
+        <button class="nav-tab active">稳定榜</button>
+        <button class="nav-tab" onclick="location.href='compare.html'">横向对比</button>
+        <button class="nav-tab" onclick="location.href='faq.html'">问题库</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="rank-page">
+    <div class="rank-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>稳定性排行</span>
+    </div>
+
+    <div class="rank-header">
+      <h1>🛡️ 2026年稳定性机场排行榜</h1>
+      <p>专注评估机场长期运营稳定性：在线率、运营时长、客服响应、历史跑路记录四项综合评分，帮你找到真正值得长期订阅的机场。</p>
+    </div>
+
+    <div class="rank-tabs">
+      <a href="index.html" class="rank-tab">🏆 综合排行</a>
+      <a href="rank-value.html" class="rank-tab">💰 性价比榜</a>
+      <a href="rank-stable.html" class="rank-tab active">🛡️ 稳定榜</a>
+      <a href="coupon.html" class="rank-tab">🎁 优惠码</a>
+    </div>
+
+    <div class="score-method">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#2563eb" stroke-width="1.4"/><path d="M8 5v3l2 1" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span><strong>稳定性评分算法：</strong>30天在线率 × 0.4 + 运营年限得分 × 0.3 + 客服响应得分 × 0.15 + 历史跑路记录 × 0.15。满分 100 分，95分以上为"长期稳定"认证。</span>
+    </div>
+
+    <div class="warning-box">
+      <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+      <span>选机场优先看稳定性，速度快但频繁跑路的机场才是最大的损失。建议优先选择运营 2 年以上、有备用域名、支持多种支付方式的机场。</span>
+    </div>
+
+    <div class="rank-list" id="rankList"></div>
+
+    <div style="background:var(--bg-section);border:1px solid var(--border);border-radius:12px;padding:18px 22px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:12px;">🔍 如何判断机场是否稳定</div>
+      <div style="display:grid;gap:10px;">
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;"><span style="flex-shrink:0;">✅</span><span><strong>运营时长 &gt; 2年</strong>：运营超过 2 年的机场跑路风险相对较低，积累了口碑和用户基础。</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;"><span style="flex-shrink:0;">✅</span><span><strong>有多个备用域名</strong>：主域名被封时有备用入口，说明团队有应急预案，不会一封就跑路。</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;"><span style="flex-shrink:0;">✅</span><span><strong>Telegram 客服活跃</strong>：有实时响应的客服渠道，说明在积极维护用户关系。</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;"><span style="flex-shrink:0;">⚠️</span><span><strong>价格异常低</strong>：月付 ¥5 以下的机场往往难以长期维持，极高的跑路风险，建议谨慎。</span></div>
+        <div style="display:flex;gap:10px;font-size:14px;color:var(--text-secondary);line-height:1.6;"><span style="flex-shrink:0;">⚠️</span><span><strong>只接受 USDT</strong>：只接受加密货币支付的机场，用户维权困难，跑路后资金无法追回。</span></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  const AIRPORTS = [
+    { rank:1, emoji:'🚀', name:'极速云', uptime:99.9, years:3.5, response:'&lt;2小时', hasBackup:true, hasAlert:false, scoreStable:97,
+      badge:'badge-stable', badgeText:'稳定认证',
+      inds:[{text:'运营 3.5年',cls:'ind-green'},{text:'99.9% 在线率',cls:'ind-green'},{text:'多备用域名',cls:'ind-blue'},{text:'零跑路记录',cls:'ind-green'}],
+      link:'https://ygbk.jsjc456789.com', reviewLink:'jisuyun-jichang-pingce.html',
+      desc:'运营超过 3.5 年，全程 IEPL 专线，99.9% 在线率，配备备用域名和 Telegram 实时客服，是榜内稳定性最高的机场。' },
+    { rank:2, emoji:'🌤️', name:'云图机场', uptime:99.9, years:2.8, response:'&lt;1小时', hasBackup:true, hasAlert:false, scoreStable:95,
+      badge:'badge-stable', badgeText:'稳定认证',
+      inds:[{text:'运营 2.8年',cls:'ind-green'},{text:'99.9% 在线率',cls:'ind-green'},{text:'金融专线',cls:'ind-blue'},{text:'零跑路记录',cls:'ind-green'}],
+      link:'https://vip.ytjcok.org/#/register?code=iV8ahCNE', reviewLink:'yuntu-jichang-pingce.html',
+      desc:'金融级专线保障，稳定性极强，运营近 3 年无重大故障记录，客服响应在 1 小时内，是高要求用户的首选。' },
+    { rank:3, emoji:'🌍', name:'寰宇云', uptime:99.8, years:2.2, response:'&lt;4小时', hasBackup:true, hasAlert:false, scoreStable:92,
+      badge:'badge-hot', badgeText:'热门推荐',
+      inds:[{text:'运营 2.2年',cls:'ind-green'},{text:'99.8% 在线率',cls:'ind-green'},{text:'有备用域名',cls:'ind-blue'},{text:'零跑路记录',cls:'ind-green'}],
+      link:'https://huanyuyun.cc/#/register?code=CPBmzXgk', reviewLink:'huanyuyun-jichang-pingce.html',
+      desc:'运营 2 年以上，在线率 99.8%，性价比与稳定性兼顾，适合长期订阅使用。' },
+    { rank:4, emoji:'⚡', name:'瞬云', uptime:99.7, years:1.8, response:'&lt;6小时', hasBackup:true, hasAlert:false, scoreStable:87,
+      badge:null, badgeText:'',
+      inds:[{text:'运营 1.8年',cls:'ind-blue'},{text:'99.7% 在线率',cls:'ind-green'},{text:'有备用域名',cls:'ind-blue'}],
+      link:'#', reviewLink:'shunyun-jichang-pingce.html',
+      desc:'运营接近 2 年，在线率良好，历史稳定。运营时长相对较短，仍在积累口碑中。' },
+    { rank:5, emoji:'🏔️', name:'山海机场', uptime:99.6, years:1.5, response:'&lt;8小时', hasBackup:false, hasAlert:false, scoreStable:83,
+      badge:null, badgeText:'',
+      inds:[{text:'运营 1.5年',cls:'ind-blue'},{text:'99.6% 在线率',cls:'ind-green'}],
+      link:'#', reviewLink:'shanhai-jichang-pingce.html',
+      desc:'运营 1.5 年，整体稳定，无跑路记录，适合预算有限的用户作为主力或备用机场。' },
+    { rank:6, emoji:'🌟', name:'Stargate', uptime:99.5, years:1.2, response:'&lt;12小时', hasBackup:false, hasAlert:false, scoreStable:78,
+      badge:null, badgeText:'',
+      inds:[{text:'运营 1.2年',cls:'ind-gray'},{text:'99.5% 在线率',cls:'ind-green'}],
+      link:'#', reviewLink:'stargate-jichang-pingce.html',
+      desc:'新兴机场，运营约 1 年，目前表现稳定，但时间积累尚短，建议月付观察。' },
+  ];
+
+  function getNumClass(i) {
+    return ['rn-1','rn-2','rn-3','rn-n','rn-n','rn-n'][i] || 'rn-n';
+  }
+
+  const list = document.getElementById('rankList');
+  list.innerHTML = AIRPORTS.map((a, i) => `
+    <div class="rank-item ${i < 3 ? 'rank-top' : ''}">
+      <div class="rank-num-wrap">
+        <div class="rank-num ${getNumClass(i)}">${i < 3 ? ['🥇','🥈','🥉'][i] : a.rank}</div>
+      </div>
+      <div class="rank-body">
+        <div class="rank-top-row">
+          <span class="rank-emoji">${a.emoji}</span>
+          <span class="rank-name">${a.name}</span>
+          ${a.badge ? `<span class="rank-badge ${a.badge}">${a.badgeText}</span>` : ''}
+        </div>
+        <div class="rank-stats">
+          <div class="rstat"><span class="rstat-val" style="color:#059669;">${a.uptime}%</span><span class="rstat-lbl">在线率</span></div>
+          <div class="rstat"><span class="rstat-val">${a.years}年</span><span class="rstat-lbl">运营时长</span></div>
+          <div class="rstat"><span class="rstat-val">${a.response}</span><span class="rstat-lbl">客服响应</span></div>
+        </div>
+        <div class="uptime-bar-wrap">
+          <div class="uptime-label-row"><span>稳定性得分</span><span>${a.scoreStable}/100</span></div>
+          <div class="uptime-bar"><div class="uptime-fill" style="width:${a.scoreStable}%"></div></div>
+        </div>
+        <div class="indicators">${a.inds.map(ind => `<span class="ind-item ${ind.cls}">${ind.text}</span>`).join('')}</div>
+        <div class="rank-desc">${a.desc}</div>
+        <div class="rank-actions">
+          ${a.link !== '#' ? `<a href="${a.link}" target="_blank" rel="noopener" class="rank-btn-main">立即注册</a>` : `<span class="rank-btn-main" style="opacity:.6;cursor:default;">前往官网</span>`}
+          <a href="${a.reviewLink}" class="rank-btn-sec">查看评测</a>
+          <a href="status.html" class="rank-btn-sec">跑路预警</a>
+        </div>
+      </div>
+      <div class="stable-score">
+        <div class="ss-num">${a.scoreStable}</div>
+        <div class="ss-lbl">稳定分</div>
+      </div>
+    </div>
+  `).join('');
+  </script>
+</body>
+</html>

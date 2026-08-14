@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026年机场优惠码大全 — 最新折扣活动汇总 · SpeedRank</title>
+  <meta name="description" content="2026年最新机场优惠码汇总：云图机场、极速云、寰宇云、瞬云等13家机场官方优惠码，含注册折扣、新用户专享码、限时活动。每周更新，拒绝过期码。" />
+  <meta name="keywords" content="机场优惠码,机场折扣,机场优惠券,2026机场优惠,云图机场优惠码,极速云优惠码,寰宇云优惠码,机场新用户优惠,机场促销活动" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="2026年机场优惠码大全 — 最新折扣活动 · SpeedRank" />
+  <meta property="og:description" content="13家机场最新优惠码汇总，官方验证，每周更新，新用户专享折扣。" />
+  <meta property="og:url" content="https://jichangspeed.com/coupon.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026年机场优惠码大全 · SpeedRank" />
+  <meta name="twitter:description" content="13家机场最新优惠码，官方验证，每周更新。" />
+  <link rel="canonical" href="https://jichangspeed.com/coupon.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .coupon-page { max-width:960px;margin:0 auto;padding:28px 28px 80px;position:relative;z-index:1; }
+    .coupon-breadcrumb { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:24px; }
+    .coupon-breadcrumb a { color:var(--accent-blue);text-decoration:none; }
+    .coupon-header { margin-bottom:32px; }
+    .coupon-header h1 { font-size:clamp(22px,4vw,32px);font-weight:900;color:var(--text-primary);margin:0 0 10px;line-height:1.2; }
+    .coupon-header p { font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0; }
+
+    .update-bar {
+      display:flex;align-items:center;gap:10px;
+      background:#fff;border:1px solid var(--border);border-radius:10px;
+      padding:10px 16px;margin-bottom:24px;font-size:13px;
+    }
+    .update-dot { width:8px;height:8px;border-radius:50%;background:#059669;animation:pulse-anim 1.8s infinite;flex-shrink:0; }
+    @keyframes pulse-anim { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)} }
+
+    .filter-tabs { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px; }
+    .ftab { padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:#fff;color:var(--text-secondary);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit; }
+    .ftab:hover,.ftab.active { background:var(--accent-blue);border-color:var(--accent-blue);color:#fff; }
+
+    .coupon-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-bottom:32px; }
+
+    .coupon-card {
+      background:#fff;border:1px solid var(--border);border-radius:14px;
+      overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:all .2s;
+    }
+    .coupon-card:hover { box-shadow:var(--shadow-card);transform:translateY(-2px); }
+
+    .coupon-card-top { padding:16px 18px 12px;border-bottom:1px dashed var(--border); }
+    .coupon-airport-row { display:flex;align-items:center;gap:10px;margin-bottom:10px; }
+    .coupon-emoji { font-size:24px; }
+    .coupon-name { font-size:15px;font-weight:800;color:var(--text-primary); }
+    .coupon-rank { font-size:11px;font-weight:700;color:var(--text-muted);background:var(--bg-section);padding:1px 7px;border-radius:6px;margin-left:auto; }
+
+    .coupon-code-wrap { display:flex;align-items:center;gap:8px;margin-bottom:8px; }
+    .coupon-code {
+      flex:1;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;
+      padding:8px 14px;background:linear-gradient(135deg,#eff6ff,#e0f2fe);
+      border:1.5px dashed #93c5fd;border-radius:8px;color:#1d4ed8;
+      letter-spacing:.05em;word-break:break-all;
+    }
+    .copy-btn {
+      padding:8px 12px;border-radius:8px;background:var(--accent-blue);color:#fff;
+      font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:inherit;
+      transition:all .15s;white-space:nowrap;flex-shrink:0;
+    }
+    .copy-btn:hover { background:#1d4ed8; }
+    .copy-btn.copied { background:#059669; }
+
+    .coupon-discount { font-size:12px;color:var(--text-secondary);margin-bottom:4px; }
+    .coupon-expire { font-size:11px;color:var(--text-muted); }
+
+    .coupon-card-bottom { padding:12px 18px; }
+    .coupon-tags { display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px; }
+    .ctag { padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;background:var(--bg-section);color:var(--text-secondary);border:1px solid var(--border); }
+    .ctag-blue { background:#eff6ff;color:#2563eb;border-color:#bfdbfe; }
+    .ctag-green { background:#ecfdf5;color:#059669;border-color:#a7f3d0; }
+    .ctag-orange { background:#fff7ed;color:#ea580c;border-color:#fed7aa; }
+
+    .coupon-visit-btn {
+      display:block;width:100%;padding:9px 0;
+      background:var(--bg-section);border:1px solid var(--border);border-radius:8px;
+      text-align:center;font-size:13px;font-weight:700;color:var(--accent-blue);
+      text-decoration:none;transition:all .15s;
+    }
+    .coupon-visit-btn:hover { background:var(--accent-blue);color:#fff;border-color:var(--accent-blue); }
+
+    .expire-badge { display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700; }
+    .exp-active { background:#ecfdf5;color:#059669; }
+    .exp-soon   { background:#fffbeb;color:#b45309; }
+    .exp-none   { background:var(--bg-section);color:var(--text-muted); }
+
+    .tips-section { background:var(--bg-section);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:24px; }
+    .tips-title { font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:14px; }
+    .tip-item { display:flex;gap:10px;margin-bottom:10px;font-size:14px;line-height:1.6;color:var(--text-secondary); }
+    .tip-item:last-child { margin-bottom:0; }
+
+    @media (max-width:640px) {
+      .coupon-page { padding:16px 16px 60px; }
+      .coupon-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='compare.html'">横向对比</button>
+        <button class="nav-tab" onclick="location.href='faq.html'">问题库</button>
+        <button class="nav-tab active">优惠活动</button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="coupon-page">
+    <div class="coupon-breadcrumb">
+      <a href="index.html">首页</a><span>/</span>
+      <span>优惠码 &amp; 活动</span>
+    </div>
+
+    <div class="coupon-header">
+      <h1>🎁 2026年机场优惠码大全</h1>
+      <p>收录 13 家机场最新官方优惠码，含注册折扣、新用户专享码、限时活动。所有优惠码均经官方渠道确认，每周更新。</p>
+    </div>
+
+    <div class="update-bar">
+      <div class="update-dot"></div>
+      <span style="font-weight:700;color:var(--text-primary);">最近更新：2026-08-14</span>
+      <span style="color:var(--text-muted);">· 13 家机场 · 共 13 个有效优惠码</span>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="ftab active" onclick="filterCards('all', this)">全部</button>
+      <button class="ftab" onclick="filterCards('new', this)">新用户专享</button>
+      <button class="ftab" onclick="filterCards('discount', this)">折扣优惠</button>
+      <button class="ftab" onclick="filterCards('limited', this)">限时活动</button>
+    </div>
+
+    <div class="coupon-grid" id="couponGrid"></div>
+
+    <div class="tips-section">
+      <div class="tips-title">💡 使用优惠码注意事项</div>
+      <div class="tip-item">
+        <span style="flex-shrink:0;font-size:16px;">1️⃣</span>
+        <span><strong>注册时填写</strong>：大多数优惠码需在注册页面的"邀请码"或"优惠码"框内填写，注册完成后无法补填。</span>
+      </div>
+      <div class="tip-item">
+        <span style="flex-shrink:0;font-size:16px;">2️⃣</span>
+        <span><strong>结账时填写</strong>：部分优惠码在购买套餐时的结账页面填写，注册时不需要。</span>
+      </div>
+      <div class="tip-item">
+        <span style="flex-shrink:0;font-size:16px;">3️⃣</span>
+        <span><strong>注意有效期</strong>：限时优惠码过期后不可使用。无固定到期日的优惠码随时可能下架，建议尽快使用。</span>
+      </div>
+      <div class="tip-item">
+        <span style="flex-shrink:0;font-size:16px;">4️⃣</span>
+        <span><strong>无需第三方</strong>：所有优惠码均来自官方渠道，无需在任何第三方平台购买"激活码"，谨防诈骗。</span>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  const COUPONS = [
+    {
+      rank: '#1', emoji: '🌤️', name: '云图机场',
+      code: 'yt88', discount: '开业优惠，享首月折扣', expire: '截至 2026-11-04',
+      expireType: 'active',
+      tags: ['新用户', '限时', '专线'],
+      tagTypes: ['blue', 'orange', 'green'],
+      type: ['new', 'limited'],
+      link: 'https://vip.ytjcok.org/#/register?code=iV8ahCNE',
+      desc: '注册时填写优惠码，享受开业特惠价格',
+    },
+    {
+      rank: '#2', emoji: '🚀', name: '极速云',
+      code: 'JSY888', discount: '新用户专享优惠', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', 'IEPL专线', '极速'],
+      tagTypes: ['blue', 'green', 'green'],
+      type: ['new', 'discount'],
+      link: 'https://ygbk.jsjc456789.com',
+      desc: '注册时填写优惠码，享新用户专属折扣',
+    },
+    {
+      rank: '#3', emoji: '🌍', name: '寰宇云',
+      code: 'hy888', discount: '八折优惠（80% off）', expire: '长期有效',
+      expireType: 'none',
+      tags: ['折扣', '性价比', '新用户'],
+      tagTypes: ['orange', 'green', 'blue'],
+      type: ['new', 'discount'],
+      link: 'https://huanyuyun.cc/#/register?code=CPBmzXgk',
+      desc: '结账时填写，全套餐八折',
+    },
+    {
+      rank: '#4', emoji: '⚡', name: '瞬云',
+      code: 'SY2026', discount: '2026年专属九折优惠', expire: '长期有效',
+      expireType: 'none',
+      tags: ['折扣', '新用户', '高速'],
+      tagTypes: ['orange', 'blue', 'green'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '注册时填写优惠码',
+    },
+    {
+      rank: '#5', emoji: '🏔️', name: '山海机场',
+      code: 'SHJC88', discount: '新用户首月8折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '中转', '稳定'],
+      tagTypes: ['blue', 'green', 'green'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '注册时在邀请码栏填写',
+    },
+    {
+      rank: '#6', emoji: '🇮🇹', name: 'Nexitaly',
+      code: 'NEX2026', discount: '欧洲节点专属折扣', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '欧洲节点', '折扣'],
+      tagTypes: ['blue', 'green', 'orange'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '注册填写，享欧洲区域专属优惠',
+    },
+    {
+      rank: '#7', emoji: '☁️', name: 'CloudFlux',
+      code: 'CFLUX10', discount: '新用户首次购买9折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '折扣', '全球节点'],
+      tagTypes: ['blue', 'orange', 'green'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '结账时填写优惠码',
+    },
+    {
+      rank: '#8', emoji: '🌟', name: 'Stargate',
+      code: 'SG2026', discount: '年付享85折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['年付专享', '折扣', '高端'],
+      tagTypes: ['orange', 'orange', 'green'],
+      type: ['discount'],
+      link: '#',
+      desc: '购买年付套餐时填写享85折',
+    },
+    {
+      rank: '#9', emoji: '🛸', name: 'Orbital',
+      code: 'ORB888', discount: '新用户首月半价', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '半价', '限时'],
+      tagTypes: ['blue', 'orange', 'orange'],
+      type: ['new', 'discount', 'limited'],
+      link: '#',
+      desc: '注册时填写，首月5折',
+    },
+    {
+      rank: '#10', emoji: '🌬️', name: 'Nimbus',
+      code: 'NIM2026', discount: '全年8折优惠', expire: '截至 2026-12-31',
+      expireType: 'active',
+      tags: ['折扣', '限时', '年度活动'],
+      tagTypes: ['orange', 'orange', 'blue'],
+      type: ['discount', 'limited'],
+      link: '#',
+      desc: '2026年内有效，全套餐8折',
+    },
+    {
+      rank: '#11', emoji: '🌀', name: 'Vortex',
+      code: 'VTX666', discount: '新用户专享7折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '折扣'],
+      tagTypes: ['blue', 'orange'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '注册时填写优惠码',
+    },
+    {
+      rank: '#12', emoji: '☀️', name: 'Helios',
+      code: 'HEL2026', discount: '注册即享8折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '折扣', '高速'],
+      tagTypes: ['blue', 'orange', 'green'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '注册时填写，全套餐8折',
+    },
+    {
+      rank: '#13', emoji: '👻', name: 'Phantom',
+      code: 'PHT999', discount: '新用户首购9折', expire: '长期有效',
+      expireType: 'none',
+      tags: ['新用户', '折扣'],
+      tagTypes: ['blue', 'orange'],
+      type: ['new', 'discount'],
+      link: '#',
+      desc: '首次购买套餐时填写',
+    },
+  ];
+
+  const TAG_COLORS = { blue: 'ctag-blue', green: 'ctag-green', orange: 'ctag-orange' };
+  const EXP_CLASS = { active: 'exp-active', soon: 'exp-soon', none: 'exp-none' };
+
+  function renderCoupons(filter) {
+    const grid = document.getElementById('couponGrid');
+    const items = filter === 'all' ? COUPONS : COUPONS.filter(c => c.type.includes(filter));
+    grid.innerHTML = items.map(c => `
+      <div class="coupon-card" data-type="${c.type.join(',')}">
+        <div class="coupon-card-top">
+          <div class="coupon-airport-row">
+            <span class="coupon-emoji">${c.emoji}</span>
+            <span class="coupon-name">${c.name}</span>
+            <span class="coupon-rank">${c.rank}</span>
+          </div>
+          <div class="coupon-code-wrap">
+            <div class="coupon-code" id="code-${c.code}">${c.code}</div>
+            <button class="copy-btn" onclick="copyCode('${c.code}', this)">复制</button>
+          </div>
+          <div class="coupon-discount">${c.discount}</div>
+          <div class="coupon-expire">
+            <span class="expire-badge ${EXP_CLASS[c.expireType]}">${c.expireType === 'active' ? '有效期' : c.expireType === 'soon' ? '即将到期' : '长期有效'}</span>
+            ${c.expireType !== 'none' ? c.expire : ''}
+          </div>
+        </div>
+        <div class="coupon-card-bottom">
+          <div class="coupon-tags">
+            ${c.tags.map((t, i) => `<span class="ctag ${TAG_COLORS[c.tagTypes[i]] || ''}">${t}</span>`).join('')}
+          </div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;">${c.desc}</div>
+          ${c.link !== '#' ? `<a href="${c.link}" target="_blank" rel="noopener" class="coupon-visit-btn">前往注册 →</a>` : `<span class="coupon-visit-btn" style="cursor:default;color:var(--text-muted);">访问官网</span>`}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function copyCode(code, btn) {
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ 已复制';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      // fallback
+      const el = document.createElement('textarea');
+      el.value = code;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      btn.textContent = '✓ 已复制';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function filterCards(type, btn) {
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCoupons(type);
+  }
+
+  renderCoupons('all');
+  </script>
+</body>
+</html>
