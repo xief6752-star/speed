@@ -173,7 +173,7 @@ body::after {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 18px;
+  padding: 8px 22px;
   border: 1px solid transparent;
   background: transparent;
   color: var(--text-secondary);
