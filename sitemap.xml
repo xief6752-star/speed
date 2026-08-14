@@ -337,6 +337,12 @@
 
   <!-- 工具箱 -->
   <url>
+    <loc>https://jichangspeed.com/toolbox.html</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://jichangspeed.com/tool-ip-check.html</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>

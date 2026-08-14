@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工具箱 — 免费在线代理检测工具集 · SpeedRank</title>
+  <meta name="description" content="SpeedRank工具箱：免费提供IP地址查询、DNS泄露检测、流媒体解锁检测等在线工具，帮助机场用户验证代理节点是否正常工作，检测隐私泄露风险。" />
+  <meta name="keywords" content="机场工具,IP检测工具,DNS泄露检测,流媒体解锁检测,代理检测工具,VPN检测,节点测试工具" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="工具箱 — 免费在线代理检测工具集 · SpeedRank" />
+  <meta property="og:description" content="免费在线工具：IP查询、DNS泄露检测、流媒体解锁检测，验证机场节点是否正常工作。" />
+  <meta property="og:url" content="https://jichangspeed.com/toolbox.html" />
+  <meta property="og:image" content="https://jichangspeed.com/img_network.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="工具箱 — 代理检测工具集 · SpeedRank" />
+  <meta name="twitter:description" content="免费IP查询、DNS泄露检测、流媒体解锁检测工具。" />
+  <link rel="canonical" href="https://jichangspeed.com/toolbox.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .toolbox-page { max-width: 1080px; margin: 0 auto; padding: 28px 28px 80px; position: relative; z-index: 1; }
+    .toolbox-hero { text-align: center; margin-bottom: 48px; }
+    .toolbox-hero h1 { font-size: clamp(26px, 4vw, 38px); font-weight: 900; color: var(--text-primary); margin: 0 0 12px; line-height: 1.2; }
+    .toolbox-hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin: 0; max-width: 640px; margin: 0 auto; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .tool-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; text-decoration: none; transition: all 0.2s; position: relative; overflow: hidden; }
+    .tool-card:hover { border-color: var(--accent-blue); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12); transform: translateY(-2px); }
+    .tool-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #2563eb, #0ea5e9); opacity: 0; transition: opacity 0.2s; }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-icon { font-size: 42px; margin-bottom: 16px; line-height: 1; display: block; }
+    .tool-title { font-size: 18px; font-weight: 800; color: var(--text-primary); margin: 0 0 10px; }
+    .tool-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+    .tool-badge { display: inline-block; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; background: #eff6ff; color: #2563eb; margin-top: 12px; }
+    .section-title { font-size: 20px; font-weight: 900; color: var(--text-primary); margin: 48px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+    @media (max-width: 768px) {
+      .toolbox-page { padding: 20px 16px 60px; }
+      .tool-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scan-overlay"></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 36 36" fill="none">
+            <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+            <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+            <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+            <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">SpeedRank</span>
+          <span class="logo-sub">机场测速排名</span>
+        </div>
+        <div class="logo-dots"><div class="logo-dot"></div><div class="logo-dot"></div><div class="logo-dot"></div></div>
+      </a>
+      <nav class="main-nav">
+        <button class="nav-tab" onclick="location.href='index.html'">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M2 12h3V7H2v5zm4.5 0h3V4h-3v8zm4.5 0h3V2h-3v10z" fill="currentColor"/></svg>测速排名
+        </button>
+        <button class="nav-tab" onclick="location.href='compare.html'">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="12" rx="1" fill="currentColor" opacity=".5"/><rect x="9" y="2" width="5" height="12" rx="1" fill="currentColor"/></svg>横向对比
+        </button>
+        <button class="nav-tab" onclick="location.href='faq.html'">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M6 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2v1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="12" r=".6" fill="currentColor"/></svg>问题库
+        </button>
+        <button class="nav-tab active">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M8 5v3l2 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>工具箱
+        </button>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html" class="btn-refresh" style="text-decoration:none;">← 返回榜单</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="toolbox-page">
+    <div class="toolbox-hero">
+      <h1>🛠️ 工具箱</h1>
+      <p>免费在线工具，帮助你快速检测代理节点是否正常工作、验证IP归属地、检查DNS泄露风险、测试流媒体解锁能力。</p>
+    </div>
+
+    <div class="section-title">🔍 核心检测工具</div>
+    <div class="tool-grid">
+      <a href="tool-ip-check.html" class="tool-card">
+        <span class="tool-icon">🌐</span>
+        <h3 class="tool-title">IP 地址查询</h3>
+        <p class="tool-desc">查看当前IP地址、归属地（国家/城市）、ISP运营商，检测代理节点是否生效。</p>
+        <span class="tool-badge">免费使用</span>
+      </a>
+
+      <a href="tool-dns-leak.html" class="tool-card">
+        <span class="tool-icon">🔐</span>
+        <h3 class="tool-title">DNS 泄露检测</h3>
+        <p class="tool-desc">检测DNS请求是否泄露真实IP，验证代理隐私保护是否完整，防止身份暴露。</p>
+        <span class="tool-badge">隐私必备</span>
+      </a>
+
+      <a href="tool-stream-check.html" class="tool-card">
+        <span class="tool-icon">🎬</span>
+        <h3 class="tool-title">流媒体解锁检测</h3>
+        <p class="tool-desc">一键检测Netflix、Disney+、ChatGPT等流媒体服务解锁状态，验证节点是否支持流媒体访问。</p>
+        <span class="tool-badge">热门</span>
+      </a>
+    </div>
+
+    <div style="background: var(--bg-section); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin-top: 40px;">
+      <div style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px;">💡 使用提示</div>
+      <ul style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 20px;">
+        <li>所有工具完全免费，无需注册登录</li>
+        <li>建议在连接机场节点<strong>前后</strong>分别测试，对比结果验证节点是否生效</li>
+        <li>DNS泄露检测建议使用国外节点测试，国内直连测试无意义</li>
+        <li>流媒体解锁检测仅验证可访问性，实际播放速度取决于节点带宽</li>
+      </ul>
+    </div>
+
+    <div style="margin-top: 48px; text-align: center;">
+      <a href="index.html" style="display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, #2563eb, #0ea5e9); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 15px; transition: all 0.2s;">
+        查看机场测速排名 →
+      </a>
+    </div>
+  </main>
+</body>
+</html>
