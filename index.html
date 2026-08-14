@@ -261,8 +261,64 @@
     </div>
 
     <!-- Ranking List -->
-    <main class="main-content">
+    <main class="main-content" style="display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;">
       <div class="ranking-list" id="rankingList"></div>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Test Button -->
+        <div class="sidebar-card">
+          <button class="btn-test-all" id="refreshBtn" onclick="startSpeedTest()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 10a6 6 0 1 0 6-6V2L6 5l4 3V6a4 4 0 1 1-4 4H4z" fill="currentColor"/>
+            </svg>
+            <span>全部测速</span>
+          </button>
+          <div class="test-status" id="lastUpdate">
+            <span class="update-dot"></span>
+            <span id="updateTime">等待测速...</span>
+          </div>
+        </div>
+
+        <!-- Ad Slot 1 -->
+        <div class="sidebar-card ad-card">
+          <div class="ad-label">赞助商</div>
+          <a href="#" class="ad-link" target="_blank">
+            <div class="ad-emoji">🌤️</div>
+            <div class="ad-content">
+              <div class="ad-title">云图机场 · 开业首发</div>
+              <div class="ad-desc">金融级专线 · 1倍倍率 · ¥20/月起</div>
+            </div>
+            <div class="ad-badge">推荐</div>
+          </a>
+        </div>
+
+        <!-- Ad Slot 2 -->
+        <div class="sidebar-card ad-card">
+          <div class="ad-label">赞助商</div>
+          <a href="#" class="ad-link" target="_blank">
+            <div class="ad-emoji">⚡</div>
+            <div class="ad-content">
+              <div class="ad-title">瞬云 · 晚高峰稳定</div>
+              <div class="ad-desc">IEPL专线 · 流媒体解锁 · ¥20/月起</div>
+            </div>
+            <div class="ad-badge">热门</div>
+          </a>
+        </div>
+
+        <!-- Ad Slot 3 -->
+        <div class="sidebar-card ad-card">
+          <div class="ad-label">赞助商</div>
+          <a href="#" class="ad-link" target="_blank">
+            <div class="ad-emoji">🌍</div>
+            <div class="ad-content">
+              <div class="ad-title">寰宇云 · 老牌稳定</div>
+              <div class="ad-desc">IPLC专线 · BGP中转 · ¥16/月起</div>
+            </div>
+            <div class="ad-badge">稳定</div>
+          </a>
+        </div>
+      </aside>
     </main>
   </div>
 
