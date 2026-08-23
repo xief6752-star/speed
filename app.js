@@ -1415,3 +1415,57 @@ function toggleTheme() {
     }
   }
 })();
+
+// Sidebar ads configuration
+const SIDEBAR_ADS = [
+  {
+    emoji: '🌤️',
+    title: '云图机场 · 开业首发',
+    desc: '金融级专线 · 1倍倍率 · ¥20/月起',
+    badge: '推荐',
+    link: '#'
+  },
+  {
+    emoji: '⚡',
+    title: '瞬云 · 晚高峰稳定',
+    desc: 'IEPL专线 · 流媒体解锁 · ¥20/月起',
+    badge: '热门',
+    link: '#'
+  },
+  {
+    emoji: '🌍',
+    title: '寰宇云 · 老牌稳定',
+    desc: 'IPLC专线 · BGP中转 · ¥16/月起',
+    badge: '稳定',
+    link: '#'
+  }
+];
+
+// Render sidebar ads
+function renderSidebarAds() {
+  const container = document.getElementById('sidebarAds');
+  if (!container) return;
+  
+  const html = SIDEBAR_ADS.map(ad => `
+    <div class="sidebar-card ad-card">
+      <div class="ad-label">赞助商</div>
+      <a href="${ad.link}" class="ad-link" target="_blank">
+        <div class="ad-emoji">${ad.emoji}</div>
+        <div class="ad-content">
+          <div class="ad-title">${ad.title}</div>
+          <div class="ad-desc">${ad.desc}</div>
+        </div>
+        <div class="ad-badge">${ad.badge}</div>
+      </a>
+    </div>
+  `).join('');
+  
+  container.innerHTML = html;
+}
+
+// Initialize ads on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderSidebarAds);
+} else {
+  renderSidebarAds();
+}
