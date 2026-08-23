@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机场选购计算器 · 根据使用场景智能推荐套餐 - SpeedRank</title>
+  <meta name="description" content="机场选购计算器：输入使用场景（看剧/游戏/办公）与预算，智能计算流量需求并推荐最适合的机场套餐。基于实测数据提供个性化建议，避免选错套餐浪费钱。" />
+  <meta name="keywords" content="机场选购,机场计算器,机场套餐推荐,流量计算,机场对比,机场选择" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://jichangspeed.com/tool-calculator.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .calculator-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .calc-card {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .calc-section {
+      margin-bottom: 28px;
+    }
+    .calc-section:last-child {
+      margin-bottom: 0;
+    }
+    .calc-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .calc-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .calc-option {
+      padding: 14px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    .calc-option:hover {
+      border-color: var(--accent-blue);
+      background: rgba(37,99,235,0.05);
+    }
+    .calc-option.active {
+      border-color: var(--accent-blue);
+      background: var(--accent-blue);
+      color: white;
+    }
+    .calc-input-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .calc-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.2s;
+    }
+    .calc-input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+    .calc-unit {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .calc-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+    .result-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+      border: 1.5px solid #93c5fd;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .result-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .result-summary {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+    .result-summary strong {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
+    .recommend-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .recommend-item {
+      background: white;
+      border: 1px solid #e0e7ff;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .recommend-item:hover {
+      border-color: var(--accent-blue);
+      box-shadow: 0 2px 8px rgba(37,99,235,0.1);
+    }
+    .recommend-info h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 4px 0;
+    }
+    .recommend-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+    .recommend-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html" style="display:flex;align-items:center;text-decoration:none;gap:12px;">
+          <div class="logo-icon">
+            <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="10" fill="#eff6ff"/>
+              <rect width="36" height="36" rx="10" stroke="#bfdbfe" stroke-width="1"/>
+              <path d="M7 24L13 14L17 19L21 13L29 24" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="27" cy="11" r="2.5" fill="#0ea5e9"/>
+              <circle cx="27" cy="11" r="4" fill="rgba(14,165,233,0.15)"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-title">SpeedRank</span>
+            <span class="logo-sub">机场测速排名</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="container" style="padding-top:100px;">
+    <div class="breadcrumb">
+      <a href="index.html">首页</a>
+      <span>›</span>
+      <a href="toolbox.html">工具箱</a>
+      <span>›</span>
+      <span>选购计算器</span>
+    </div>
+  </div>
+
+  <!-- Calculator -->
+  <div class="calculator-container">
+    <div class="calc-card">
+      <h1 style="font-size:28px;font-weight:800;margin:0 0 8px 0;color:var(--text-primary);">机场选购计算器</h1>
+      <p style="font-size:14px;color:var(--text-muted);margin:0 0 32px 0;">根据你的使用场景和预算，智能推荐最适合的机场套餐</p>
+
+      <!-- Scene Selection -->
+      <div class="calc-section">
+        <label class="calc-label">1. 选择主要使用场景</label>
+        <div class="calc-options">
+          <div class="calc-option" data-scene="streaming" onclick="selectScene(this)">
+            📺 追剧看片
+          </div>
+          <div class="calc-option" data-scene="gaming" onclick="selectScene(this)">
+            🎮 游戏加速
+          </div>
+          <div class="calc-option" data-scene="work" onclick="selectScene(this)">
+            💼 办公学习
+          </div>
+          <div class="calc-option" data-scene="light" onclick="selectScene(this)">
+            🌐 轻度浏览
+          </div>
+        </div>
+      </div>
+
+      <!-- Frequency Selection -->
+      <div class="calc-section">
+        <label class="calc-label">2. 每天使用时长</label>
+        <div class="calc-options">
+          <div class="calc-option" data-hours="1" onclick="selectHours(this)">
+            < 1 小时
+          </div>
+          <div class="calc-option" data-hours="3" onclick="selectHours(this)">
+            1-3 小时
+          </div>
+          <div class="calc-option" data-hours="6" onclick="selectHours(this)">
+            3-6 小时
+          </div>
+          <div class="calc-option" data-hours="10" onclick="selectHours(this)">
+            > 6 小时
+          </div>
+        </div>
+      </div>
+
+      <!-- Budget Input -->
+      <div class="calc-section">
+        <label class="calc-label">3. 月度预算</label>
+        <div class="calc-input-group">
+          <input type="number" class="calc-input" id="budgetInput" placeholder="输入预算" min="10" max="200" value="30" />
+          <span class="calc-unit">元 / 月</span>
+        </div>
+      </div>
+
+      <!-- Calculate Button -->
+      <button class="calc-btn" onclick="calculate()">🔍 开始计算推荐</button>
+    </div>
+
+    <!-- Result Area -->
+    <div id="resultArea"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>© 2026 SpeedRank. 实时测速 · 深度评测 · 科普指南</p>
+    </div>
+  </footer>
+
+  <script>
+    let selectedScene = null;
+    let selectedHours = null;
+
+    function selectScene(el) {
+      document.querySelectorAll('[data-scene]').forEach(opt => opt.classList.remove('active'));
+      el.classList.add('active');
+      selectedScene = el.dataset.scene;
+    }
+
+    function selectHours(el) {
+      document.querySelectorAll('[data-hours]').forEach(opt => opt.classList.remove('active'));
+      el.classList.add('active');
+      selectedHours = parseInt(el.dataset.hours);
+    }
+
+    function calculate() {
+      const budget = parseInt(document.getElementById('budgetInput').value);
+
+      if (!selectedScene || !selectedHours || !budget) {
+        alert('请完成所有选项后再计算');
+        return;
+      }
+
+      // Traffic calculation (GB/month)
+      const trafficMap = {
+        streaming: { 1: 30, 3: 100, 6: 200, 10: 350 },
+        gaming: { 1: 20, 3: 60, 6: 120, 10: 200 },
+        work: { 1: 10, 3: 30, 6: 60, 10: 100 },
+        light: { 1: 5, 3: 15, 6: 30, 10: 50 }
+      };
+
+      const estimatedTraffic = trafficMap[selectedScene][selectedHours];
+
+      // Scene descriptions
+      const sceneDesc = {
+        streaming: '4K视频流畅播放',
+        gaming: '低延迟稳定连接',
+        work: 'ChatGPT/Google稳定访问',
+        light: '日常浏览社交媒体'
+      };
+
+      // Airport recommendations based on budget and scene
+      const airports = [
+        { name: '云图机场', price: 25, traffic: 100, speed: 155, type: 'IEPL专线', scene: ['streaming', 'gaming', 'work'] },
+        { name: '瞬云', price: 20, traffic: 80, speed: 156, type: '中转优化', scene: ['streaming', 'work', 'light'] },
+        { name: '寰宇云', price: 28, traffic: 120, speed: 149, type: 'IPLC专线', scene: ['gaming', 'streaming', 'work'] },
+        { name: '极速云', price: 22, traffic: 100, speed: 142, type: '混合线路', scene: ['work', 'light', 'streaming'] },
+        { name: '极北云', price: 16, traffic: 50, speed: 116, type: '中转线路', scene: ['light', 'work'] },
+        { name: '星辰云', price: 24, traffic: 90, speed: 133, type: 'IEPL专线', scene: ['streaming', 'work'] }
+      ];
+
+      // Filter and rank
+      const suitable = airports
+        .filter(a => a.price <= budget && a.traffic >= estimatedTraffic * 0.8 && a.scene.includes(selectedScene))
+        .sort((a, b) => {
+          const scoreA = a.speed / a.price;
+          const scoreB = b.speed / b.price;
+          return scoreB - scoreA;
+        })
+        .slice(0, 3);
+
+      // Render result
+      const resultHTML = `
+        <div class="result-card">
+          <div class="result-title">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z" fill="#2563eb"/></svg>
+            计算结果
+          </div>
+          <div class="result-summary">
+            根据你的使用场景「<strong>${sceneDesc[selectedScene]}</strong>」和每天使用 <strong>${selectedHours} 小时</strong>，预计每月需要 <strong>${estimatedTraffic} GB</strong> 流量。
+            <br><br>
+            在 <strong>¥${budget}</strong> 预算内，为你推荐以下 ${suitable.length} 个机场：
+          </div>
+          <div class="recommend-list">
+            ${suitable.map(a => `
+              <div class="recommend-item">
+                <div class="recommend-info">
+                  <h4>${a.name}</h4>
+                  <p>${a.type} · ${a.traffic}GB流量 · ${a.speed}MB/s实测</p>
+                </div>
+                <div class="recommend-price">¥${a.price}/月</div>
+              </div>
+            `).join('')}
+          </div>
+          ${suitable.length === 0 ? '<p style="text-align:center;color:var(--text-muted);margin-top:16px;">暂无符合条件的机场，建议提高预算或降低使用时长</p>' : ''}
+        </div>
+      `;
+
+      document.getElementById('resultArea').innerHTML = resultHTML;
+      document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>
