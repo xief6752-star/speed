@@ -37,6 +37,69 @@
   --shadow-glow: 0 0 0 3px rgba(37,99,235,0.1);
 }
 
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-base: #0f172a;
+    --bg-white: #1e293b;
+    --bg-card: #1e293b;
+    --bg-card-hover: #2d3a52;
+    --bg-glass: rgba(30,41,59,0.8);
+    --bg-section: #1a2537;
+
+    --border: #334155;
+    --border-light: #2d3a52;
+    --border-active: rgba(96,165,250,0.4);
+
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #64748b;
+
+    --accent-blue: #3b82f6;
+    --accent-cyan: #22d3ee;
+    --accent-green: #34d399;
+    --accent-yellow: #fbbf24;
+    --accent-red: #f87171;
+    --accent-purple: #a78bfa;
+    --accent-pink: #f472b6;
+
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.2);
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.2);
+    --shadow-card-hover: 0 12px 40px rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-glow: 0 0 0 3px rgba(59,130,246,0.2);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg-base: #0f172a;
+  --bg-white: #1e293b;
+  --bg-card: #1e293b;
+  --bg-card-hover: #2d3a52;
+  --bg-glass: rgba(30,41,59,0.8);
+  --bg-section: #1a2537;
+
+  --border: #334155;
+  --border-light: #2d3a52;
+  --border-active: rgba(96,165,250,0.4);
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+
+  --accent-blue: #3b82f6;
+  --accent-cyan: #22d3ee;
+  --accent-green: #34d399;
+  --accent-yellow: #fbbf24;
+  --accent-red: #f87171;
+  --accent-purple: #a78bfa;
+  --accent-pink: #f472b6;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.2);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.2);
+  --shadow-card-hover: 0 12px 40px rgba(59,130,246,0.25), 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -265,6 +328,26 @@ body::after {
   background: rgba(37,99,235,0.05);
 }
 .btn-bookmark:active { transform: scale(0.97); }
+.btn-theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+.btn-theme-toggle:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(37,99,235,0.05);
+}
+.btn-theme-toggle:active { transform: scale(0.92); }
 #bookmark-tip kbd {
   background: rgba(255,255,255,0.15);
   border-radius: 4px;

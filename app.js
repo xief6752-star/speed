@@ -1374,3 +1374,44 @@ function showBookmarkTip(key) {
     setTimeout(() => tip.remove(), 200);
   }, 2500);
 }
+
+// Theme toggle
+function toggleTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  
+  if (currentTheme === 'light') {
+    root.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    if (btn) btn.textContent = '☀️';
+  } else {
+    root.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+    if (btn) btn.textContent = '🌙';
+  }
+}
+
+// Initialize theme on page load
+(function initTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  const btn = document.getElementById('themeToggle');
+  
+  // If user has saved preference, apply it
+  if (savedTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    if (btn) btn.textContent = '☀️';
+  } else if (savedTheme === 'light') {
+    document.documentElement.removeAttribute('data-theme');
+    if (btn) btn.textContent = '🌙';
+  } else {
+    // No saved preference: check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      // System is dark, but don't set data-theme (let media query handle it)
+      if (btn) btn.textContent = '☀️';
+    } else {
+      if (btn) btn.textContent = '🌙';
+    }
+  }
+})();
