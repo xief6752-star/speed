@@ -104,7 +104,7 @@ const AIRPORTS = [
     description: '海外中转线路，VLESS协议，全流媒体解锁，超高性价比',
     tags: ['value', 'stable'],
     tagLabels: ['性价比', '稳定'],
-    baseSpeed: 95,
+    baseSpeed: 145,
     baseLatency: 42,
     uptime: 99.5,
     price: '¥6/月',
