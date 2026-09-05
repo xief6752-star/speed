@@ -108,8 +108,8 @@ const AIRPORTS = [
     baseLatency: 42,
     uptime: 99.5,
     price: '¥6/月',
-    link: 'https://888.jiuyundl.com/#/register?code=SDsIO7kq',
-    discount: '新用户推荐码：SDsIO7kq',
+    link: 'https://888.jiuyundl.com',
+    discount: '',
     plans: [
       { name: '月付150G限时招财版', desc: '150GB 流量 / 月', price: '¥6.00 / 月' },
       { name: '月付300G聚财版', desc: '300GB 高速流量 / 月', price: '¥9.00 / 月' },
