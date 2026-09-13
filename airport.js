@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const score = Math.round(airport.uptime * 0.4 + (120 - airport.baseLatency) * 0.3 + airport.baseSpeed * 0.3);
   const scoreColor = score >= 85 ? '#10b981' : score >= 70 ? '#2563eb' : '#f59e0b';
 
-  const descText = `${airport.name} 深度测评报告：${airport.description}。当前综合评分 ${score}/100，中位延迟 ${airport.baseLatency}ms，最低售价 ${airport.price}。支持 ${airport.protocols.join('/')} 协议。`;
+  const descText = `${airport.name} 深度测评报告：${airport.description}。当前综合评分 ${score}，中位延迟 ${airport.baseLatency}ms，最低售价 ${airport.price}。支持 ${airport.protocols.join('/')} 协议。`;
   document.getElementById('pageDesc').setAttribute('content', descText);
   document.getElementById('pageKeywords').setAttribute('content', `${airport.name},${airport.name}测评,${airport.name}跑路,机场测评,Clash节点,SpeedRank`);
   
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 9. Summary & Accordion
   document.getElementById('summaryBox').innerHTML = `
-    <p><strong>${airport.name}</strong> 当前综合评分为 <strong>${score}/100</strong>，运行状态<strong>正常</strong>。该机场主打${isPro ? '高端专线' : '高性价比'}路线，提供稳定的流媒体解锁服务。</p>
+    <p><strong>${airport.name}</strong> 当前综合评分为 <strong>${score}</strong>，运行状态<strong>正常</strong>。该机场主打${isPro ? '高端专线' : '高性价比'}路线，提供稳定的流媒体解锁服务。</p>
     <div class="summary-chips">
       <span class="summary-chip">综合评分 ${score}</span>
       <span class="summary-chip">状态 正常</span>

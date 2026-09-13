@@ -437,4 +437,42 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- 新增机场评测页：秒秒云/山水云/锦云/鲤云/财路云 -->
+  <url>
+    <loc>https://jichangspeed.com/miaomiaoyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/shanshuiyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/jinyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/liyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/cailuyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://jichangspeed.com/baoyun-jichang-pingce.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
