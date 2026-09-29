@@ -138,7 +138,7 @@ const AIRPORTS = [
     baseLatency: 42,
     uptime: 99.5,
     price: '¥6/月',
-    link: 'https://888.jiuyundl.com',
+    link: 'https://yong.jiuyyq.com',
     discount: '',
     plans: [
       { name: '月付150G限时招财版', desc: '150GB 流量 / 月', price: '¥6.00 / 月' },
