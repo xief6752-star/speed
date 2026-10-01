@@ -11,7 +11,7 @@ const AIRPORTS = [
     baseLatency: 14,
     uptime: 99.9,
     price: '¥20/月',
-    link: 'https://vip.ytjcok.org/#/register?code=iV8ahCNE',
+    link: 'https://super.ytjcok.org/#/register?code=iV8ahCNE',
     discount: '开业优惠码：yt88（截至2026-11-04）',
     plans: [
       { name: '入门包', desc: '100G 流量 / 月', price: '¥20.00 / 月' },
