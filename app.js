@@ -72,7 +72,7 @@ const AIRPORTS = [
     baseLatency: 28,
     uptime: 99.9,
     price: '¥20/月',
-    link: 'https://huanyuyun.cc/#/register?code=CPBmzXgk', // 原始链接: https://ccc.jichang.best/#/register?code=KlIpTDPe
+    link: 'https://huanyuyun.cc/#/register?code=CPBmzXgk', // 原始链接: https://ddd.jichang.best/#/register?code=KlIpTDPe
     discount: '新客优惠码：20OFF',
     plans: [
       { name: '限时年付小包', desc: '59G 流量 / 月', price: '¥99.00 / 年' },
